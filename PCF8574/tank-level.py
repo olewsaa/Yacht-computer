@@ -20,8 +20,8 @@ time.sleep(0.5)
 
 # PCF8574A address, 0x38(56)
 # Read data back, 1 byte
-data = bus.read_byte(0x38)
-
+data = bus.read_byte(0x38)  # Blinking the LED at port 1.
+time.sleep(0.2)
 
 # Convert the data
 # data = (data & 0xFF)
