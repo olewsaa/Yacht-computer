@@ -1,6 +1,8 @@
 # Yacht-computer
 Yacht-computer
 
+The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
+
 Files and documents related to the Yacht computer project. 
 
 Some of this will find its way into the Openploter project, some are demo files showing how to use a 
