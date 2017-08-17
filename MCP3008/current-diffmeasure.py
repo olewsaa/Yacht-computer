@@ -1,13 +1,14 @@
-# Simple example of reading the MCP3008 analog input channels using its
-# differential mode.  Will print the difference of channel 0 and 1.
-# Author: Tony DiCola
-# License: Public Domain
-import time
+#!/usr/bin/env python
+
+import time, socket
 
 # Import SPI library (for hardware SPI) and MCP3008 library.
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
 
+
+# Initiate socket 
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Software SPI configuration:
 # CLK  = 18
@@ -21,7 +22,9 @@ SPI_PORT   = 0
 SPI_DEVICE = 0
 mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
-print('Press Ctrl-C to quit...')
+
+SignalK=""
+
 while True:
     # Grab the difference between channel 0 and 1 (i.e. channel 0 minus 1).
     # Note you can specify any value in 0-7 to grab other differences:
@@ -34,5 +37,9 @@ while True:
     #  - 6: Return channel 6 minus channel 7
     #  - 7: Return channel 7 minus channel 6
     value = mcp.read_adc_difference(1)
-    print 'Channel 0 minus 1: {0}'.format(value),' equal ',format(float((value-29)/1023.0)*20,'.2f'),'A'
+    i=float((value-29)/1023.0)*27
+    print 'Channel 0 minus 1: {0}'.format(value),' equal ',format(i,'.2f'),'A'
+    SignalK='{"updates": [{"$source": "SPI.MCP3008","values":[ {"path": "electrical.chargers.solar.curret","value":'+format(i,'5.3f')+'}]}]}'
+#    print SignalK
+    sock.sendto(SignalK, ('127.0.0.1', 55557))
     time.sleep(1)
