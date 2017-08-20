@@ -22,7 +22,6 @@ SPI_PORT   = 0
 SPI_DEVICE = 0
 mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
-
 SignalK=""
 
 while True:
@@ -36,10 +35,25 @@ while True:
     #  - 5: Return channel 5 minus channel 4
     #  - 6: Return channel 6 minus channel 7
     #  - 7: Return channel 7 minus channel 6
-    value = mcp.read_adc_difference(1)
-    i=float((value-29)/1023.0)*27
-    print 'Channel 0 minus 1: {0}'.format(value),' equal ',format(i,'.2f'),'A'
-    SignalK='{"updates": [{"$source": "SPI.MCP3008","values":[ {"path": "electrical.chargers.solar.curret","value":'+format(i,'5.3f')+'}]}]}'
-#    print SignalK
-    sock.sendto(SignalK, ('127.0.0.1', 55557))
+    for k in range(2):
+        # Should have made an array of names and values, but there is only two,
+        # quich cut/paste is faster.
+        if  k == 0:  
+            value = mcp.read_adc_difference(1)
+            i=float((value)/1023.0)*21.0
+            #print 'Channel 0 minus 1: {0}'.format(value),' equal ',format(i,'.2f'),'A'
+            SignalK='{"updates": [{"$source": "SPI.MCP3008","values":[ {"path": "electrical.WCS1800.current","value":'+format(i,'5.3f')+'}]}]}'
+            #print SignalK
+            sock.sendto(SignalK, ('127.0.0.1', 55557))
+        if k == 1:
+            value = mcp.read_adc_difference(3)
+            i=float((value)/1023.0)*12.0
+            #print 'Channel 3 minus 2: {0}'.format(value),' equal ',format(i,'.2f'),'A'
+            SignalK='{"updates": [{"$source": "SPI.MCP3008","values":[ {"path": "electrical.ACS712.current","value":'+format(i,'5.3f')+'}]}]}'
+            #print SignalK
+            sock.sendto(SignalK, ('127.0.0.1', 55557))    
     time.sleep(1)
+
+    
+
+     
