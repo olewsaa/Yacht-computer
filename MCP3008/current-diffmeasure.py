@@ -37,7 +37,7 @@ while True:
     #  - 7: Return channel 7 minus channel 6
     for k in range(2):
         # Should have made an array of names and values, but there is only two,
-        # quich cut/paste is faster.
+        # quick cut/paste is faster.
         if  k == 0:  
             value = mcp.read_adc_difference(1)
             i=float((value)/1023.0)*21.0
