@@ -15,7 +15,7 @@ void setup() {
     delay(10);
 
     // We start by connecting to a WiFi network
-    WiFiMulti.addAP("TeamRocketHQ", "blackpearl");
+    WiFiMulti.addAP("TeamRocketHQ", "password");
 
     Serial.println();
     Serial.println();
