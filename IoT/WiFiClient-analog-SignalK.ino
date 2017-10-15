@@ -1,6 +1,6 @@
 /*
  *  This sketch sends a message to the SignalK server
- *
+ *   Ole W. Saastad, 15th Oct 2017.
  */
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
