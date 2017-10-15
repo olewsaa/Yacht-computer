@@ -53,7 +53,7 @@ void loop() {
     Serial.print("SignalK command");
     */
     cmd =  "{\"updates\": [{\"$source\": \"ESP8266\",\"values\":[ {\"path\":\"electrical.service.voltage\",\"value\":"; 
-    cmd += Us; cmd+="}]}]}\0"; // Not sure if NULL is needed or not, but it's cood custom to terminate with NULL:
+    cmd += Us; cmd+="}]}]}\0"; // Not sure if NULL is needed or not, but it's good custom to terminate with NULL:
     /*   
     Serial.println(cmd);
     Serial.println(cmd.length());
