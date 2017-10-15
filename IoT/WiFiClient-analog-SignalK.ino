@@ -60,7 +60,7 @@ void loop() {
     Serial.print("connecting to using UDP"); Serial.print(host); Serial.print(":");Serial.println(port);
     */
     
-    digitalWrite(LED_BUILTIN, LOW); // Turn the LED on while we transfer tghe data.
+    digitalWrite(LED_BUILTIN, LOW); // Turn the LED on while we transfer the data.
     // Some tricks to convert from String to character array as Udp.write will not accept string type argument.
     char cmd2[cmd.length()+1]; // Counting from zero, add one.
     Udp.beginPacket(host,port); // Connect to to server and prepare for UDP transfer.
