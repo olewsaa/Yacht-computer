@@ -1,5 +1,5 @@
 /*
- *  This sketch sends a message to a TCP server
+ *  This sketch sends a message to the SignalK server
  *
  */
 #include <ESP8266WiFi.h>
