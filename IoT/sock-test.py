@@ -1,3 +1,5 @@
+# A simple socket test that can come in handly when playing with ESP2866 and ESP32s.
+
 import socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # AF_INET Internet IP
