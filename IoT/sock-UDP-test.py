@@ -1,5 +1,7 @@
 import time, socket
 
+# A simple test to check if the ESP board communicates correct, 
+# also to debug SignalK messages.
 
 # Initiate socket 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
