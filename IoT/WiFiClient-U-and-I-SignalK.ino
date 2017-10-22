@@ -31,7 +31,7 @@ void setup() {
     Serial.println("ADS 1115 set up");
 
     // We start by connecting to a WiFi network
-    WiFiMulti.addAP("TeamRocketHQ", "blackpearl");
+    WiFiMulti.addAP("TeamRocketHQ", "password");
 
     Serial.println();
     Serial.println();
