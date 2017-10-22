@@ -31,7 +31,7 @@ void setup() {
     Serial.println("ADS 1115 set up");
 
     // We start by connecting to a WiFi network
-    WiFiMulti.addAP("TeamRocketHQ", "password");
+    WiFiMulti.addAP("TeamRocketHQ", "blackpearl");
 
     Serial.println();
     Serial.println();
@@ -73,7 +73,7 @@ void Send_to_SignalK(String path, double value){
     char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
     Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
     strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
-    Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
+    //Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
     Udp.write(cmdc);                  // Send the message to the SignalK server. 
     Udp.endPacket();                  // End the connection.
     delay(10);                        // Short delay to recover. 
@@ -81,7 +81,7 @@ void Send_to_SignalK(String path, double value){
 
 
 
-void Send_U(int inputno) {
+void Measure_and_Send_U(int inputno) {
     double U; 
     int val,offset;
 
@@ -98,35 +98,38 @@ void Send_U(int inputno) {
 }
 
      
-void Send_I(int inputno) {
+void Measure_and_Send_I(int inputno) {
     double I;
     int val, offset;
 
     if (inputno==1) {      
       // Read ADC and calculate the equivalt current in Amps.
-      offset=680;    // Differ from sensor to sensor, calibration is needed.
+      offset=250;    // Differ from sensor to sensor, calibration is needed.
       val=ads.readADC_Differential_0_1();   // There are two possibilities in differential mode, 0-1.
+      //Serial.println(val);
       val+=offset;
-      I = (double)val/(double)32766*18.0; // Calibrated with a multimeter.
-      Send_to_SignalK("electrical.service.current1",I);
+      I = (double)val/(double)32766*14.18; // Calibrated with a multimeter.
+      Send_to_SignalK("electrical.service.ACS712",I);
     }
     if (inputno==2) {
-      offset=0;
+      offset=-14000;
       val=ads.readADC_Differential_2_3();   // There are two possibilities in differential mode, 2-3.
+      //Serial.println(val);
       val+=offset;
-      I = (double)val/(double)32766*30.0; // Calibrated with a multimeter.
-      Send_to_SignalK("electrical.service.current1",I);
+      I = (double)val/(double)32766*117.0; // Calibrated with a multimeter.
+      Send_to_SignalK("electrical.service.WCS1800",I);
     }
 }
 
 
 void loop() {   
     digitalWrite(LED_BUILTIN, LOW); // Turn the LED on while we transfer the data.
-    Send_U(1);  // Get the voltage and send it to SignalK.
-    Send_I(1);  // Get the current and send it to SignalK.
+    Measure_and_Send_U(1);  // Get the voltage and send it to SignalK.
+    Measure_and_Send_I(1);  // Get the current and send it to SignalK.
+    Measure_and_Send_I(2);  // Get the current and send it to SignalK.
     digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH.
     
-    Serial.println("wait 2 sec...");   // This high refrech rate put a load in the SignalK server.
+    //Serial.println("wait 2 sec...");   // This high refrech rate put a load in the SignalK server.
     delay(2000);
 }  /* End infinite loop */
 
