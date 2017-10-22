@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+# A simple Python script to test the SignalK server, e.g. that it will receive messages from 
+# any source not only localhost.
+
+
 import time, socket
 
 
