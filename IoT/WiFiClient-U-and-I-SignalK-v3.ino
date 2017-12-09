@@ -101,8 +101,8 @@ void Send_to_SignalK(String path, double value){
     int j;
   //data will be sent to server
     uint8_t buffer[120]; // UDP write will only write sequence of bytes. 
-    for(j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char t bytes.
-    //send cmd to server
+    for(j=0;j<len;j++)buffer[j]=cmd[j]; // Convert from char to bytes.
+  //send cmd to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); 
     Udp.endPacket();
