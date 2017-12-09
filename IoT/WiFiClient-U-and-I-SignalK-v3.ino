@@ -156,7 +156,7 @@ void Measure_and_Send_I(int inputno) {
       val=ads2.readADC_Differential_0_1();   // There are two possibilities in differential mode 01 and 23.
       Serial.println(val);
       val+=offset;
-      I = (double)val/(double)32766*33.0; // Calibrated with a multimeter.
+      I = (double)val/(double)32766*35.0; // Calibrated with a multimeter.
       Send_to_SignalK("electrical.service.WCS1800",I);
     }
 }
@@ -169,7 +169,7 @@ void loop() {
     Measure_and_Send_U(1);  // Get the voltage and send it to SignalK.
     Measure_and_Send_I(1);  // Get the current and send it to SignalK.
     Measure_and_Send_I(2);  // Get the current and send it to SignalK.
-    //Measure_and_Send_I(3);  // Get the current and send it to SignalK.
+    Measure_and_Send_I(3);  // Get the current and send it to SignalK.
     digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage LOW.
     
     Serial.println("wait 2 sec...");   // This high refresh rate put a load in the SignalK server.
