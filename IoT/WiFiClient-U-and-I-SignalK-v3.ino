@@ -32,7 +32,7 @@ int analog_value = 0;
 
 /* WiFi network name and password */
 const char * ssid = "TeamRocketHQ";
-const char * pwd = "blackpearl";
+const char * pwd = "password";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
