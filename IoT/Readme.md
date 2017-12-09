@@ -2,6 +2,11 @@ Source code and documentaton related to the Internet of Things onboard and for t
 
 The newest first, further down this text is older files and attempts. 
 
+The ESP-32 module is a more versatile module with many ADCs built in. This together with the more powerfull 3.3V 
+outlet makes it more suited to many Internet of things onboard (IoToB). The WiFiClient-U-and-I-SignalK in version 3 
+is a ESP-32 version. There are distinct differences in the handeling of UDP trasactions. This prototype uses two
+ADS1115 for current measurements and the built in ADC for voltage measurement.
+
 WiFiClient-U-and-I-SignalK.ino is a sketch where the ADS1115 is connected to the ESP-12E board. The Adafruit library 
 for ADS1115 is used. GPIO pin 4 and 5 are connected to I2C SDA and SLC, this is the default. 
 The ADS1115 measure current using Hall element sensors that provide +Vdd/2 at zero current and 0 voltage at 
