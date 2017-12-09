@@ -1,4 +1,4 @@
-Source code and documentaton related to the Internet of Things onboard and for the Yacht server project.
+Source code and documentaton related to the Internet of Things onboard (IoToB) and for the Yacht server project.
 
 The newest first, further down this text is older files and attempts. 
 
