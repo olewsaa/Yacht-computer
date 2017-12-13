@@ -43,7 +43,7 @@ float tempDev[ONE_WIRE_MAX_DEV];          // Saving the last measurement of temp
 
 // WiFi network name and password 
 const char * ssid = "TeamRocketHQ";
-const char * pwd = "password";
+const char * pwd = "blackpearl";
 
 // IP address to send UDP data to.
 // Settings for SignalK port and SignalK server.
@@ -94,8 +94,8 @@ void setup() {
  */
 //**************************************************************** 
 
-    labels[0]="temperature.environment.indoor";
-    labels[1]="temperature.environment.computer";
+    labels[0]="environment.indoor.temperature";
+    labels[1]="environment.computer.temperature";
     
 //****************************************************************
 
