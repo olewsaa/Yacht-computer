@@ -166,7 +166,7 @@ void loop() {
 
   digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on 
   
-  Measure_and_send_Tanklevel(1);    // Get the Tenk level (tank 1) and send it to SignalK.
+  Measure_and_send_Tanklevel(1);    // Get the Tank level (tank 1) and send it to SignalK.
  
   digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH 
   delay(1000);                      // Wait for two seconds (to demonstrate the active low LED)
