@@ -2,7 +2,7 @@
  *  This sketch uses a ESP 32 and ADS1115 to measure voltage and current and 
  *  sends messages to a SignalK server
  *  
- *  Select board ESP32 , Node32s module
+ *  Select board ESP32 , NodeMCU-32S
  *
  *  Analog voltage is single ended and read by the ESP analog inputs. 
  *  
@@ -34,7 +34,7 @@ int analog_value = 0;
 
 /* WiFi network name and password */
 const char * ssid = "TeamRocketHQ";
-const char * pwd = "password";
+const char * pwd = "blackpearl";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -98,11 +98,12 @@ void Send_to_SignalK(String path, double value){
     cmd += "}]}]}\0";
     len=cmd.length(); // Get the lenght of message, needed by the udp write.
     Serial.println(cmd); 
-    Serial.println(len);
+    //Serial.println(len);
     
   //data will be sent to server
     uint8_t buffer[120]; // UDP write will only write sequence of bytes. 
     for(int j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char t bytes. 
+    //memcpy(buffer,&cmd,len); // Bør virke, ikke testet.
     //send cmd to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); 
@@ -151,7 +152,7 @@ void Measure_and_Send_I(int inputno) {
 
     if (inputno==1) {      
       // Read ADC and calculate the equivalt current in Amps.
-      offset=-10;    // Differ from sensor to sensor, calibration is needed.
+      offset=-5;    // Differ from sensor to sensor, calibration is needed.
       val=ads1.readADC_Differential_0_1();   // There are two possibilities in differential mode, 01 and 23.
       Serial.println(val);
       val+=offset;
@@ -174,6 +175,14 @@ void Measure_and_Send_I(int inputno) {
       I = (double)val/(double)32766*40.0; // Calibrated with a multimeter.
       Send_to_SignalK("electrical.service.WCS1800",I);
     }
+    if (inputno==4) {
+      offset=-160;
+      val=ads2.readADC_Differential_2_3();   // There are two possibilities in differential mode 01 and 23.
+      Serial.println(val);
+      val+=offset;
+      I = (double)val/(double)32766*35.5; // Calibrated with a multimeter.
+      Send_to_SignalK("electrical.service.HCS-ES5",I);
+    }
 }  /* End Measure_and_Send_I */
 
 
@@ -182,12 +191,11 @@ void Measure_and_Send_I(int inputno) {
 
 void loop() {   
     digitalWrite(LED_BUILTIN, HIGH); // Turn the LED on while we transfer the data.
-    Measure_and_Send_U(1);  // Get the voltage and send it to SignalK.
-    Measure_and_Send_U(2);  // Get the voltage and send it to SignalK.
-    Measure_and_Send_U(3);  // Get the voltage and send it to SignalK.
-    Measure_and_Send_I(1);  // Get the current and send it to SignalK.
-    Measure_and_Send_I(2);  // Get the current and send it to SignalK.
-    Measure_and_Send_I(3);  // Get the current and send it to SignalK.
+    // Send the voltages:
+    for (int j=1;j<4;j++) Measure_and_Send_U(j);  // Get the voltage and send it to SignalK.
+    // Send the currents :  
+    for (int j=1;j<5;j++)  Measure_and_Send_I(j);  // Get the current and send it to SignalK.
+   
     digitalWrite(LED_BUILTIN, LOW);  // Turn the LED off by making the voltage LOW.
     
     Serial.println("wait 2 sec...");   // This high refresh rate put a load in the SignalK server.
