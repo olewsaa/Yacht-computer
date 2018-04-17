@@ -1,0 +1,8 @@
+The file /etc/fstab lists file syemsts to be mounted.
+
+This is an example of a very simple /etc/fstab:
+#
+# /felles
+/dev/sda1 	/felles	ext3	defaults	1	1
+#
+
