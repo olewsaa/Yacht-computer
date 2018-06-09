@@ -29,16 +29,14 @@ service bluetooth status
 hciconfig -a
 
 Step 2:
-http://www.instructables.com/id/Make-Raspberry-Pi-Discoverable-By-Remote-Bluetoo
-th/
+http://www.instructables.com/id/Make-Raspberry-Pi-Discoverable-By-Remote-Bluetooth/
 
 hciconfig -a
 hciconfig hci0 piscan
 hciconfig -a hci0 | grep -i Name
 
 Step 3:
-http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-
-vi/
+http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-vi/
 
 apt-get install obexpushd
 ps aux | grep -i obexpushd ; kill processes.
@@ -60,9 +58,17 @@ obexpushd -B -n -o '/home/pi/storage'
 chmod a+rwx /home/pi/storage/
 chmod a+rx /home/pi
 
+To automatically enable services after reboot :
+
+systemctl enable  bluetooth
+
+This should start the service at boot time.
 
 
-alternatives
+
+
+
+Alternatives to do this, not tested by me :
 https://askubuntu.com/questions/131570/how-do-you-make-ubuntu-accept-files-sent-
 over-bluetooth
 
