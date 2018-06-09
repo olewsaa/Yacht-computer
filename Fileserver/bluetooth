@@ -6,8 +6,7 @@ Running : Armbian_5.38_Orangepizero_Debian_stretch_next_4.14.14
 
 Bluetooth server for sharing of files and photos
 
-http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-
-vi/
+http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-vi/
 http://www.instructables.com/id/Install-Bluetooth-in-Linux-System/
 
 
@@ -54,7 +53,8 @@ DiscoverableTimeout = 0
 
 systemctl daemon-reload
 systemctl restart bluetooth
-obexpushd -B -n -o '/home/pi/storage'
+obexpushd -B -n -o '/home/pi/storage' # This is for testing, use the service obexpushd
+                                      # described in another file. 
 chmod a+rwx /home/pi/storage/
 chmod a+rx /home/pi
 
