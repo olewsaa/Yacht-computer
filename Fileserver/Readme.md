@@ -7,3 +7,5 @@ Very often files and photos need to be shared and exchanged. This project sets u
 Connection over wifi and bluetooth for mobile phones. Wifi require an app like andSMB to be installed, while bluetooth 
 just works witout any extra app installed. 
 
+It's also an option to connect a laptop via an ethernet cable and use an adhoc network. This needed to  enter 
+SSID and password into the orangepi.
