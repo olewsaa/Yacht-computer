@@ -42,8 +42,9 @@ ps aux | grep -i obexpushd ; kill processes.
 ```
 Edit : /etc/systemd/system/dbus-org.bluez.service
 add --compat
+```
 ExecStart=/usr/lib/bluetooth/bluetoothd --compat --noplugin=sap
-
+```
 From file: /etc/bluetooth/main.conf
 ```
 # How long to stay in discoverable mode before going back to non-discoverable
