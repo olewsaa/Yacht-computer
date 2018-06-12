@@ -1,6 +1,6 @@
 nano /etc/systemd/system/obexpush.service
 
-
+```
 [Unit]
 Description=OBEX Push service
 After=bluetooth.service
@@ -11,7 +11,7 @@ ExecStart=/usr/bin/obexpushd -B -n -o /storage
 
 [Install]
 WantedBy=multi-user.target
-
+```
 nano /lib/systemd/system/obexpushd.service
 
 Same file as above, cp is also ok.
