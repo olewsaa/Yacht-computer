@@ -44,7 +44,7 @@ float tempDev[ONE_WIRE_MAX_DEV];          // Saving the last measurement of temp
 // WiFi network name and password 
 // const char * ssid = "TeamRocketHQ";
 const char * ssid = "TeamRocketMarine";
-const char * pwd = "blackpearl";
+const char * pwd = "password";
 // const char * pwd = "12345678";
 
 // IP address to send UDP data to.
