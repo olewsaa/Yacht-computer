@@ -4,7 +4,7 @@
  *  and sends messages to a SignalK server.
  *  
  *  Select board  ESP-12E , NodeMCU 1.0 ESP12-E module
- *
+ *  Arduinom IDE 1.8.4
  * 
  *  SignalK uses UDP. The syntax is differ between ESP8622 and ESP32, this sketch 
  *  cannot be used for ESP32.
