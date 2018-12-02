@@ -4,13 +4,13 @@
  *  and sends messages to a SignalK server.
  *  
  *  Select board  ESP-12E , NodeMCU 1.0 ESP12-E module
- *  Arduinom IDE 1.8.4
+ *
  * 
  *  SignalK uses UDP. The syntax is differ between ESP8622 and ESP32, this sketch 
  *  cannot be used for ESP32.
  *  
  *  
- *  Names of Signal K path/labels of the temperature sensors initialised in the setup function.
+ *  Names of Signal K keys of the temperature sensors initialised in the setup function.
  *  
  */
 
@@ -43,8 +43,8 @@ float tempDev[ONE_WIRE_MAX_DEV];          // Saving the last measurement of temp
 
 // WiFi network name and password 
 // const char * ssid = "TeamRocketHQ";
-const char * ssid = "TeamRocketMarine";
-const char * pwd = "password";
+const char * ssid = "openplotter";
+const char * pwd = "blackpearl";
 // const char * pwd = "12345678";
 
 // IP address to send UDP data to.
@@ -59,7 +59,7 @@ const int udpPort = 55557;
 /*
  * Signal K paths/names name of the temperature sensors, description of what they measure.
  */
-const char * labels[ONE_WIRE_MAX_DEV];  // Labels assigned in setup function.
+const char * keys[ONE_WIRE_MAX_DEV];  // keys assigned in setup function.
 
 //  End declaration of global variables.
 
@@ -102,8 +102,12 @@ void setup() {
  */
 //**************************************************************** 
 
-    labels[0]="environment.inside.mainCabin.temperature";
-    labels[1]="environment.inside.temperature";
+    keys[0]="environment.inside.mainCabin.temperature";
+    keys[1]="environment.inside.temperature";
+    keys[2]="environment.inside.engineRoom.temperature";
+    keys[3]="propulsion.engine.temperature";
+    keys[4]="propulsion.engine.coolantTemperature";
+    
     
 //****************************************************************
 
@@ -175,7 +179,7 @@ void SetupDS18B20(){
  * 
  */
  
-void Send_to_SignalK(String path, double value){
+void Send_to_SignalK(String key, double value){
    
   // Settings for SignalK port and SignalK server.
     const uint16_t port = 55557;   // SignalK uses this port.
@@ -186,8 +190,8 @@ void Send_to_SignalK(String path, double value){
 
     // SignalK selected keys expects the temperaure in Kelvin
     value+=273.15;
-    cmd = "{\"updates\": [{\"$source\": \"ESP8266\",\"values\":[ {\"path\":\"";
-    cmd += path; cmd += "\","; cmd += "\"value\":";
+    cmd = "{\"updates\": [{\"$source\": \"ESP8266-Temp\",\"values\":[ {\"path\":\"";
+    cmd += key; cmd += "\","; cmd += "\"value\":";
     dtostrf(value,3,2,valuestring); // Convert double to a string
     cmd += valuestring;
     cmd += "}]}]}\0";
@@ -217,7 +221,7 @@ void TempLoop(){
       float tempC = DS18B20.getTempC( devAddr[i] ); //Measuring temperature in Celsius
       tempDev[i] = tempC; //Save the measured value to the array
       Serial.print("Device "); Serial.print(i); Serial.print(" Temp C: "); Serial.println(tempC);
-      Send_to_SignalK(labels[i],tempDev[i]);
+      Send_to_SignalK(keys[i],tempDev[i]);
     }
     DS18B20.setWaitForConversion(false); // No waiting for measurement
     DS18B20.requestTemperatures();       // Initiate the temperature measurement

@@ -34,7 +34,7 @@ int analog_value = 0;
 
 /* WiFi network name and password */
 const char * ssid = "TeamRocketHQ";
-const char * pwd = "password";
+const char * pwd = "blackpearl";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -180,7 +180,7 @@ void Measure_and_Send_I(int inputno) {
       val=ads2.readADC_Differential_2_3();   // There are two possibilities in differential mode 01 and 23.
       Serial.println(val);
       val+=offset;
-      I = (double)val/(double)32766*35.5; // Calibrated with a multimeter.
+      I = (double)val/(double)32766*39.5; // Calibrated with a multimeter.
       Send_to_SignalK("electrical.service.HCS-ES5",I);
     }
 }  /* End Measure_and_Send_I */
