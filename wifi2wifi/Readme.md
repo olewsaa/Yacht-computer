@@ -12,6 +12,15 @@ where the USB wifi is seen as a client. Hence the wifi2wifi label.
 
 ## Step by step instructions.
 
+It should not be too hard to set up a Raspberry Pi to become a wifi
+to wifi gateway.
+My distribution is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*.
+I have used nano as an editor, since emacs will take up too much space on the
+limited micro-sd card, more on cleaning up unwanted packages below. 
+
+Just replacing the files provided should work, but make a backup of your files before
+replacing them with the provided ones. It's only tested on this distribution.
+
 ### Clean up and start :
 ```
 apt update
@@ -26,11 +35,10 @@ systemctl stop hostapd
 systemctl stop dnsmasq
 ```
 
-Edit the files below, use the files in this repository as hints or just copy and replace the original. 
-Remember to make a copy of the original ones, your files might not be identical. My distribution
-is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*.
-I have used nano as emacs will take up too much space on the limited micro-sd card, more on cleaning
-up unwanted packages below. 
+Edit the files below, use the files in this repository as hints or just
+copy and replace the original. Remember to make a copy of the original
+ones, your files might not be identical.
+
 ```
 nano /etc/dhcpcd.conf
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
