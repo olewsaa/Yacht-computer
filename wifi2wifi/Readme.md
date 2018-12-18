@@ -81,21 +81,27 @@ the extra lines I included. The dhcp service refuse to start when there are both
 specifies in the /etc/network/interfaces.
 
 
-Dhcp server do not start anyway, it finds wlan1 being a dhcp client, and fails du start. 
+Dhcp server do not start anyway, it finds wlan1 being a dhcp client, and fails du start.
+There is a test in the startup script. 
 ```
 update-rc.d dhcpcd disable
 ```
-Hence the dhcp start in rc.local
+Hence the manual dhcp start in rc.local, this will not restart automatically  if the
+dhcp server fails or stops for some reason. It will need to be restared manually.
 
 
-
-## Some extra commands can be handy:
+## Some extra commands that can be handy:
 
 Changing the IP tables at the comand line :
 ```
 iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+```
+Copy the setup to a file and reading the setup from a file: 
+```
+sh -c "iptables-save > /etc/iptables.ipv4.nat"
+iptables-restore < /etc/iptables.ipv4.nat
 ```
 ### Routing need to be fixed and here are some commands that can be useful.
 ```
