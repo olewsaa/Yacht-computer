@@ -1,9 +1,9 @@
 
 # A wifi 2 wifi gateway using a Raspberry Pi and a USB wifi dongle or a USB high gain antenna.
 
-## Step by step instructions :
+## Step by step instructions.
 
-### Clean up and start
+### Clean up and start :
 ```
 apt update
 apt upgrade
@@ -53,7 +53,7 @@ Hence the dhcp start in rc.local
 
 
 
-##Some extra commands can be handy:
+## Some extra commands can be handy:
 
 Changing the IP tables at the comand line :
 ```
