@@ -45,7 +45,9 @@ and
 /etc/network/interfaces
 ```
 Remember to replace MAC address with your Raspberry Pi internal wlan MAC address,
+```
 *hwaddress ether b8:27:eb:05:89:ec*.
+```
 Edit
 ```
 nano /etc/rc.local
