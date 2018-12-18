@@ -25,9 +25,11 @@ systemctl stop hostapd
 systemctl stop dnsmasq
 ```
 
-Edit the files, use the files in this repository as hints or just copy and replace the original. 
+Edit the files below, use the files in this repository as hints or just copy and replace the original. 
 Remember to make a copy of the original ones, your files might not be identical. My distribution
-is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*
+is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*.
+I have used nano as emacs will take up too much space on the limited micro-sd card, more on cleaning
+up unwanted packages below. 
 ```
 nano /etc/dhcpcd.conf
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
@@ -51,12 +53,12 @@ iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
 sh -c "iptables-save > /etc/iptables.ipv4.nat"
 ```
-and update the interafaces file. This is where wlan0 and wlan1 are described,
-wlan0 is the internal wifi interaface (server, dhcp server local) and wlan1 is
-the external wifi client which obtain an ip address (dhcp client request)from the
-hotspot wifi provider ashore.
+Next step is to update the interfaces file. It is in this file where wlan0 and wlan1
+are described, wlan0 is the internal wifi interaface (server, dhcp server local) and
+wlan1 is the external wifi client which obtain an ip address (dhcp client request)
+from the hotspot wifi provider ashore.
 ```
-/etc/network/interfaces
+nano /etc/network/interfaces
 ```
 Remember to replace MAC address with your Raspberry Pi internal wlan MAC address,
 ```
@@ -96,6 +98,10 @@ Kernel IP routing table
 Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         192.168.1.1     0.0.0.0         UG    304    0        0 wlan1
 192.168.1.0     0.0.0.0         255.255.255.0   U     304    0        0 wlan1
+```
+Test the route with a ping command like :
+```
+ping vg.no
 ```
 
 ### Clean up a lot of things not needed :
