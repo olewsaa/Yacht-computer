@@ -27,26 +27,40 @@ systemctl stop dnsmasq
 
 Edit the files, use the files in this repository as hints or just copy and replace the original. 
 Remember to make a copy of the original ones, your files might not be identical. My distribution
-is *Raspbian GNU/Linux 9*.
+is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*
 ```
 nano /etc/dhcpcd.conf
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
 nano /etc/dnsmasq.conf
+mkdir -p /etc/hostapd/
 nano /etc/hostapd/hostapd.conf
 nano /etc/default/hostapd
+```
+Only the line with net.ipv4.ip_forward=1 need updating, removing the comment mark. 
+```
 nano /etc/sysctl.conf
 ```
 copy in :
 ```
 /etc/iptables.ipv4.nat
 ```
-and
+If you want to prepare this youself the commands are :
+```
+iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
+iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -i wlan0 -o wlan1 -j ACCEPT
+sh -c "iptables-save > /etc/iptables.ipv4.nat"
+```
+and update the interafaces file. This is where wlan0 and wlan1 are described,
+wlan0 is the internal wifi interaface (server, dhcp server local) and wlan1 is
+the external wifi client which obtain an ip address (dhcp client request)from the
+hotspot wifi provider ashore.
 ```
 /etc/network/interfaces
 ```
 Remember to replace MAC address with your Raspberry Pi internal wlan MAC address,
 ```
-*hwaddress ether b8:27:eb:05:89:ec*.
+hwaddress ether b8:27:eb:05:89:ec.
 ```
 Edit
 ```
