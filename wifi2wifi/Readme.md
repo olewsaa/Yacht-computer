@@ -4,10 +4,11 @@
 A wifi 2 wifi gateway using a Raspberry Pi and a USB wifi dongle or a
 USB high gain antenna.  Written to provide wifi onboard a yacht when
 wifi us only availale at a distance where only a high gain wifi
-antenna with a USB connection. Only a good antenna can make a good connection
-to the marina or a café. It does provide local in-numbers using a local dhcp and
-network address translation (NAT) to forward the traffic to the external network
-where the USB wifi is seen as a client. Hence the wifi2wifi label.
+antenna will get acceptable connection. Quite often only a good antenna
+can make a good connection to the marina or a café. It does provide
+local in-numbers using a local dhcp and network address translation
+(NAT) to forward the traffic to the external network where the USB
+wifi is seen as a client. Hence the wifi2wifi label.
 
 ## Step by step instructions.
 
