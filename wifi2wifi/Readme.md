@@ -1,5 +1,13 @@
 
-# A wifi 2 wifi gateway using a Raspberry Pi and a USB wifi dongle or a USB high gain antenna.
+# A wifi 2 wifi gateway using a Raspberry Pi and a USB wifi
+
+A wifi 2 wifi gateway using a Raspberry Pi and a USB wifi dongle or a
+USB high gain antenna.  Written to provide wifi onboard a yacht when
+wifi us only availale at a distance where only a high gain wifi
+antenna with a USB connection. Only a good antenna can make a good connection
+to the marina or a café. It does provide local in-numbers using a local dhcp and
+network address translation (NAT) to forward the traffic to the external network
+where the USB wifi is seen as a client. Hence the wifi2wifi label.
 
 ## Step by step instructions.
 
@@ -18,7 +26,8 @@ systemctl stop dnsmasq
 ```
 
 Edit the files, use the files in this repository as hints or just copy and replace the original. 
-Remember to make a copy of the original ones.
+Remember to make a copy of the original ones, your files might not be identical. My distribution
+is *Raspbian GNU/Linux 9*.
 ```
 nano /etc/dhcpcd.conf
 mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
