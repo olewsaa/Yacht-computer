@@ -2,6 +2,7 @@
 ## Yacht-computer background
 
 The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
+I keep a web page about this project [https://sites.google.com/site/olewsaa/yacht-server].
 
 The server part is running OpenPlotter which takes care of almost all the server related functions and services. The server hosts SignalK which provide web server that allow display of data on web pages both local and for any client that want to connect. 
 
@@ -9,12 +10,12 @@ The server also run OpenCPN as a chart plotter on board.
 
 ## Communication server 
 
-Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway] . I have taken some ideas from the famous RedBox, which can do very much more than my litte gateway.
+Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]. I have taken some ideas from the famous RedBox, which can do very much more than my litte project.
 
 ## Server and IoT sensors
 
 Files and documents related to the Yacht computer project. This git repository contain only the actual files used, the project is describer at [https://sites.google.com/site/olewsaa/yacht-server-with-raspberry]
-and for the versions installed or in process of being installed [https://sites.google.com/site/olewsaa/yacht-server] 
+and for the versions installed or in process of being installed [https://sites.google.com/site/olewsaa/yacht-server].
 
 ## IoToB
 The Internet of Things directory contains files for the IoT approach to the project. 
