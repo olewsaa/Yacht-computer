@@ -1,6 +1,10 @@
+# Internet of Things on Board
+
 Source code and documentaton related to the Internet of Things onboard (IoToB) and for the Yacht server project.
 
 The newest first, further down this text is older files and attempts. 
+
+## ESP-32 and ESP-8266 modules 
 
 The ESP-32 module is a more versatile module with many ADCs built in. This together with the more powerfull 3.3V 
 outlet makes it more suited to many Internet of things onboard (IoToB). The WiFiClient-U-and-I-SignalK in version 3 
@@ -24,3 +28,4 @@ not very elegant code.
 
 The Python scripts are test scripts to send and receive data from the ESP8266 before it correct and can 
 be sent to SignalK.
+
