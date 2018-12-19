@@ -125,9 +125,11 @@ ping vg.no
 ```
 
 ### Clean up a lot of things not needed :
+This list might be slightly longer than whars installed default, it might be that some 
+packaged are not installed and hence cannot be removed, which will trigger warnings.
 ```
-apt remove   bridge-utils  wpagui  claws-mail libreoffice wolfram wolfram-engine\
-smartsim   openoffice.org   openoffice   libreoffice  minecraft-pi\
+apt remove bridge-utils  wpagui  claws-mail libreoffice wolfram wolfram-engine\
+smartsim  openoffice.org  openoffice  libreoffice  minecraft-pi\
 libreoffice-common libreoffice-core libreoffice-gtk libreoffice-gtk2 libreoffice-java-common\
 libreoffice-sdbc-hsqldb libreoffice-style-galaxy libreoffice-systray 
 
