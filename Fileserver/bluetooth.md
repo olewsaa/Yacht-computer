@@ -57,7 +57,7 @@ From file: /etc/bluetooth/main.conf
 # 0 = disable timer, i.e. stay discoverable forever
 DiscoverableTimeout = 0
 ```
-
+Start the service
 ```
 systemctl daemon-reload
 systemctl restart bluetooth
