@@ -1,17 +1,22 @@
+# Bluetooth setup
 
-https://www.armbian.com/orange-pi-zero/#kernels-archive
+## Dsiribution used
+
+[https://www.armbian.com/orange-pi-zero/#kernels-archive]
 Running : Armbian_5.38_Orangepizero_Debian_stretch_next_4.14.14
 
-
+## Instructions
 
 Bluetooth server for sharing of files and photos
 
-http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-vi/
-http://www.instructables.com/id/Install-Bluetooth-in-Linux-System/
+### Background web sites
+[http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-vi/]
+[http://www.instructables.com/id/Install-Bluetooth-in-Linux-System/]
 
+### Step by step instructions
 
 Step 1:
-http://www.instructables.com/id/Install-Bluetooth-in-Linux-System/
+[http://www.instructables.com/id/Install-Bluetooth-in-Linux-System/]
 ```
 apt-get update
  
@@ -28,14 +33,14 @@ service bluetooth status
 hciconfig -a
 ```
 Step 2:
-http://www.instructables.com/id/Make-Raspberry-Pi-Discoverable-By-Remote-Bluetooth/
+[http://www.instructables.com/id/Make-Raspberry-Pi-Discoverable-By-Remote-Bluetooth/]
 ```
 hciconfig -a
 hciconfig hci0 piscan
 hciconfig -a hci0 | grep -i Name
 ```
 Step 3:
-http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-vi/
+[http://www.instructables.com/id/Bluetooth-How-to-send-a-copy-of-your-photos-and-vi/]
 ```
 apt-get install obexpushd
 ps aux | grep -i obexpushd ; kill processes.
