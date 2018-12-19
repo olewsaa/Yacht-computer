@@ -4,8 +4,6 @@
 Edit the interfaces:
 ```
 nano /etc/network/interfaces
-
-cat /etc/network/interfaces
 ```
 The file should look like :
 ```
