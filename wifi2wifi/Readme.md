@@ -10,6 +10,8 @@ local ip-numbers (192.168.1.xx) using a local dhcp and network address
 translation (NAT) to forward the traffic to and from the external network
 where the USB wifi is seen as a client. Hence the wifi2wifi label.
 
+This project ave a project page at : [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]
+
 ## Step by step instructions.
 
 It should not be too hard to set up a Raspberry Pi to become a wifi
