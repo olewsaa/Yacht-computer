@@ -15,6 +15,9 @@ where the USB wifi is seen as a client. Hence the wifi2wifi label.
 It should not be too hard to set up a Raspberry Pi to become a wifi
 to wifi gateway.
 My distribution is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*.
+For images and information about using displays for RPi see : 
+[https://www.waveshare.com/wiki/3.5inch_RPi_LCD_(A)] 
+
 I have used nano as an editor, since emacs will take up too much space on the
 limited micro-sd card, more on cleaning up unwanted packages below. 
 
