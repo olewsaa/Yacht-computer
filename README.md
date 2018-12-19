@@ -9,7 +9,7 @@ The server also run OpenCPN as a chart plotter on board.
 
 ## Communication server 
 
-Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway] .
+Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway] . I have taken some ideas from the famous RedBox, which can do very much more than my litte gateway.
 
 ## Server and IoT sensors
 
