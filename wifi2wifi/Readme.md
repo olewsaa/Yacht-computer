@@ -16,7 +16,8 @@ This project ave a project page at : [https://sites.google.com/site/olewsaa/yach
 
 It should not be too hard to set up a Raspberry Pi to become a wifi
 to wifi gateway.
-My distribution is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*.
+My distribution is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*
+as of December 2018.
 For images and information about using displays for RPi see : 
 [https://www.waveshare.com/wiki/3.5inch_RPi_LCD_(A)] 
 
