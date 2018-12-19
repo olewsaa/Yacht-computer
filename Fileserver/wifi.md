@@ -1,6 +1,13 @@
-Edit /etc/network/interfaces
+# Wifi setup
+
+
+Edit the interfaces:
+```
+nano /etc/network/interfaces
 
 cat /etc/network/interfaces
+```
+The file should look like :
 ```
 source-directory /etc/network/interfaces.d
 auto lo eth0
