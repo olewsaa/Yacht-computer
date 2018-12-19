@@ -18,8 +18,8 @@ My distribution is *Raspbian GNU/Linux 9*, *Linux raspberrypi 4.14.79-v7+ #1159*
 For images and information about using displays for RPi see : 
 [https://www.waveshare.com/wiki/3.5inch_RPi_LCD_(A)] 
 
-I have used nano as an editor, since emacs will take up too much space on the
-limited micro-sd card, more on cleaning up unwanted packages below. 
+I have used nano as an editor, since emacs (the king of editors) will take up too much 
+space on the limited micro-sd card, more on cleaning up unwanted packages below. 
 
 Just replacing the files provided should work, but make a backup of your files before
 replacing them with the provided ones. It's only tested on this distribution.
