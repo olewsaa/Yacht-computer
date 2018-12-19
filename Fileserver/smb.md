@@ -1,7 +1,9 @@
+# Sambe file server
+
 Installing samba is straightforwared and well covered on the net.
-
+```
 smbpasswd  -a guest
-
+```
 The only thing to remember is that the samba user must have a linux user entry with the same 
 name (not needed fo rsamba v. 4).
 
