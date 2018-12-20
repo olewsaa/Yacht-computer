@@ -26,6 +26,5 @@ Initial test is to build a IoT voltmeter that accept 0-18 Volt and send a string
 on the OpenPlotter computer. File is : WiFiClient-analog-SignalK.ino , this is rather simple sketch with 
 not very elegant code. 
 
-The Python scripts are test scripts to send and receive data from the ESP8266 before it correct and can 
-be sent to SignalK.
+The Python scripts are test scripts to send and receive data from the ESP8266 to check if things work correct and can be sent to SignalK.
 
