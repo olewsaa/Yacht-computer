@@ -17,6 +17,11 @@ hwaddress ether b8:27:eb:05:89:ec
 	wpa-conf /etc/wpa_supplicant/wpa_supplicant0.conf
 
 
+auto eth0
+iface eth0 inet manual
+hwaddress ether b8:27:eb:50:dc:b9
+
+
 #allow-hotplug wlan0
 #iface wlan0 inet dhcp
 
