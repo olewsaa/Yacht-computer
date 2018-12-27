@@ -12,8 +12,9 @@ where the USB wifi is seen as a client. Hence the wifi2wifi label.
 
 In addition it turned out to be useful to have a cabled network also connected 
 to the gateway. The OpenPlotter RPi is in addtion to be a plotter and a SignalK 
-server also a nice all purpose computer with a 19" screen so having internet access 
+server also a nice all purpose computer with a 19" screen, so having internet access 
 is very nice. Not to mention the ease of doing charts software updates directly. 
+I used a different ip range for the cabled network, mostly to keep them separated.
 
 This project have a project page at : [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]
 
