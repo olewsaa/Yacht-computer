@@ -10,6 +10,11 @@ local ip-numbers (192.168.1.xx) using a local dhcp and network address
 translation (NAT) to forward the traffic to and from the external network
 where the USB wifi is seen as a client. Hence the wifi2wifi label.
 
+In addition it turned out to be useful to have a cabled network also connected 
+to the gateway. The OpenPlotter RPi is in addtion to be a plotter and a SignalK 
+server also a nice all purpose computer with a 19" screen so having internet access 
+is very nice. Not to mention the ease of doing charts software updates directly. 
+
 This project have a project page at : [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]
 
 ## Step by step instructions.
@@ -71,14 +76,24 @@ sh -c "iptables-save > /etc/iptables.ipv4.nat"
 Next step is to update the interfaces file. It is in this file where wlan0 and wlan1
 are described, wlan0 is the internal wifi interaface (server, dhcp server local) and
 wlan1 is the external wifi client which obtain an ip address (dhcp client request)
-from the hotspot wifi provider ashore.
+from the hotspot wifi provider ashore. It was not needed to generate exra iptables and
+routing entries for the eth0 interface. The routing command show that it forward to 
+wlan1 without extra settings. 
 ```
 nano /etc/network/interfaces
 ```
 Remember to replace MAC address with your Raspberry Pi internal wlan MAC address,
 ```
+iface wlan0 inet manual
 hwaddress ether b8:27:eb:05:89:ec.
 ```
+The address above is for the wlan0 (internal wifi device), but an additional line
+is needed for the eth0 interface, like:
+```
+iface eth0 inet manual
+hwaddress ether b8:27:eb:50:dc:b9
+```
+
 Edit
 ```
 nano /etc/rc.local
@@ -98,7 +113,8 @@ dhcp server fails or stops for some reason. It will need to be restared manually
 
 ## Some extra commands that can be handy:
 
-Changing the IP tables at the comand line :
+Changing the IP tables at the comand line (eth0 seems to automatically 
+covered by the first line) :
 ```
 iptables -t nat -A POSTROUTING -o wlan1 -j MASQUERADE
 iptables -A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
