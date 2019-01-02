@@ -34,7 +34,7 @@ DallasTemperature DS18B20(&oneWire);
 // Instanciate WiFi and UDP objects
 ESP8266WiFiMulti WiFiMulti;
 WiFiUDP Udp;
-
+  
 
 // Global variables 
 int numberOfDevices;                      // Number of temperature devices found
@@ -102,10 +102,11 @@ void setup() {
  */
 //**************************************************************** 
 
-    keys[0]="environment.inside.mainCabin.temperature";
-    keys[1]="environment.inside.temperature";
-    keys[2]="environment.inside.engineRoom.temperature";
-    keys[3]="propulsion.engine.temperature";
+    keys[0]="propulsion.engine.temperature";              // Engine engine block
+    keys[1]="environment.inside.engineRoom.temperature";  // Engine room temp
+    keys[2]="electrical.alternators.*.temperature.warnUpper";         // Alternator 
+
+    keys[3]="environment.inside.mainCabin.temperature";  
     keys[4]="propulsion.engine.coolantTemperature";
     
     
