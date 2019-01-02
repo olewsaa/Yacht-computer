@@ -102,9 +102,9 @@ void setup() {
  */
 //**************************************************************** 
 
-    keys[0]="propulsion.engine.temperature";              // Engine engine block
-    keys[1]="environment.inside.engineRoom.temperature";  // Engine room temp
-    keys[2]="electrical.alternators.*.temperature.warnUpper";         // Alternator 
+    keys[0]="propulsion.engine.temperature";                  // Engine engine block
+    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp
+    keys[2]="electrical.alternators.*.temperature.warnUpper"; // Alternator 
 
     keys[3]="environment.inside.mainCabin.temperature";  
     keys[4]="propulsion.engine.coolantTemperature";
