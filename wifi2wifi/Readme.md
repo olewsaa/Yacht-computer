@@ -142,6 +142,20 @@ Test the route with a ping command like :
 ping vg.no
 ```
 
+### Connecting using name
+The box is given the name greybox and using ssh pi@greybox works fine when conecting 
+via the wireless network. If you install a web server like:
+```
+apt-get install apache2 -y
+```
+then a device connected to the wireless network provided can connect the box using a 
+name only, in my case greybox, http://greybox . This is enough to open up a default 
+web page. 
+
+(I chose the name greybox, as it cannot be compared to redbox, but try to do a few
+of the things redbox does.)
+
+
 ### Clean up a lot of things not needed :
 This list might be slightly longer than whars installed default, it might be that some 
 packaged are not installed and hence cannot be removed, which will trigger warnings.
