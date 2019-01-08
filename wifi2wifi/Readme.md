@@ -155,6 +155,9 @@ web page.
 (I chose the name greybox, as it cannot be compared to redbox, but try to do a few
 of the things redbox does.)
 
+I stared to look into the commands needed to do this at the command line, the script 
+scan.py is a simple start.
+
 
 ### Clean up a lot of things not needed :
 This list might be slightly longer than whars installed default, it might be that some 
