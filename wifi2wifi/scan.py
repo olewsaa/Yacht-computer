@@ -1,3 +1,8 @@
+#
+# A simple script to explore text command lines to scan and connect to access points.
+# 
+# 
+
 import os
 import subprocess
 import time 
