@@ -11,7 +11,7 @@
 /*
  * A total of 12 pins can be used for digital IO. However, as some have several uses
  * like 16 the built in led and 1 and 3 which is serial communication the number is less.
- * In practice 9 can be freely used.
+ * In practice 9 can be freely used. Also issues with GPIO pin 15.
  * 
  */
 // Right side :
@@ -61,15 +61,12 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
   for (int j=0;j<num_sens;j++) {
     Serial.print(j); Serial.print(" "); Serial.print(sensor_pin[j]);
-    pinMode(sensor_pin[j],INPUT_PULLUP);
+    pinMode(sensor_pin[j],INPUT_PULLUP); // initialize the ping for input.
   }
-  //pinMode(low,INPUT_PULLUP);
-  //pinMode(mid,INPUT_PULLUP);
-  //pinMode(top,INPUT_PULLUP);
-
+ 
 // Setting up the wifi
   // We start by connecting to a WiFi network
-    WiFiMulti.addAP("TeamRocketHQ", "password");
+    WiFiMulti.addAP("TeamRocketHQ", "blackpearl");
 
     Serial.println();
     Serial.println();
@@ -85,9 +82,6 @@ void setup() {
     Serial.println("WiFi connected");
     Serial.println("IP address: ");
     Serial.println(WiFi.localIP());
-
-    delay(500);
-    // digitalWrite(green,LOW); digitalWrite(blue,LOW);  digitalWrite(red,LOW);
 }  // End setup 
 
 
@@ -133,47 +127,22 @@ void Measure_and_send_Tanklevel(int tankno){
       Serial.print(sensor_pin[j]); Serial.print(" signl ");Serial.print((digitalRead(sensor_pin[j]))&1);
       Serial.print(" Tanklevel :"); Serial.println(tanklevel);
     }
-  // Read the sensors starting at the Highest down to the lowest.
-      // sensors=(~(digitalRead(sensor_pin[j]))&1) ;       //  The topmost sensor 
-      // sensors=(sensors<<1)+(~(digitalRead(MID))&1);     //  The mid sensor
-      // sensors=(sensors<<1)+(~(digitalRead(BOT))&1);     //  The lowest sensor 
-
-/*
- * Either this block for only SignalK use
- */
-      //for (int j=0;j<num_sens;j++){
-      //tanklevel+=inc*(sensors&1); 
-      //sensors=sensors>>1;   
-      //}
-/*
- * Or this block if RGB LED is used as an indiacator during prototyping and demo.
- */
-    
-    /*    
-    if (sensors>>2){digitalWrite(red,HIGH);  digitalWrite(green,LOW);digitalWrite(blue,LOW);tanklevel=0.95;}else
-    if (sensors>>1){digitalWrite(green,LOW); digitalWrite(blue,HIGH);digitalWrite(red,LOW); tanklevel=0.66;}else
-    if (sensors>>0){digitalWrite(green,HIGH);digitalWrite(blue,LOW); digitalWrite(red,LOW); tanklevel=0.33;}else
-    if (!sensors)  {digitalWrite(green,LOW); digitalWrite(blue,LOW); digitalWrite(red,LOW); tanklevel=0.0;}
-    */
+ 
     Serial.print("Tanklevel :"); Serial.println(tanklevel);    
 
     Send_to_SignalK("tanks.freshWater.1.currentLevel",tanklevel);
 }
 
 
-
 // the loop function runs over and over again forever in an endless loop.
 void loop() { 
 
-  digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on 
+  digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on.
   
   Measure_and_send_Tanklevel(1);    // Get the Tenk level (tank 1) and send it to SignalK.
  
-  digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH 
-  delay(1000);                      // Wait for two seconds (to demonstrate the active low LED)
-  digitalWrite(ledpin,LOW);         // Blinking a LED just to monitor progress and heartbeat.
-  delay(1000);
-  digitalWrite(ledpin,HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH.
+  delay(5000);                      // Wait for five seconds 0.2 Hz update frequency is ok.
 }  /* End infinite loop */
 
 
