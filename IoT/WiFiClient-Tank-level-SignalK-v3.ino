@@ -45,9 +45,9 @@ WiFiUDP Udp;
 
 
 // Global variables
-int ledpin  =   10;
+
 // These are are the pins used :
-// GPIO 14, GPIO 12, GPIO_13, GPIO_15 
+// GPIO 14, GPIO 12, GPIO_13, GPIO_02 
 // On the ard  D5, D6, D7 and D4
 
 const short num_sens=4;
