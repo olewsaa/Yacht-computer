@@ -4,14 +4,13 @@
  (which is also the TXD pin; so we cannot use Serial.print() at the same time)
 
  Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule
+
 */
-
-
 
 /*
  * A total of 12 pins can be used for digital IO. However, as some have several uses
  * like 16 the built in led and 1 and 3 which is serial communication the number is less.
- * In practice 9 can be freely used. Also issues with GPIO pin 15.
+ * In practice 9 can be freely used. There are issues with GPIO pin 15.
  * 
  */
 // Right side :
@@ -29,10 +28,9 @@
 #define GPIO_03 03 // These two are for Serial communication.
 #define GPIO_01 01 // Using these for IO blocks of serial commmunication.
 
-// Left side :
+// Left side of the card :
 // Only GPIO 10 works.
 #define GPIO_10 10
-
 
 // Including WiFi stuff
 #include <ESP8266WiFi.h>
@@ -48,7 +46,7 @@ WiFiUDP Udp;
 
 // These are are the pins used :
 // GPIO 14, GPIO 12, GPIO_13, GPIO_02 
-// On the ard  D5, D6, D7 and D4
+// On the card  D5, D6, D7 and D4
 
 const short num_sens=4;
 const int sensor_pin[num_sens]={GPIO_14, GPIO_12, GPIO_13, GPIO_02};
@@ -66,71 +64,71 @@ void setup() {
  
 // Setting up the wifi
   // We start by connecting to a WiFi network
-    WiFiMulti.addAP("TeamRocketHQ", "blackpearl");
+  WiFiMulti.addAP("TeamRocketHQ", "blackpearl");
 
-    Serial.println();
-    Serial.println();
-    Serial.print("Wait for WiFi... ");
+  Serial.println();
+  Serial.println();
+  Serial.print("Wait for WiFi... ");
     
 // Wait for association with the access point and connection to the network.
-    while(WiFiMulti.run() != WL_CONNECTED) {
-        Serial.print(".");
-        delay(500);
-    }
+  while(WiFiMulti.run() != WL_CONNECTED) {
+    Serial.print(".");
+    delay(500);
+  }
 
-    Serial.println("");
-    Serial.println("WiFi connected");
-    Serial.println("IP address: ");
-    Serial.println(WiFi.localIP());
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
 }  // End setup 
 
 
 
 void Send_to_SignalK(String path, float value){
 // Settings for SignalK port and SignalK server.
-    const uint16_t port = 55557;   // SignalK uses this port.
-    const char * host = "192.168.1.160"; // ip number of the SignalK server.
-    String cmd;
-    char valuestring[6];
+  const uint16_t port = 55557;   // SignalK uses this port.
+  const char * host = "192.168.1.160"; // ip number of the SignalK server.
+  String cmd;
+  char valuestring[6];
 
-    cmd = "{\"updates\": [{\"$source\": \"ESP8266\",\"values\":[ {\"path\":\"";
-    cmd += path; cmd += "\","; cmd += "\"value\":";
-    dtostrf((double)value,3,2,valuestring); // Convert double to a string
-    cmd += valuestring;
-    cmd += "}]}]}\0";
-    /*
+  cmd = "{\"updates\": [{\"$source\": \"ESP8266\",\"values\":[ {\"path\":\"";
+  cmd += path; cmd += "\","; cmd += "\"value\":";
+  dtostrf((double)value,3,2,valuestring); // Convert double to a string
+  cmd += valuestring;
+  cmd += "}]}]}\0";
+  /*
     Serial.println(cmd);
     Serial.println(cmd.length());
-    */
+  */
 
-    char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
-    Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
-    strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
-    Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
-    Udp.write(cmdc);                  // Send the message to the SignalK server. 
-    Udp.endPacket();                  // End the connection.
-    delay(10);                        // Short delay to recover. 
+  char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
+  Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
+  strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
+  Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
+  Udp.write(cmdc);                  // Send the message to the SignalK server. 
+  Udp.endPacket();                  // End the connection.
+  delay(10);                        // Short delay to recover. 
 } /* End Send_to_SignalK */
 
   
 
 void Measure_and_send_Tanklevel(int tankno){
    
-    short sensors;
+  short sensors;
 
-    float tanklevel=0.0;
-    const float inc = 1.0/(float)num_sens;
+  float tanklevel=0.0;
+  const float inc = 1.0/(float)num_sens;
 
-    for (int j=0;j<num_sens;j++){
-      tanklevel += inc * (~(digitalRead(sensor_pin[j]))&1) ;
-      Serial.print(j); Serial.print(" : sensor ");
-      Serial.print(sensor_pin[j]); Serial.print(" signl ");Serial.print((digitalRead(sensor_pin[j]))&1);
-      Serial.print(" Tanklevel :"); Serial.println(tanklevel);
-    }
+  for (int j=0;j<num_sens;j++){
+    tanklevel += inc * (~(digitalRead(sensor_pin[j]))&1) ;
+    Serial.print(j); Serial.print(" : sensor ");
+    Serial.print(sensor_pin[j]); Serial.print(" signl ");Serial.print((digitalRead(sensor_pin[j]))&1);
+    Serial.print(" Tanklevel :"); Serial.println(tanklevel);
+  }
  
-    Serial.print("Tanklevel :"); Serial.println(tanklevel);    
-
-    Send_to_SignalK("tanks.freshWater.1.currentLevel",tanklevel);
+  Serial.print("Tanklevel :"); Serial.println(tanklevel);    
+  
+  Send_to_SignalK("tanks.freshWater.1.currentLevel",tanklevel);
 }
 
 
