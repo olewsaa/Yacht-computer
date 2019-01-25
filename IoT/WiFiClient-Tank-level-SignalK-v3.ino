@@ -61,7 +61,7 @@ void setup() {
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
   for (int j=0;j<num_sens;j++) {
     Serial.print(j); Serial.print(" "); Serial.print(sensor_pin[j]);
-    pinMode(sensor_pin[j],INPUT_PULLUP); // initialize the ping for input.
+    pinMode(sensor_pin[j],INPUT_PULLUP); // initialize the pin for input.
   }
  
 // Setting up the wifi
