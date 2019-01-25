@@ -3,7 +3,7 @@
  The blue LED on the ESP-01 module is connected to GPIO1 
  (which is also the TXD pin; so we cannot use Serial.print() at the same time)
 
- Select board ESP-12E, NodeMCU 1.0 ESP12-E module
+ Select board ESP-12E, NodeMCU 1.0 ESP12-E module in the Arduino IDE.
 
 */
 
