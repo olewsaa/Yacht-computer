@@ -1,6 +1,6 @@
 /*
 
- Select board ESP-12E, NodeMCU 1.0 ESP12-E module in the Arduino IDE. 
+ Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule in the Arduino IDE. 
  
 */
 
@@ -49,8 +49,6 @@ WiFiUDP Udp;
 // Global variables
 
 // Wifi info
-//const char * SignalK_server = "10.10.10.1";
-//const int udpPort = 55557;
 const char * ssid = "openplotter";
 const char * pwd = "blackpearl";
 const uint16_t port = 55557;      // SignalK uses this port.
@@ -67,7 +65,7 @@ const int sensor_pin[num_sens]={GPIO_14, GPIO_12, GPIO_13, GPIO_02};
   
 // Set up the the system and configure the pins and set up the wifi.
 void setup() {
-//  Serial.begin(115200);
+// Serial.begin(115200);
 // Setting up the pins as digital IO pins.  
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
   for (int j=0;j<num_sens;j++) {
@@ -100,8 +98,6 @@ void setup() {
 
 void Send_to_SignalK(String path, float value){
 // Settings for SignalK port and SignalK server.
-    //const uint16_t port = 55557;   // SignalK uses this port.
-    //const char * host = "192.168.1.160"; // ip number of the SignalK server.
     String cmd;
     char valuestring[6];
 
@@ -144,7 +140,7 @@ void Measure_and_send_Tanklevel(int tankno){
  
     //Serial.print("Tanklevel :"); Serial.println(tanklevel);    
 
-    Send_to_SignalK("tanks.freshWater.1.currentLevel",tanklevel);
+    Send_to_SignalK("tanks.blackWater.1.currentLevel",tanklevel);
 }
 
 
@@ -152,9 +148,8 @@ void Measure_and_send_Tanklevel(int tankno){
 void loop() { 
 
   digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on.
-  
   Measure_and_send_Tanklevel(1);    // Get the Tenk level (tank 1) and send it to SignalK.
- 
+  delay(10);                        // long enough to see it.
   digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH.
   delay(5000);                      // Wait for five seconds 0.2 Hz update frequency is ok.
 }  /* End infinite loop */
