@@ -1,16 +1,14 @@
 /*
 
- Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule in the 
- Arduino IDE. 
+ Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule in the Arduino IDE. 
  
-
 */
 
 
 /*
  *  The blue LED on the ESP-01 module is connected to GPIO1 
- *  (which is also the TXD pin; so we cannot use Serial.print() at the same time)
- *
+ *  (which is also the TXD pin; so we cannot use Serial.print() at the same time,
+ *   it also blinks with high frequency during upload or communication).
 
  * A total of 12 pins can be used for digital IO. However, as some have several uses
  * like 16 the built in led and 1 and 3 which is serial communication the number is less.
@@ -31,7 +29,7 @@
 #define GPIO_15 15
 #define GPIO_03 03 // These two are for Serial communication.
 #define GPIO_01 01 // Using these for IO blocks of serial commmunication.
-                   // This is why the led blinks while uploading prograns.   
+
 // Left side :
 // Only GPIO 10 works.
 #define GPIO_10 10
@@ -44,6 +42,7 @@
 
 // Instanciate WiFi object
 ESP8266WiFiMulti WiFiMulti;
+// Instanciate UDP object
 WiFiUDP Udp;
 
 
@@ -54,10 +53,10 @@ WiFiUDP Udp;
 //const int udpPort = 55557;
 const char * ssid = "openplotter";
 const char * pwd = "blackpearl";
-
 const uint16_t port = 55557;      // SignalK uses this port.
 const char * host = "10.10.10.1"; // ip number of the SignalK server.
 
+// IO Pins for sensors
 // These are are the pins used :
 // GPIO 14, GPIO 12, GPIO_13, GPIO_02 
 // On the ard  D5, D6, D7 and D4
@@ -68,12 +67,12 @@ const int sensor_pin[num_sens]={GPIO_14, GPIO_12, GPIO_13, GPIO_02};
   
 // Set up the the system and configure the pins and set up the wifi.
 void setup() {
-  Serial.begin(115200);
+//  Serial.begin(115200);
 // Setting up the pins as digital IO pins.  
   pinMode(LED_BUILTIN, OUTPUT);     // Initialize the LED_BUILTIN pin as an output
   for (int j=0;j<num_sens;j++) {
     //Serial.print(j); Serial.print(" "); Serial.print(sensor_pin[j]);
-    pinMode(sensor_pin[j],INPUT_PULLUP); // initialize the ping for input.
+    pinMode(sensor_pin[j],INPUT_PULLUP); // initialize the pin for input.
   }
  
 // Setting up the wifi
