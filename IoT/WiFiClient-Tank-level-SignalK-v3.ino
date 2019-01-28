@@ -1,14 +1,17 @@
 /*
- 
- The blue LED on the ESP-01 module is connected to GPIO1 
- (which is also the TXD pin; so we cannot use Serial.print() at the same time)
 
- Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule
+ Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule in the 
+ Arduino IDE. 
+ 
+
 */
 
 
-
 /*
+ *  The blue LED on the ESP-01 module is connected to GPIO1 
+ *  (which is also the TXD pin; so we cannot use Serial.print() at the same time)
+ *
+
  * A total of 12 pins can be used for digital IO. However, as some have several uses
  * like 16 the built in led and 1 and 3 which is serial communication the number is less.
  * In practice 9 can be freely used. Also issues with GPIO pin 15.
@@ -28,7 +31,7 @@
 #define GPIO_15 15
 #define GPIO_03 03 // These two are for Serial communication.
 #define GPIO_01 01 // Using these for IO blocks of serial commmunication.
-
+                   // This is why the led blinks while uploading prograns.   
 // Left side :
 // Only GPIO 10 works.
 #define GPIO_10 10
@@ -46,13 +49,13 @@ WiFiUDP Udp;
 
 // Global variables
 
-// WIfi info
-const char * SignalK_server = "10.10.10.1";
-const int udpPort = 55557;
+// Wifi info
+//const char * SignalK_server = "10.10.10.1";
+//const int udpPort = 55557;
 const char * ssid = "openplotter";
 const char * pwd = "blackpearl";
 
-const uint16_t port = 55557;   // SignalK uses this port.
+const uint16_t port = 55557;      // SignalK uses this port.
 const char * host = "10.10.10.1"; // ip number of the SignalK server.
 
 // These are are the pins used :
