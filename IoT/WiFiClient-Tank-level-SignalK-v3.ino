@@ -19,7 +19,7 @@
 // GPIO_16 is equal to LED_BUILTIN.
 #define GPIO_16 16  // Can be used for output, controlled like any other Digital IO pin.
 #define GPIO_05  5
-#define GPIO_04  4
+#define GPIO_04  4  // Had issues with this, trigger blue led on the wifi module
 #define GPIO_00  0
 #define GPIO_02  2
 // 3.3V and GND between the above and below
@@ -56,11 +56,11 @@ const char * host = "10.10.10.1"; // ip number of the SignalK server.
 
 // IO Pins for sensors
 // These are are the pins used :
-// GPIO 14, GPIO 12, GPIO_13, GPIO_02 
-// On the ard  D5, D6, D7 and D4
+// GPIO 14, GPIO 12, GPIO_13, GPIO_04 
+// On the ard  D5, D6, D7 and D2
 
 const short num_sens=4;
-const int sensor_pin[num_sens]={GPIO_14, GPIO_12, GPIO_13, GPIO_02};
+const int sensor_pin[num_sens]={GPIO_14, GPIO_12, GPIO_13, GPIO_04};
 
   
 // Set up the the system and configure the pins and set up the wifi.
