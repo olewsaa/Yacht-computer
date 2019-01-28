@@ -1,6 +1,6 @@
 /*
 
- Select board ESP-12E, NodeMCU 1.0 ESP12-E mmodule in the Arduino IDE. 
+ Select board ESP-12E, NodeMCU 1.0 ESP12-E module in the Arduino IDE. 
  
 */
 
