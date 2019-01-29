@@ -148,7 +148,7 @@ void Measure_and_send_Tanklevel(int tankno){
 void loop() { 
 
   digitalWrite(LED_BUILTIN, LOW);   // Turn the LED on.
-  Measure_and_send_Tanklevel(1);    // Get the Tenk level (tank 1) and send it to SignalK.
+  Measure_and_send_Tanklevel(1);    // Get the Tank level (tank 1) and send it to SignalK.
   delay(10);                        // long enough to see it.
   digitalWrite(LED_BUILTIN, HIGH);  // Turn the LED off by making the voltage HIGH.
   delay(5000);                      // Wait for five seconds 0.2 Hz update frequency is ok.
