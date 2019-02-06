@@ -2,6 +2,9 @@
 
 ## ESP-8266 breadboard layout
 
+I have used an ESP-12E NodeMCU 1.0 board from China in for this project. The software development 
+is Arduino IDE which relies on the (close enough) C programming language. 
+
 The tank level has 
 [web pages](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/tank-level-monitor)
 about the project with overview of the project and pictures, given here are source code and 
