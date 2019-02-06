@@ -2,6 +2,9 @@
 
 ## ESP-8266 breadboard layout
 
+The tank level has [web pages]
+(https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/tank-level-monitor)
+about the project, given here are source code and breadboad schematics.
 The breadboard picture show the connections to where the NPN inductive
 sensors are connected.  I have used a ND 1205 isolating buck converter
 to make 5V from the boats 12V supply. More on
