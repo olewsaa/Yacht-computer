@@ -1,10 +1,12 @@
 # Breadboard schematics
 
-## ESP-8266 layout
+## ESP-8266 breadboard layout
 
-The breadboard picture show the connections to where the NPN inductive sensors are connected.
-I have used a ND 1205 isolating buck converter to make 5V from the boats 12V supply. More on 
-this in the web pages about this project (https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/a-note-on-isolation) .
+The breadboard picture show the connections to where the NPN inductive
+sensors are connected.  I have used a ND 1205 isolating buck converter
+to make 5V from the boats 12V supply. More on
+[isolation](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/a-note-on-isolation)
+in the web pages about this project.
 
 ![Breadboard](https://github.com/olewsaa/Yacht-computer/blob/master/img/Tank-level_bb.png 
 "ESP-8266 breadboard layout")
