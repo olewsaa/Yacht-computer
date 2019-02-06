@@ -3,7 +3,8 @@
 ## ESP-8266 layout
 
 The breadboard picture show the connections to where the NPN inductive sensors are connected.
-
+![alt text](https://github.com/olewsaa/Yacht-computer/blob/master/img/Tank-level_bb.png 
+"ESP-8266 breadboard layout")
 
 The pins named Data in the board have a different GPIO value, the table below show the mapping.
 
