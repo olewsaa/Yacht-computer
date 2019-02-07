@@ -2,7 +2,7 @@
 
 ## ESP-8266 breadboard layout
 
-I have used an ESP-12E NodeMCU 1.0 board from China in for this project. The software development 
+I have used an ESP-12E NodeMCU 1.0 board from China in for this project. The software development environment
 is Arduino IDE which relies on the (close enough) C programming language. 
 
 The tank level has 
