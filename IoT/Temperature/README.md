@@ -15,3 +15,7 @@ hardware in addition a description and ideas behind the setup.
 
 
 
+![Breadboard](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperatures_bb.png 
+"ESP-8266 breadboard layout")
+
+The 1-wire sensors are powered by 3.3 Volt from the ESP-8266.  
