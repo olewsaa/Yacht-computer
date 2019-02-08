@@ -1,4 +1,4 @@
-# Breadboard scematics
+# Temperature sensor 
 
 ## ESP-8266 breadboard layout
 
