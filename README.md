@@ -8,9 +8,9 @@ The server part is running OpenPlotter which takes care of almost all the server
 
 The server also run OpenCPN as a chart plotter on board. 
 
-## Wifi gateway
+## Wifi gateway - wifi2wifi
 
-This project is to use a Pi as a gateway to the internet. A high gain wifi antenna that usually connect using USB connect to a remote access point. Then the gateway provieds a local network onboard to which all client on board can connect to.  
+This project is to use a Pi as a gateway to the internet. A high gain wifi antenna that usually connect using USB connect to a remote access point. Then the gateway provieds a local network onboard to which all client on board can connect to. 
 
 ## Communication server  
 
