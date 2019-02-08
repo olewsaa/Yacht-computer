@@ -29,7 +29,7 @@ Some are demo files showing how to use a type of sensor or other feature. Howeve
 show how you instrument the boat with simple and cost effective solutions. 
 
 Personally I have opted for a Internet of Things on Board (ioToB) where the sensors are autonomous units that 
-sends off the data to the central server over wifi (SignalK server that comes witg the OpenPlotter distro).
+sends off the data to the central server over wifi (SignalK server that comes with the OpenPlotter distro).
 
 ## Learning to use chips and sensors
 
@@ -38,5 +38,7 @@ Some subproject underway with inital testing include:
 1. PCF8574 is a digital input output chip. Used to measure water in tanks.
 2. MCP3008 is a 10 bit Analog to Digital Converter (ADC). Has many uses like voltage and current.
 3. ADS1115 is a 16 bit ADC, a high precision ADC for usage where more than 10 bit is needed. 
-4. DS18B20 is a one wire temperature device, a nce device for monitoring temperatures.
+4. DS18B20 is a one wire temperature device, a nice device for monitoring temperatures.
+5. ESP 8622 is the IoToB chip/board of choice. Small, simple, almost costless.
+6. ESP 32 is one step up, far more connections and still small and very cost effective.
 
