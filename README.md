@@ -23,9 +23,13 @@ Which has become the major part of this project.
 
 ## Development of data systems and IoT sensors 
 
-Some of this might find its way into the Openploter project, some are demo files showing how to use a 
-type of sensor or other feature. Personally I have opted for a Internet of Things on Board (ioToB)
-where the sensors are autonomous units that sends off the data to the central server over wifi.
+Some of this might find its way into the Openploter project (but already it provides a platform for collection 
+of information from the networked(wifi) sensors on board, SignalK server end associated web server. 
+Some are demo files showing how to use a type of sensor or other feature. However, this project it basically to 
+show how you instrument the boat with simple and cost effective solutions. 
+
+Personally I have opted for a Internet of Things on Board (ioToB) where the sensors are autonomous units that 
+sends off the data to the central server over wifi (SignalK server that comes witg the OpenPlotter distro).
 
 ## Learning to use chips and sensors
 
