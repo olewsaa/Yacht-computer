@@ -39,6 +39,6 @@ Some subproject underway with inital testing include:
 2. MCP3008 is a 10 bit Analog to Digital Converter (ADC). Has many uses like voltage and current.
 3. ADS1115 is a 16 bit ADC, a high precision ADC for usage where more than 10 bit is needed. 
 4. DS18B20 is a one wire temperature device, a nice device for monitoring temperatures.
-5. ESP 8622 is the IoToB chip/board of choice. Small, simple, almost costless.
-6. ESP 32 is one step up, far more connections and still small and very cost effective.
+5. ESP-8622 is the IoToB chip/board of choice. Small, simple, almost costless.
+6. ESP-32 is one step up, far more connections and still small and very cost effective.
 
