@@ -31,9 +31,8 @@ handeling of UDP trasactions. This prototype uses two ADS1115 for
 current measurements and the built in ADC for voltage measurement.
 
 ### Compare ESP8266 vs. ESP32
-There is a [nice page comparing]
-(https://makeradvisor.com/esp32-vs-esp8266)the performance and other relevant 
-characteristics of the two.
+There is a [nice page comparing](https://makeradvisor.com/esp32-vs-esp8266)the performance 
+and other relevant characteristics of the two.
 The ESP32 suppport floating point, but performance is limited. This 
 [blog](https://blog.classycode.com/esp32-floating-point-performance-6e9f6f567a69) entry 
 show what to expect. 
