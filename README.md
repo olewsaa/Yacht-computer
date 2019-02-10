@@ -1,5 +1,7 @@
 # Yacht-computer project
-## Yacht-computer background
+## Yacht-server background
+
+Every yacht need t ohave a server on board. There are many need to be fulfilled, of which OpenPlotter cover a significant fraction, OpenCPN and SignalK are prime examples. There are still gaps to be filled. Monitoring of equipment like engine, tank levels, temperatures, voltage and current etc etc. The list is long. In addition comes the need to a server to handle the comunication and a file server on board. A central place to dump all pictures and video from cameras and modiles and to stock up these with audiobooks and videos. 
 
 The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
 I keep a web page about this project [https://sites.google.com/site/olewsaa/yacht-server].
