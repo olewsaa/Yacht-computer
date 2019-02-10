@@ -27,7 +27,7 @@ lot more GPIO pins and a range of 12 bits ADCs built in. This together
 with the more powerfull 3.3V outlet makes it more suited to many
 Internet of things onboard (IoToB). The WiFiClient-U-and-I-SignalK in
 version 3 is a ESP-32 version. There are distinct differences in the
-handeling of UDP trasactions. This prototype uses two ADS1115 for
+handling of UDP trasactions. This prototype uses two ADS1115 for
 current measurements and the built in ADC for voltage measurement.
 
 ### Compare ESP8266 vs. ESP32
