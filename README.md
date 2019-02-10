@@ -1,7 +1,9 @@
 # Yacht-computer project
 ## Yacht-server background
 
-Every yacht need t ohave a server on board. There are many need to be fulfilled, of which OpenPlotter cover a significant fraction, OpenCPN and SignalK are prime examples. There are still gaps to be filled. Monitoring of equipment like engine, tank levels, temperatures, voltage and current etc etc. The list is long. In addition comes the need to a server to handle the comunication and a file server on board. A central place to dump all pictures and video from cameras and modiles and to stock up these with audiobooks and videos. 
+Every yacht need to have a server (or servers) on board. There are many need to be fulfilled, of which OpenPlotter cover a significant fraction, OpenCPN and SignalK are prime examples. There are still gaps to be filled. Monitoring of equipment like engine, tank levels, temperatures, voltage and current etc etc. The list is long. In addition comes the need to a server to handle the comunication and a file server on board. A central place to dump all pictures and video from cameras and modiles and to stock up these with audiobooks and videos. 
+
+The Raspberry Pi or similar types are ideal suited for this purpose, very small and affordable which mean that severel servers can be deployed without high cost og power cunsumption. 
 
 The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
 I keep a web page about this project [https://sites.google.com/site/olewsaa/yacht-server].
@@ -16,7 +18,11 @@ This project is to use a Pi as a gateway to the internet. A high gain wifi anten
 
 ## Communication server  
 
-Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]. I have taken some ideas from the famous RedBox, which can do very much more than my litte project.
+Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]. I have taken some ideas from the famous RedBox, which can do very much more than my litte project. 
+
+## File server
+
+A little file server with Bluetooth interface ta facilitate easy transfer of pictures and video from the mobiles, teenagers are happy to dump selected files onto a file server, but refuse to let a cable enter their phones. In addtion the file server can host autobooks, music and films. A large USB attached SSD is a good way to get high storage capacity.   
 
 ## Server and IoT sensors
 
