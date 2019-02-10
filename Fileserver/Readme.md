@@ -2,7 +2,7 @@
 
 ## Project page
 Exchange of photos and multimedia files on board. See the 
-[web page](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/file-server---network-file-system-nfs) about the file server for some more information.
+[web page](https://sites.google.com/site/olewsaa/yacht-server/file-server---network-file-system-nfs) about the file server for some more information.
 
 
 ## Background 
