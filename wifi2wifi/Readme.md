@@ -16,7 +16,7 @@ server also a nice all purpose computer with a 19" screen, so having internet ac
 is very nice. Not to mention the ease of doing charts software updates directly. 
 I used a different ip range for the cabled network, mostly to keep them separated.
 
-This project have a project page at : [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]
+This project have a [project page](https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway)
 
 ## Step by step instructions.
 
