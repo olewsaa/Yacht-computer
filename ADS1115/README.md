@@ -1,4 +1,4 @@
-# ADS-1115 16 bits A/D converter
+# ADS1115 16 bits A/D converter
 
 Files for use with the [ADS1115](https://www.adafruit.com/product/1085) 16 bits Analog to Digital converter chip.
 
