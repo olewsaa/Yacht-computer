@@ -41,11 +41,10 @@ show what to expect.
 ## Projects using the two modules
 
 ### Temperature 
-WiFiClient-TempSignalK is a sketch where an ESP-8266 module is used to
-gather the temperatures from the one-wire bus and forward them to
-SignalK. It uses a simpler 8266 based ESP-12E module as this module is
-more than capable of performing this task. The 3.3V power converter
-have no problem feeding the DS18B20 sensors.
+WiFiClient-TempSignalK is a sketch where an ESP-8266 module is used to gather the temperatures from the one-wire bus and forward them to SignalK. It uses a simpler 8266 based ESP-12E module as this module is more than capable of performing this task. The 3.3V power converter have no problem feeding the DS18B20 sensors.
+
+### Tank level
+Tank level monitoring by means of inductive sensors. Thes eon off sensors triggers IO pins on the ESP12 module and calculate a level number that is sent to SignalK over wifi. 
 
 ### Current and voltage
 WiFiClient-U-and-I-SignalK.ino is a sketch where the ADS1115 is
