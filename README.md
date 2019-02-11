@@ -18,7 +18,7 @@ This project is to use a Pi as a gateway to the internet. A high gain wifi anten
 
 ## Communication server  
 
-Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate project [https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway]. I have taken some ideas from the famous RedBox, which can do very much more than my litte project. 
+Another Raspberry Pi is set up to handle communication as this might prove to much for the one runnng both Openplotter and OpenCPN. This is a separate [project](https://sites.google.com/site/olewsaa/yacht-server/raspberry-pi-as-a-router-gateway). I have taken some ideas from the famous RedBox, which can do very much more than my litte project. 
 
 ## File server
 
@@ -26,8 +26,8 @@ A little file server with Bluetooth interface ta facilitate easy transfer of pic
 
 ## Server and IoT sensors
 
-Files and documents related to the Yacht computer project. This git repository contain only the actual files used, the project is describer at [https://sites.google.com/site/olewsaa/yacht-server-with-raspberry]
-and for the versions installed or in process of being installed [https://sites.google.com/site/olewsaa/yacht-server].
+Files and documents related to the Yacht computer project. This git repository contain only the actual files used, the project is described [here](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry)
+and for the versions installed or in process of being installed [here](https://sites.google.com/site/olewsaa/yacht-server).
 
 ## IoToB
 The Internet of Things directory contains files for the IoT approach to the project. 
