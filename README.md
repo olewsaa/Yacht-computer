@@ -6,7 +6,7 @@ Every yacht need to have a server (or servers) on board. There are many need to 
 The Raspberry Pi or similar types are ideal suited for this purpose, very small and affordable which mean that severel servers can be deployed without high cost og power cunsumption. 
 
 The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
-I keep a web page about this project [https://sites.google.com/site/olewsaa/yacht-server].
+I keep a [web page about this project](https://sites.google.com/site/olewsaa/yacht-server).
 
 The server part is running OpenPlotter which takes care of almost all the server related functions and services. The server hosts SignalK which provide web server that allow display of data on web pages both local and for any client that want to connect. 
 
