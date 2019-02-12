@@ -1,11 +1,13 @@
 
 /*
+  Gas alarm Arduino skectch.
 
-  For Arduino NANO
+  For Arduino NANO (Chineese make)
+  Select Arduino NANO board
   Processor ATmega328P (old bootloader)
   115200 baud
   
- */
+*/
 
 int value;
 int Alarm=0;
@@ -16,6 +18,8 @@ void setup() {
   Serial.begin(115200);
   // initialize digital pin 13 as an output.
   pinMode(13, OUTPUT);
+  // initalize a pin for output
+  // pinMode();
 }
 
 void loop() {
@@ -39,7 +43,8 @@ void loop() {
 }
 /*
 
-The Alarm will stay until the reset button or power off
+The Alarm will stay until the reset button or power off.
+Maybe add a reset button to the box.
 
 */
 
