@@ -27,10 +27,12 @@ void loop() {
   delay(100);              // wait n ms
   digitalWrite(13, LOW);   // turn the LED off by making the voltage LOW
   delay(100);              // wait n ms 
+ 
   value = analogRead(analog_ip0);
+  if (value>500) Alarm=1;
   //Serial.print("Detector value MQ2 :"); 
   //Serial.print(value);
-  if (value>500) Alarm=1;
+ 
   value = analogRead(analog_ip1);
   if (value>500) Alarm=1;
   //Serial.print("  Detector value MQ9 :"); 
