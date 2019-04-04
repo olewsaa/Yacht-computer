@@ -8,9 +8,12 @@ The Raspberry Pi or similar types are ideal suited for this purpose, very small 
 The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
 I keep a [web page about this project](https://sites.google.com/site/olewsaa/yacht-server).
 
+## OpenPlotter and OpenCPN
+
 The server part is running OpenPlotter which takes care of almost all the server related functions and services. The server hosts SignalK which provide web server that allow display of data on web pages both local and for any client that want to connect. 
 
-The server also run OpenCPN as a chart plotter on board. 
+The server also run OpenCPN as a chart plotter on board. The OpenCPN accept various signals from OpenPlotter and display GPS positions to update the boats position and accept AIS NMEA signals again to be plotted.  All of this is nicely run on a Raspberry Pi.
+
 
 ## Wifi gateway - wifi2wifi
 
