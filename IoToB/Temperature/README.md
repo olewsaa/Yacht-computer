@@ -12,6 +12,10 @@ relies on the (close enough) C programming language.
 The temperature sensor project has [web pages](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/temperature-monitoring) about the project with overview and pictures of the 
 hardware in addition a description and ideas behind the setup.
 
+The SignalK names selected should match the standard and what OpenPlotter recognise. These three are used for the current setup :
+* propulsion.1.temperature
+* environment.inside.engineRoom.temperature
+* electrical.alternators.1.temperature
 
 
 
