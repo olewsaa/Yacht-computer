@@ -17,13 +17,13 @@ The SignalK names selected should match the standard and what OpenPlotter recogn
 * environment.inside.engineRoom.temperature
 * electrical.alternators.1.temperature
 
-Using these lables OpenPlotter can pick them up and trigger alarms if any of these runs to high. 
+Using these labels OpenPlotter can pick them up and trigger alarms if any of these runs to high. 
 
 
 ![Breadboard](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperatures_bb.png 
 "ESP-8266 breadboard layout")
 
-The 1-wire sensors are powered by 3.3 Volt from the ESP-8266. There should be a pull up resistor from +3.3V to the singnal wire, this is omitted on the figure, it works without for testing, but is not stable. 
+The 1-wire sensors are powered by 3.3 Volt from the ESP-8266. There should be a pull up resistor from +3.3V to the signal wire, this is omitted on the figure, it works without for testing, but is not stable. Definitely not for longer cables and onboard with a lot of electric interference.
 
 In the box all 1-wire terminals are connected in parallel, the power require 
 two wires while all the signals travels on a shared single bus wire, hence the name
