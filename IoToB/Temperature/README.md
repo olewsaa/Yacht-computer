@@ -16,6 +16,7 @@ The SignalK names selected should match the standard and what OpenPlotter recogn
 * propulsion.1.temperature
 * environment.inside.engineRoom.temperature
 * electrical.alternators.1.temperature
+
 Using these lables OpenPlotter can pick them up and trigger alarms if any of these runs to high. 
 
 
