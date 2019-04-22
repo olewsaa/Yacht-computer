@@ -102,9 +102,9 @@ void setup() {
  */
 //**************************************************************** 
 
-    keys[0]="propulsion.engine.temperature";                  // Engine engine block
+    keys[0]="propulsion.1.temperature";                       // Engine engine block
     keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp
-    keys[2]="electrical.alternators.*.temperature.warnUpper"; // Alternator 
+    keys[2]="electrical.alternators.1.temperature";           // Alternator 
 
     keys[3]="environment.inside.mainCabin.temperature";  
     keys[4]="propulsion.engine.coolantTemperature";
@@ -162,11 +162,11 @@ void SetupDS18B20(){
 
   // Get resolution of DS18B20
     Serial.print("Resolution: ");
-    Serial.print(DS18B20.getResolution( devAddr[i] ));
+    Serial.print(DS18B20.getResolution(devAddr[i]));
     Serial.println();
 
   // Read temperature from DS18b20
-    float tempC = DS18B20.getTempC( devAddr[i] );
+    float tempC = DS18B20.getTempC(devAddr[i]);
     Serial.print("Temp C: ");
     Serial.println(tempC);
   }  // End for numberOfDevices
@@ -219,7 +219,7 @@ void Send_to_SignalK(String key, double value){
 
 void TempLoop(){
     for(int i=0; i<numberOfDevices; i++){
-      float tempC = DS18B20.getTempC( devAddr[i] ); //Measuring temperature in Celsius
+      float tempC = DS18B20.getTempC(devAddr[i]); //Measuring temperature in Celsius
       tempDev[i] = tempC; //Save the measured value to the array
       Serial.print("Device "); Serial.print(i); Serial.print(" Temp C: "); Serial.println(tempC);
       Send_to_SignalK(keys[i],tempDev[i]);
