@@ -203,7 +203,7 @@ void Send_to_SignalK(String key, double value){
     char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
     Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
     strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
-    Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
+    Serial.println(cmdc); Serial.print(" Message has length: "); Serial.println(sizeof(cmdc));
     Udp.write(cmdc);                  // Send the message to the SignalK server. 
     Udp.endPacket();                  // End the connection.
     delay(10);                        // Short delay to recover. 
