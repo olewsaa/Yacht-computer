@@ -1,16 +1,15 @@
 # Temperature sensor 
 
-## ESP-8266 breadboard layout
+## Computer system - ESP-8266
 
 ### 1-wire sensors 
 
-## Computer system - ESP-8266
 I have used an ESP-12E NodeMCU 1.0, an ESP8266 board from China for
 this project. The ESP8266 well suited for this task, 1-wire and wifi
 which is all that's needed. The software development environment is
 Arduino IDE which relies on the C (close enough) programming language.
 
-## Use case - on board
+### Use case - on board
 The temperature sensor project has [webpages]
 (https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/temperature-monitoring)
 about the project with overview and pictures of the hardware in
@@ -28,7 +27,7 @@ Using these labels OpenPlotter can pick them up and trigger alarms if
 any of these runs to high. OpenPlotter can also translate to NMEA
 sentences for export to openCPN.
 
-## Setup and implementation
+### Setup and implementation
 
 ![Breadboard](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperatures_bb.png 
 "ESP-8266 breadboard layout")
