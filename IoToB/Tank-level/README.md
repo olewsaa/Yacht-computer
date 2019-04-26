@@ -42,5 +42,5 @@ Some of the pins could not be used, GPIO 2 pin D4 is also used for transmit and 
 sensor pull this up during init it fails to start the wifi. GPIO 00, pin D3 also has issues,
 GPIO 02 and GPIP 01 are also RX and TX, hence pulling them up or down during init is not good. 
 GPIO 16 also has limitations. The net result is that there is a limited number of pins that can 
-be used for input of this kind.
+be used for input of this kind. Hence pins D2,D5,D6 and D7 are used as digital input pins. 
 
