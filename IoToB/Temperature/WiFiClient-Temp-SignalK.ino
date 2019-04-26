@@ -203,7 +203,7 @@ void Send_to_SignalK(String key, double value){
     char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
     Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
     strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
-    Serial.println(cmdc); Serial.print(" Message has length: "); Serial.println(sizeof(cmdc));
+    Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
     Udp.write(cmdc);                  // Send the message to the SignalK server. 
     Udp.endPacket();                  // End the connection.
     delay(10);                        // Short delay to recover. 
@@ -220,6 +220,14 @@ void Send_to_SignalK(String key, double value){
 void TempLoop(){
     for(int i=0; i<numberOfDevices; i++){
       float tempC = DS18B20.getTempC(devAddr[i]); //Measuring temperature in Celsius
+      // If temperature reading fails, e.g. the error code -127 is reported the
+      // 1-wire setup is called and the function return. Hopefully this will cause the
+      // reading to return to normal again. Initially some electric noise caused the sensor
+      // readings to fail after only a few minutes.
+      if (tempC<-100) {   
+          SetupDS18B20(); 
+          return; 
+      }
       tempDev[i] = tempC; //Save the measured value to the array
       Serial.print("Device "); Serial.print(i); Serial.print(" Temp C: "); Serial.println(tempC);
       Send_to_SignalK(keys[i],tempDev[i]);
