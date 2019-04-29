@@ -21,7 +21,7 @@ The SignalK names selected should match the standard and what OpenPlotter recogn
 These three are used for the current setup :
 * propulsion.1.temperature
 * environment.inside.engineRoom.temperature
-* electrical.alternators.1.temperature
+* electrical.alternators.1.temperature.warnUpper 
 
 Using these labels OpenPlotter can pick them up and trigger alarms if
 any of these runs to high. OpenPlotter can also translate to NMEA
