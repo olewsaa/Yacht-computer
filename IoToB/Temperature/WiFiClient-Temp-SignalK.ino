@@ -100,17 +100,16 @@ void setup() {
  * 
  * Some of these expect temperature in K like environment.inside.temperature.
  */
-//**************************************************************** 
+//********************************************************************************************************************************** 
 
-    keys[0]="propulsion.1.temperature";                       // Engine engine block
-    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp
-    keys[2]="electrical.alternators.1.temperature.warnUpper"; // Alternator 
+    keys[0]="propulsion.1.temperature";                       // Engine engine block ; SignalK: propulsion/<RegExp>/temperature
+    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp   ; SignalK: environment/inside/engineRoom
+    keys[2]="electrical.alternators.1.temperature.warnUpper"; // Alternator ; SignalK: electrical/alternators/<RegExp>/temperature
 
-    keys[3]="environment.inside.mainCabin.temperature";  
-    keys[4]="propulsion.engine.coolantTemperature";
+    keys[3]="propulsion.engine.coolantTemperature"; 
+    keys[4]="propulsion.1.transmission.oilTemperature";        // Engine; SignalK: propulsion/<RegExp>/transmission/oilTemperature
     
-    
-//****************************************************************
+//**********************************************************************************************************************************
 
 }  // End setup 
 
