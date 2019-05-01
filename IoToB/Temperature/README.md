@@ -33,14 +33,13 @@ sentences for export to openCPN.
 "ESP-8266 breadboard layout")
 
 The 1-wire sensors are powered by 3.3 Volt from the ESP-8266. There
-should be a pull up resistor from +3.3V to the signal wire, this is
-omitted on the figure, it works without for testing, but is not
-stable. Definitely not for longer cables and onboard with a lot of
-electric interference. My setup is a star topology which is not really
-in line with best practice. The pullup resistor is lowered to 2.2k and
-to limit the impedance misfit and reflection problems on the
-transmission line a serial resistor of 100 ohms is inserted in each
-line.
+should be a pull up resistor from +3.3V to the signal wire.  My setup
+is a star topology which is not really in line with best practice. The
+pullup resistor is lowered to 2.2k as the three cables introduce a lot
+os capacitance and inductance. In addition to limit the impedance
+misfit and reflection problems on the transmission line a serial
+resistor of 100 ohms is inserted in each line. So far these measures have
+worked and the system now seem to be stable.
 
 In the box all 1-wire terminals are connected in parallel, but with
 the serial resistor mentioned above, the power require two wires while
