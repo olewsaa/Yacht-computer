@@ -61,6 +61,11 @@ const int udpPort = 55557;
  */
 const char * keys[ONE_WIRE_MAX_DEV];  // keys assigned in setup function.
 
+/*
+ * Iterations counter before restart, a ugly hack.
+ */
+int  iter=0;
+
 //  End declaration of global variables.
 
 
@@ -77,9 +82,11 @@ void setup() {
 
   // Wait for connection
     while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
+      delay(1000);
       Serial.print(".");
+      if (++iter>30) ESP.restart(); // Issue a restart if fail to attach to network. Not really needed, but a restart is ok.
     }
+    iter=0;
     Serial.println("");
     Serial.print("Connected to ");
     Serial.println(ssid);
@@ -224,7 +231,8 @@ void TempLoop(){
       // reading to return to normal again. Initially some electric noise caused the sensor
       // readings to fail after only a few minutes.
       if (tempC<-100) {   
-          SetupDS18B20(); 
+          // Error trigger er restart, it might work.
+          ESP.restart();
           return; 
       }
       tempDev[i] = tempC; //Save the measured value to the array
@@ -238,6 +246,7 @@ void TempLoop(){
 
 // The infinite loop
 void loop() {
+  if (++iter>100) ESP.restart();   // A really ugly hack, force a restart every 500 seconds, it might help when 1-wire is failing. 
   digitalWrite(LED_BUILTIN, LOW);  // Turn the LED on while we transfer the data.
   TempLoop();                      // Loop through devices and measure 
   digitalWrite(LED_BUILTIN, HIGH); // Turn the LED off by making the voltage HIGH.
