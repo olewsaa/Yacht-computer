@@ -14,6 +14,8 @@
  *  
  */
 
+// Enable debug to print out messages on the serial port.
+#define DEBUG;
 
 // One wire bus setup
 #include <OneWire.h>
@@ -62,11 +64,15 @@ const int udpPort = 55557;
 const char * keys[ONE_WIRE_MAX_DEV];  // keys assigned in setup function.
 
 /*
- * Iterations counter before restart, a ugly hack.
+ * Iterations counter before restart, an ugly hack.
  */
 int  iter=0;
 
-//  End declaration of global variables.
+/* 
+ *  
+ *  End declaration of global variables.
+ *  
+ */
 
 
 
@@ -74,24 +80,31 @@ int  iter=0;
 
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT); // Initialize the LED_BUILTIN pin as an output
+#ifdef DEBUG    
     Serial.begin(115200);         // Setup Serial port speed
+#endif 
 
   // Connect to the WiFi network
     WiFi.begin(ssid, pwd);
+#ifdef DEBUG
     Serial.println("Connect to the WiFi network");
-
+#endif
   // Wait for connection
     while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
+#ifdef DEBUG     
       Serial.print(".");
+#endif
       if (++iter>30) ESP.restart(); // Issue a restart if fail to attach to network. Not really needed, but a restart is ok.
     }
     iter=0;
+#ifdef DEBUG    
     Serial.println("");
     Serial.print("Connected to ");
     Serial.println(ssid);
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
+#endif
   // This initializes udp and transfer buffer
     Udp.begin(udpPort);    
     delay(10);
@@ -138,16 +151,21 @@ String GetAddressToString(DeviceAddress deviceAddress){
 void SetupDS18B20(){
   DS18B20.begin();
 
+#ifdef DEBUG  
   Serial.print("Parasite power is: "); 
   if( DS18B20.isParasitePowerMode() ){ 
     Serial.println("ON");
   }else{
     Serial.println("OFF");
   }
+#endif
   
   numberOfDevices = DS18B20.getDeviceCount();
+
+#ifdef DEBUG    
   Serial.print( "Device count: " );
   Serial.println( numberOfDevices );
+#endif 
 
   DS18B20.requestTemperatures();
 
@@ -156,25 +174,32 @@ void SetupDS18B20(){
     // Search the wire for address
     if( DS18B20.getAddress(devAddr[i], i) ){
     // devAddr[i] = tempDeviceAddress;
+#ifdef DEBUG      
       Serial.print("Found device ");
       Serial.print(i, DEC);
       Serial.print(" with address: " + GetAddressToString(devAddr[i]));
-      Serial.println();
+      Serial.println(); 
+#endif          
     }else{
+#ifdef DEBUG  
       Serial.print("Found ghost device at ");
       Serial.print(i, DEC);
       Serial.print(" but could not detect address. Check power and cabling");
+#endif      
     }
 
   // Get resolution of DS18B20
+#ifdef DEBUG    
     Serial.print("Resolution: ");
     Serial.print(DS18B20.getResolution(devAddr[i]));
     Serial.println();
-
+#endif
   // Read temperature from DS18b20
     float tempC = DS18B20.getTempC(devAddr[i]);
+#ifdef DEBUG      
     Serial.print("Temp C: ");
     Serial.println(tempC);
+#endif    
   }  // End for numberOfDevices
 }  // End SetupDS18B20
 
@@ -202,14 +227,16 @@ void Send_to_SignalK(String key, double value){
     dtostrf(value,3,2,valuestring); // Convert double to a string
     cmd += valuestring;
     cmd += "}]}]}\0";
-    /*
+#ifdef DEBUG      
     Serial.println(cmd);
     Serial.println(cmd.length());
-    */
+#endif    
     char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
     Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
     strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
+#ifdef DEBUG      
     Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
+#endif    
     Udp.write(cmdc);                  // Send the message to the SignalK server. 
     Udp.endPacket();                  // End the connection.
     delay(10);                        // Short delay to recover. 
@@ -236,7 +263,9 @@ void TempLoop(){
           return; 
       }
       tempDev[i] = tempC; //Save the measured value to the array
+#ifdef DEBUG        
       Serial.print("Device "); Serial.print(i); Serial.print(" Temp C: "); Serial.println(tempC);
+#endif      
       Send_to_SignalK(keys[i],tempDev[i]);
     }
     DS18B20.setWaitForConversion(false); // No waiting for measurement
