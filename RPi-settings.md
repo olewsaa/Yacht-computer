@@ -21,9 +21,9 @@ is to use the full KMS.
 ## Pi Configuration
 The graphical config tool offers a range of settings. It is generally a good idea to disable interfaces services that
 are not needed. I have turned off 
--camera
--VNC
--SPI 
--Serial
--1-wire
+- camera
+- VNC
+- SPI 
+- Serial
+- 1-wire
 The important one is secure shell, SSH is this enable login to the system. 
