@@ -9,7 +9,7 @@ HDMI to HDMI, HDI to DVI and other cables and monitors availale there is not a "
 
 Open the Raspberry menu, preferences and old raspi-config.
 Select option 7 advances options and open it.
-- Overscan, this can help if the screen appear to large for the display. I had to set this option when 
+- Overscan, this can help if the screen appear too large for the display. I had to set this option when 
 connecting to a TV HDMI input.
 - Memory split, the recomendation is to use 64 MB. There are only 1024 MiB in total so setting this too
 high may reduce the amount of memory for OpenCPN and OS. Some gamers suggest 256 MiB.
