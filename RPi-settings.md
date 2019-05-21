@@ -18,7 +18,7 @@ In other cases you migth select a suitable resolution, a HD TV can tackle 1920x1
 - GL driver, OpenGL is needed, both Full KMS driver and Fake KMS driver works, suggestions from gamers 
 is to use the full KMS.
 
-## Pi Configuration
+### Pi Configuration
 The graphical config tool offers a range of settings. It is generally a good idea to disable interfaces services that
 are not needed. I have turned off 
 - camera
@@ -26,4 +26,4 @@ are not needed. I have turned off
 - SPI 
 - Serial
 - 1-wire
-The important one is secure shell, SSH is this enable login to the system. 
+The important one is secure shell, SSH. Set this to enable if you want to login to the system. 
