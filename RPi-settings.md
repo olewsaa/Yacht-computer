@@ -18,6 +18,8 @@ In other cases you migth select a suitable resolution, a HD TV can tackle 1920x1
 - GL driver, OpenGL is needed, both Full KMS driver and Fake KMS driver works, suggestions from gamers 
 is to use the full KMS.
 
+To test the OpenGL driver the mesa-utils come in handy. Install using `apt install mesa-utils`.
+
 ### Pi Configuration
 The graphical config tool offers a range of settings. It is generally a good idea to disable interfaces services that
 are not needed. I have turned off 
