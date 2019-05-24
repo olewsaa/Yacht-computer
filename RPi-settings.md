@@ -26,7 +26,7 @@ frames per second.
 
 ### Pi Configuration
 The graphical config tool offers a range of settings. It is generally a good idea to disable interfaces services that
-are not needed. I have turned off 
+are not needed. I have turned off the following services:
 - camera
 - VNC
 - SPI 
