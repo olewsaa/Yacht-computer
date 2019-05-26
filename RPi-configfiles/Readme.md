@@ -1,8 +1,15 @@
 # Config files for Raspberry Pi 
 
+There are aways some minor settings that can easily be overlooked. Most things comes nicely packaged with the [http://www.sailoog.com/blog-categories/openplotter-rpi] (NOOB Openplotter distro).
 
 ## Lost access point 
-After an upgrade in May 2019, I lost the access point. Some search at various sites and forums was needed to resolve this. The actual fix was actually simple, just replacing a single line in a config file. 
+As always, updates and upgrades are not always safe. Most major
+disasters happen after an update or upgrade, where important servies
+are affected. After an upgrade in May 2019, I lost the access
+point, all my IoToB devices failed to connect. 
+Some search at various sites and forums was needed to resolve
+this. The actual fix was actually simple, just replacing a single line
+in a config file.
 
 ### Script file for dnsmadq
 The file /etc/init.d/dnsmasq had a line that needed to be replaced, the line 115
@@ -18,4 +25,6 @@ Some web references:
 
 - [https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13] ("dnsmasq not starting" at discourse)
 
-The last reference is the one that actually showed the error int the dnsmasq script (as aways the devel is in the details).
+The last reference is the one that actually showed the error in the dnsmasq script (as aways the devel is in the details).
+
+
