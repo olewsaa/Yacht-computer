@@ -10,7 +10,7 @@ needed to be replaced. The actual file is presented in this directory. The origi
 
 Some web references:
 
-- [http://forum.openmarine.net/showthread.php?tid=1083](openmarine forum, thread about lost AP).
+- [http://forum.openmarine.net/showthread.php?tid=1083] (openmarine forum, thread about lost AP).
 
 - [https://forums.kali.org/showthread.php?38920-Access-point-configuration-problem-on-RPi3] (Some hints about AP config)
 
