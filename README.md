@@ -1,12 +1,25 @@
 # Yacht-computer project
 ## Yacht-server background
 
-Every yacht need to have a server (or servers) on board. There are many need to be fulfilled, of which OpenPlotter cover a significant fraction, OpenCPN and SignalK are prime examples. There are still gaps to be filled. Monitoring of equipment like engine, tank levels, temperatures, voltage and current etc etc. The list is long. In addition comes the need to a server to handle the comunication and a file server on board. A central place to dump all pictures and video from cameras and modiles and to stock up these with audiobooks and videos. 
+Every yacht need to have a server (or servers) on board. There are
+many need to be fulfilled, of which OpenPlotter cover a significant
+fraction, OpenCPN and SignalK are prime examples. There are still gaps
+to be filled. Monitoring of equipment like engine, tank levels,
+temperatures, voltage and current etc etc. The list is long. In
+addition comes the need to a server to handle the comunication and a
+file server on board. A central place to dump all pictures and video
+from cameras and modiles and to stock up these with audiobooks and
+videos.
 
-The Raspberry Pi or similar types are ideal suited for this purpose, very small and affordable which mean that severel servers can be deployed without high cost og power cunsumption. 
+The Raspberry Pi or similar types are ideal suited for this purpose,
+very small and affordable which mean that severel servers can be
+deployed without high cost og power cunsumption.
 
-The goal is to replace as much as possible of the yacht instruments with servers (Raspberry Pi etc) and laptops, pads and mobile phones. This part her focuses on interfacing sensors and such with the Rasperry Pi.
-I keep a [web page about this project](https://sites.google.com/site/olewsaa/yacht-server).
+The goal is to replace as much as possible of the yacht instruments
+with servers (Raspberry Pi etc) and laptops, pads and mobile
+phones. This part her focuses on interfacing sensors and such with the
+Rasperry Pi.  I keep a [web page about this
+project](https://sites.google.com/site/olewsaa/yacht-server).
 
 ## OpenPlotter and OpenCPN
 
@@ -29,8 +42,12 @@ A little file server with Bluetooth interface ta facilitate easy transfer of pic
 
 ## Server and IoT sensors
 
-Files and documents related to the Yacht computer project. This git repository contain only the actual files used, the project is described [here](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry)
-and for the versions installed or in process of being installed [here](https://sites.google.com/site/olewsaa/yacht-server).
+Files and documents related to the Yacht computer project. This git
+repository contain only the actual files used, the project is
+described
+[here](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry)
+and for the versions installed or in process of being installed
+[here](https://sites.google.com/site/olewsaa/yacht-server).
 
 ## IoToB
 The Internet of Things directory contains files for the IoT approach to the project. 
@@ -38,13 +55,17 @@ Which has become the major part of this project.
 
 ## Development of data systems and IoT sensors 
 
-Some of this might find its way into the Openploter project (but already it provides a platform for collection 
-of information from the networked(wifi) sensors on board, SignalK server end associated web server. 
-Some are demo files showing how to use a type of sensor or other feature. However, this project it basically to 
-show how you instrument the boat with simple and cost effective solutions. 
+Some of this might find its way into the Openploter project (but
+already it provides a platform for collection of information from the
+networked(wifi) sensors on board, SignalK server end associated web
+server.  Some are demo files showing how to use a type of sensor or
+other feature. However, this project it basically to show how you
+instrument the boat with simple and cost effective solutions.
 
-Personally I have opted for a Internet of Things on Board (ioToB) where the sensors are autonomous units that 
-sends off the data to the central server over wifi (SignalK server that comes with the OpenPlotter distro).
+Personally I have opted for a Internet of Things on Board (ioToB)
+where the sensors are autonomous units that sends off the data to the
+central server over wifi (SignalK server that comes with the
+OpenPlotter distro).
 
 ## Learning to use chips and sensors
 

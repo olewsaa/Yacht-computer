@@ -5,7 +5,7 @@ There are aways some minor settings that can easily be overlooked. Most things c
 ## Lost access point 
 As always, updates and upgrades are not always safe. Most major
 disasters happen after an update or upgrade, where important servies
-are affected. After an upgrade in May 2019, I lost the access
+are affected. After an upgrade in May 2019 I lost the access
 point, all my IoToB devices failed to connect. 
 Some search at various sites and forums was needed to resolve
 this. The actual fix was actually simple, just replacing a single line
