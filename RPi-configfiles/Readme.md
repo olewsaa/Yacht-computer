@@ -17,9 +17,9 @@ needed to be replaced. The actual file is presented in this directory. The origi
 
 Some web references:
 
-- [http://forum.openmarine.net/showthread.php?tid=1083](openmarine forum, thread about lost AP).
+- [openmarine forum, thread about lost AP](http://forum.openmarine.net/showthread.php?tid=1083]
 
-- [https://forums.kali.org/showthread.php?38920-Access-point-configuration-problem-on-RPi3](Some hints about AP config)
+- [Some hints about AP config](https://forums.kali.org/showthread.php?38920-Access-point-configuration-problem-on-RPi3)
 
 - [https://www.raspberrypi.org/forums/viewtopic.php?t=128449](Failing to start dnsmasq)
 
