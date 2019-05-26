@@ -1,6 +1,6 @@
 # Config files for Raspberry Pi 
 
-There are aways some minor settings that can easily be overlooked. Most things comes nicely packaged with the [http://www.sailoog.com/blog-categories/openplotter-rpi](NOOB Openplotter distro).
+There are aways some minor settings that can easily be overlooked. Most things comes nicely packaged with the [NOOB Openplotter distro](http://www.sailoog.com/blog-categories/openplotter-rpi).
 
 ## Lost access point 
 As always, updates and upgrades are not always safe. Most major
@@ -21,9 +21,9 @@ Some web references:
 
 - [Some hints about AP config](https://forums.kali.org/showthread.php?38920-Access-point-configuration-problem-on-RPi3)
 
-- [https://www.raspberrypi.org/forums/viewtopic.php?t=128449](Failing to start dnsmasq)
+- [Failing to start dnsmasq](https://www.raspberrypi.org/forums/viewtopic.php?t=128449)
 
-- [https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13]("dnsmasq not starting" at discourse)
+- ("dnsmasq not starting" at discourse)(https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13)
 
 The last reference is the one that actually showed the error in the dnsmasq script (as aways the devel is in the details).
 
