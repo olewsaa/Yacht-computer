@@ -17,13 +17,13 @@ needed to be replaced. The actual file is presented in this directory. The origi
 
 Some web references:
 
-- [openmarine forum, thread about lost AP](http://forum.openmarine.net/showthread.php?tid=1083)
+- [openmarine forum, thread about lost AP](http://forum.openmarine.net/showthread.php?tid=1083).
 
-- [Some hints about AP config](https://forums.kali.org/showthread.php?38920-Access-point-configuration-problem-on-RPi3)
+- [Some hints about AP config](https://forums.kali.org/showthread.php?38920-Access-point-configuration-problem-on-RPi3).
 
-- [Failing to start dnsmasq](https://www.raspberrypi.org/forums/viewtopic.php?t=128449)
+- [Failing to start dnsmasq](https://www.raspberrypi.org/forums/viewtopic.php?t=128449).
 
-- ["dnsmasq not starting" at discourse](https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13)
+- ["dnsmasq not starting" at discourse](https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13), containg the line that caused the problem.
 
 The last reference is the one that actually showed the error in the dnsmasq script (as aways the devel is in the details).
 
