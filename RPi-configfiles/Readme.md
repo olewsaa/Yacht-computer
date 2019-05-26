@@ -18,3 +18,4 @@ Some web references:
 
 - [https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13] ("dnsmasq not starting" at discourse)
 
+The last reference is the one that actually showed the error int the dnsmasq script (as aways the devel is in the details).
