@@ -1,4 +1,5 @@
 #!/bin/sh
+# Updated from suggestions when dnsmasq failed to start, May 26th 2019
 ### BEGIN INIT INFO
 # Provides:       dnsmasq
 # Required-Start: $network $remote_fs $syslog
