@@ -23,8 +23,11 @@ Some web references:
 
 - [Failing to start dnsmasq](https://www.raspberrypi.org/forums/viewtopic.php?t=128449).
 
-- ["dnsmasq not starting" at discourse](https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13), containg the line that caused the problem.
+- [dnsmasq not starting" at discourse](https://discourse.pi-hole.net/t/dnsmasq-not-starting/10523/13), containg pointer to the line that caused the problem.
 
-The last reference is the one that actually showed the error in the dnsmasq script (as aways the devel is in the details).
+- [Debian bug tracker](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=858506), with the actual line. 
+
+This last two references are the one that actually showed the error in the dnsmasq script (as aways the devel is in the details).
+
 
 
