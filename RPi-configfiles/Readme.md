@@ -30,5 +30,19 @@ Some web references:
 
 This last two references are the one that actually showed the error in the dnsmasq script (as aways the devel is in the details).
 
+### Config files for Access point and dhcp
 
-
+As the Openplotter settings did not work as expected (Network mode:
+RPi3: AP+client) I did the settings with config files. This is not the
+proper way, but a hack needed to get things working. There are several
+services working together and since I want an access point using the
+wlan device and connect to the internet via an ethernet cable the
+settings is somewhat comlex. In addition I do not want bridging from
+the wlan to the internet. The wlan is a closed wireless net for the
+Internet of Things on Board. The following is a list of files I
+modified to get things to work.
+- dhcpcd.conf 
+- hostapd.conf
+- dnsmasq.conf 
+After modified these files I discovered that the access point was not enabled at reboot.
+A systemd comand to enable the service was issued '''systemctl status hostapd'''.
