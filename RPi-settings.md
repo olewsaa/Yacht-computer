@@ -12,10 +12,10 @@ Open the Raspberry menu, preferences and old raspi-config.
 Select option 7 advances options and open it.
 - Overscan, this can help if the screen appear too large for the display. I had to set this option when 
 connecting to a TV HDMI input (using a computer terminal with HDMI=>DVI adaper is fixes this automatic).
-- Memory split, the recomendation is to use 64 MiB. There are only 1024 MiB in total so setting this too
+- Memory split, the recommendation is to use 64 MiB. There are only 1024 MiB in total so setting this too
 high may reduce the amount of memory for OpenCPN and OS. Some gamers suggest 256 MiB.
-- Resolution, a monitor might communcate with the GPU (graphical processing Unit) and suggest a default. 
-In other cases you migth select a suitable resolution, a HD TV can tackle 1920x1080. 
+- Resolution, a monitor might communicate with the GPU (graphical processing Unit) and suggest a default. 
+In other cases you might select a suitable resolution, a HD TV can tackle 1920x1080. 
 - GL driver, OpenGL is needed, both Full KMS driver and Fake KMS driver works, suggestions from gamers 
 is to use the full KMS.
 
@@ -33,3 +33,7 @@ are not needed. I have turned off the following services:
 - Serial
 - 1-wire
 The important one is secure shell, SSH. Set this to enable if you want to login to the system. 
+
+### Lost access point after upgrade
+This topic is covered i the section about RPi config files. After an upgrade I lost the 
+access point set by OpenPlotter. It took some manoeuvring to get things back. 

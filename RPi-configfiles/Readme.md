@@ -46,4 +46,4 @@ modified to get things to work, in addition the the script dnsmasq.
 - dnsmasq.conf 
 
 After modified these files I discovered that the access point was not enabled at reboot.
-A systemd comand to enable the service was issued ```systemctl enable  hostapd```.
+A systemd comand to enable the service was issued ```systemctl enable  hostapd```. After this the access point were back and IoToB devices would work. 
