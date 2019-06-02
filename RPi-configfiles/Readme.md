@@ -45,4 +45,4 @@ modified to get things to work.
 - hostapd.conf
 - dnsmasq.conf 
 After modified these files I discovered that the access point was not enabled at reboot.
-A systemd comand to enable the service was issued '''systemctl status hostapd'''.
+A systemd comand to enable the service was issued ```systemctl status hostapd```.
