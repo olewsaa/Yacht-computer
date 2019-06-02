@@ -40,9 +40,9 @@ wlan device and connect to the internet via an ethernet cable the
 settings is somewhat comlex. In addition I do not want bridging from
 the wlan to the internet. The wlan is a closed wireless net for the
 Internet of Things on Board. The following is a list of files I
-modified to get things to work.
+modified to get things to work, in addition the the script dnsmasq.
 - dhcpcd.conf 
 - hostapd.conf
 - dnsmasq.conf 
 After modified these files I discovered that the access point was not enabled at reboot.
-A systemd comand to enable the service was issued ```systemctl status hostapd```.
+A systemd comand to enable the service was issued ```systemctl enable  hostapd```.
