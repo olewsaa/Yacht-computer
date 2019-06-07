@@ -33,7 +33,7 @@ This last two references are the one that actually showed the error in the dnsma
 ### Config files for Access point and dhcp
 
 As the Openplotter settings did not work as expected (Network mode:
-RPi3: AP+client) I did the settings with config files. This is not the
+RPi3: AP+client), hence I did the settings with config files. This is not the
 proper way, but a hack needed to get things working. There are several
 services working together and since I want an access point using the
 wlan device and connect to the internet via an Ethernet cable the
