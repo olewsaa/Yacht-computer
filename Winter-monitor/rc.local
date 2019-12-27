@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# BMP 180 sensor
+cd  /sys/class/i2c-adapter/i2c-0/
+echo  "bmp180 0x77" > new_device
+
+# Set up reverse ssh
+autossh    -N ole@gina.homelinux.no -R 8081:localhost:22 -C
