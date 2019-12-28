@@ -7,7 +7,7 @@ import time
 import urllib2
 import math
 
-baseURL='http://api.thingspeak.com/update?api_key=5V9QEESRVYK33PIT'
+baseURL='http://api.thingspeak.com/update?api_key=****************'
 URL=baseURL
 base_dir = '/sys/bus/w1/devices/'
 sensors=glob.glob(base_dir + '28*')
@@ -25,7 +25,7 @@ for sensor in sensors:
 #print("%d  %4.1f"  %(j, T))
 
 pressure=open("/sys/bus/i2c/drivers/bmp280/0-0077/iio:device1/in_pressure_input","r").read()
-# Correct for 156 m above sea level, scale height (8.314*278)/(0.029*9.82)
+# Correct for 1 m above sea level, scale height (8.314*278)/(0.029*9.82)
 P=float(pressure)*10.0*math.exp(1.0/8160.0)
 #print P,"hPa"
 
