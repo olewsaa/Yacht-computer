@@ -116,14 +116,14 @@ void setup() {
 /*
  * 
  * Set up the different SignalK names/paths which must be spec  
- * compliant (see: http://signalk.org/specification/1.0.4/doc/vesselsBranch.html ):
+ * compliant (see: https://signalk.org/specification/1.3.0/doc/vesselsBranch.html ):
  * 
  * Some of these expect temperature in K like environment.inside.temperature.
  */
 //********************************************************************************************************************************** 
 
     keys[0]="propulsion.1.temperature";                       // Engine engine block ; SignalK: propulsion/<RegExp>/temperature
-    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp   ; SignalK: environment/inside/engineRoom
+    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp   ; SignalK: environment/inside/engineRoom 
     keys[2]="electrical.alternators.1.temperature.warnUpper"; // Alternator ; SignalK: electrical/alternators/<RegExp>/temperature
 
     keys[3]="propulsion.engine.coolantTemperature"; 
