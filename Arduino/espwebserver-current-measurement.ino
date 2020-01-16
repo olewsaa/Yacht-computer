@@ -8,8 +8,8 @@
 SoftwareSerial Serial1(6, 7);  // Create a serial instance using pin 6 & 7.
 
 
-char ssid[] = "TeamRocketFiber";
-char passwd[] = "blackpearl";
+char ssid[] = "Mynet";
+char passwd[] = "password";
 int inPinI = 5; // Analog in pin 
 int status = WL_IDLE_STATUS; 
 
