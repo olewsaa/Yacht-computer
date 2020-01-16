@@ -95,7 +95,7 @@ void loop() {
                 client.print("<title>H4K</title>\r\n");
                 client.print("</head)>\r\n");
                 client.print("<body>\r\n");
-                client.print("<h1>Hesteskoen 4k effekt</h1>\r\n");
+                client.print("<h1>H4k effekt</h1>\r\n");
                 client.print("<p>Effekt :</p>\r\n");
                 client.print(power);
                 client.print(" Watt\r\n");
