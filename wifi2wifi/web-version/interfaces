@@ -1,4 +1,4 @@
-In file : /etc/network/interfaces add the following
+In file : /etc/network/interfaces add the following (change the MAC adresses to you system):
 
 # Manually added
 auto wlan0
