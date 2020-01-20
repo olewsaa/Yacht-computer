@@ -18,4 +18,26 @@ chellenge. While commercial solution do exsists (like Redbox), they
 are generally expensive and bundled with a lot of other functions not
 needed for this purpose.
 
+## Changes in the default raspap-webgui setup
+
+This setup is based on theraspap-webgui, https://raspap.com/ project.
+Install according to instructions and when everything is set up and
+working some changes can be applied. First of all the changes to use a
+USB long range antenna as the WAN (Wide Area Network, aka the
+"internet") is needed. This is described in the FAQ section. Using
+wan1 as WAN connection. 
+
+For most users who do not need internet access via the cable
+connection this is all you need.
+
+## Changes to get eth0 working as Access point with dhcp
+
+The files /etc/dhcpcd.conf, /etc/dnsmasq.conf and
+/etc/network/interfaces need to be updated, only the extra lines to be
+added are included in the files given, you cannot copy these files, it
+will not work, you need to edit the files. After the changes have been
+applied a reboot is reccomended. Things should now work with internet
+access available for both cabled connected devices and wifi connected
+devices.
+
 
