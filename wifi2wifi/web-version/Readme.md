@@ -38,9 +38,10 @@ connection this is all you need.
 
 The files /etc/dhcpcd.conf, /etc/dnsmasq.conf and
 /etc/network/interfaces need to be updated, only the extra lines to be
-added are included in the files given, you cannot copy these files, it
-will not work, you need to edit them. After the changes have been
-applied a reboot is reccomended. Things should now work with internet
+added are included in the files listed here. You cannot copy these files, it
+will not work, you need to edit them. Remember to change the MAC adresses to fit your system,
+use the command ifconfig to list them.
+After the changes have been applied a reboot is reccomended. Things should now work with internet
 access available for both cabled connected devices and wifi connected
 devices.
 
