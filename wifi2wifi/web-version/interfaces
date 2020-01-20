@@ -1,0 +1,12 @@
+In file : /etc/network/interfaces add the following
+
+# Manually added
+auto wlan0
+iface wlan0 inet manual
+hwaddress ether b8:27:eb:7b:16:d0
+
+auto eth0 
+iface eth0 inet mnual
+hwaddress ether b8:27:eb:2e:43:85
+
+
