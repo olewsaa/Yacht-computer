@@ -36,13 +36,22 @@ connection this is all you need.
 
 ## Changes to get eth0 working as Access point with dhcp
 
-The files /etc/dhcpcd.conf, /etc/dnsmasq.conf and
-/etc/network/interfaces need to be updated, only the extra lines to be
-added are included in the files listed here. You cannot copy these files, it
-will not work, you need to edit them. Remember to change the MAC adresses to fit your system,
-use the command ifconfig to list them.
-After the changes have been applied a reboot is reccomended. Things should now work with internet
-access available for both cabled connected devices and wifi connected
-devices.
+The files 
+* /etc/dhcpcd.conf 
+* /etc/dnsmasq.conf 
+* /etc/network/interfaces 
+* /var/www/html/includes/config.php
+* /etc/hostapd/hostapd.conf 
+need to be updated, only the extra lines
+to be added are included in the files listed here. You cannot copy
+these files, it will not work, you need to edit them. Remember to
+change the MAC adresses to fit your system, use the command ifconfig
+to list them.  After the changes have been applied a reboot is
+reccomended. Things should now work with internet access available for
+both cabled connected devices and wifi connected devices.
+
+To safeguard against unwanted updates I have marked all these files read-only.
+
+
 
 
