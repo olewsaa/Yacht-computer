@@ -5,7 +5,7 @@
 ## Wifi is desperately needed
 
 While we are waiting for Starlink to become operational we have limited acces
-to the internet on board while on-route. Hence the demand for access is
+to the internet on board while en-route. Hence the demand for access is
 very high when getting to place where such luxury is offered.
 
 A wifi 2 wifi gateway using a Raspberry Pi and a long range USB high
