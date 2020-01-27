@@ -42,6 +42,7 @@ The files
 * /etc/network/interfaces 
 * /var/www/html/includes/config.php
 * /etc/hostapd/hostapd.conf 
+
 need to be updated, only the extra lines
 to be added are included in the files listed here. You cannot copy
 these files, it will not work, you need to edit them. Remember to
