@@ -1,12 +1,18 @@
-In file : /etc/network/interfaces add the following (change the MAC adresses to you system):
+# File /etc/network/interfaces
 
-# Manually added
+# interfaces(5) file used by ifup(8) and ifdown(8)
+
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
 auto wlan0
 iface wlan0 inet manual
 hwaddress ether b8:27:eb:7b:16:d0
 
-auto eth0 
-iface eth0 inet mnual
+auto eth0
+iface eth0 inet manual
 hwaddress ether b8:27:eb:2e:43:85
-
 
