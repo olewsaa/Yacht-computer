@@ -4,9 +4,15 @@
 
 ## Wifi is desperately needed
 
-While we are waiting for Starlink to become operational we have limited acces
-to the internet on board while en-route. Hence the demand for access is
-very high when getting to place where such luxury is offered.
+While we are waiting for Starlink to become operational we have
+limited acces to the internet on board while en-route. Hence the
+demand for access is very high when getting to place where such luxury
+is offered. Crew and skippers flock to the bars and cafes in the
+marinas as free wifi is an excellent way to attact customers. It is
+nice to have a long range antenna onboard to pick up these signals and
+hence have wifi onboard.
+
+### Wifi gateway
 
 A wifi 2 wifi gateway using a Raspberry Pi and a long range USB high
 gain antenna to provide local wifi coverage onboard is a must when
@@ -48,8 +54,8 @@ to be added are included in the files listed here. You cannot copy
 these files, it will not work, you need to edit them. Remember to
 change the MAC adresses to fit your system, use the command ifconfig
 to list them.  After the changes have been applied a reboot is
-reccomended. Things should now work with internet access available for
-both cabled connected devices and wifi connected devices.
+needed. Things should now work with internet access available for
+both cabled connected devices and wifi connected devices. 
 
 To safeguard against unwanted updates I have marked all these files read-only.
 
