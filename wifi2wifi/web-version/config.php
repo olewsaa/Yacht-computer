@@ -5,7 +5,6 @@ define('RASPI_VERSION', '2.1');
 define('RASPI_CONFIG', '/etc/raspap');
 define('RASPI_CONFIG_NETWORKING', RASPI_CONFIG.'/networking');
 define('RASPI_ADMIN_DETAILS', RASPI_CONFIG.'/raspap.auth');
-// Changed to wlan1 
 define('RASPI_WIFI_CLIENT_INTERFACE', 'wlan1');
 define('RASPI_CACHE_PATH', sys_get_temp_dir() . '/raspap');
 
@@ -38,7 +37,7 @@ define('RASPI_CONFAUTH_ENABLED', true);
 define('RASPI_CHANGETHEME_ENABLED', true);
 define('RASPI_VNSTAT_ENABLED', true);
 define('RASPI_SYSTEM_ENABLED', true);
-define('RASPI_MONITOR_ENABLED', false);
+define('RASPI_MONITOR_ENABLED', true);
 
 // Locale settings
 define('LOCALE_ROOT', 'locale');
