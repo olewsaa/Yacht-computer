@@ -40,6 +40,14 @@ wan1 as WAN connection.
 For most users who do not need internet access via the cable
 connection this is all you need.
 
+## Limiting the access to setup in the GUI
+
+Users should only be allowed to scan for and change the shore station,
+not mess up the settings. This is solved by selecting monitoring in
+the config file. This setting is a FAQ entry in the raspiap pages.  It
+works fine, users can log in with admin/pw and will only have access
+to configure the client. 
+
 ## Changes to get eth0 working as Access point with dhcp
 
 The files 
