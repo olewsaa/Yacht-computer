@@ -30,7 +30,7 @@ needed for this purpose.
 
 ## Changes in the default raspap-webgui setup
 
-This setup is based on theraspap-webgui, https://raspap.com/ project.
+This setup is based on the raspap-webgui, https://raspap.com/ project.
 Install according to instructions and when everything is set up and
 working some changes can be applied. First of all the changes to use a
 USB long range antenna as the WAN (Wide Area Network, aka the
