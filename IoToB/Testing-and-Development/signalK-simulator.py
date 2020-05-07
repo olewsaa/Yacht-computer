@@ -28,3 +28,8 @@ while True:
 # SignalK :
 # environment.wind.speedApparent
 # environment.wind.angleApparent
+#
+# Remember to set up a SignalK input at port 55557 using the SignalK web interface.
+# Meny, Server, Connections, Add. Input type SignalK, Enabled yes, ID "Simulator",
+# Source UDP, Port 55557, No Self mapping.
+#
