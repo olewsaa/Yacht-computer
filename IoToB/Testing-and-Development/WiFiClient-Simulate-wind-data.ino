@@ -161,13 +161,11 @@ void Send_simulation(){
     double s,d;
     long t;
     
-    t=millis()%60;
+    t=millis()%60; // Get a number from 0 to 60. 
     
-    if (t<=60){ 
-      s=1.0*0.1*t;
-      d=6.0*t;
-    }
-    
+    s=1.0*0.1*t; // Simulate wind t runs from 0 to 60, e.g. sine from 0 to 6 m/s.
+    d=6.0*t;     // Simulate direction from 0-360 degrees. 
+        
     Send_to_SignalK("environment.wind.speedApparent",s);
     Send_to_SignalK("environment.wind.angleApparent",(d/180)*3.14159264); // SignalK uses Radians. Most of us uses degrees.
 }
