@@ -18,4 +18,5 @@ a simple script adapted from the examples to test the software serial port.
 The naming of the ports for D5 and D6 are the same marking as in the 
 board. The 14 and 12 refer to the GPIO ports. 
 
-
+The repo for the 9 bit library is found here:
+https://github.com/ionini/espsoftwareserial
