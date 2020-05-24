@@ -2,6 +2,21 @@
 
 ## Raymarine Seatalk 1 to SignalK over Wifi
 
+### Introduction
+Seatalk data are sendt over a special single wire propriatary bus and
+in a special Seatalk format. The electrical sigalling is using 12V and null Volt.
+This need to be translated to the TTL 3.3V level for the ESP8266 to read. 
+The Setalk messages need to be read (in 9 bit format) and decoded. The decoded data 
+are then transmitted over Wifi to the SignalK server and displayed by any SignalK
+web application.
+
+### ESP8266 are well suited
+The ESP8266 are well suited to this work, it handle wifi comunication well and 
+can be programmed to use pins to look like a serial port and have enough 
+processor capacity to read and decode the messages. 
+
+The ESP8266 are also easy to program with full support in the well known 
+Arduiono IDE.
 
 
 ### ESP8266 Serial ports
@@ -22,7 +37,10 @@ swSer.begin(BAUDRATE, D5, D6, SWSERIAL_9N1, false, 95, 11);
 would set up D5 (GPIO 14) as the receive pin and D6 (GPIO 12) as the transmit pin.
 
 
-
 The repo for the 9 bit library is found here:
 https://github.com/ionini/espsoftwareserial
+
+Some adaptation are neeed, and information about this is found in other files 
+within this directory. In addtion a working copy of the SoftwareSerial 9bit files.
+
 
