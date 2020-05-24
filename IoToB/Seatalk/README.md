@@ -16,7 +16,13 @@ The test for library and software is called SoftwareSerialTest.ino and is
 a simple script adapted from the examples to test the software serial port.
 
 The naming of the ports for D5 and D6 are the same marking as in the 
-board. The 14 and 12 refer to the GPIO ports. 
+board. The 14 and 12 refer to the GPIO ports. The first pin argument is the Rx 
+and the second the Tx. Hence the call:
+swSer.begin(BAUDRATE, D5, D6, SWSERIAL_9N1, false, 95, 11);
+would set up D5 (GPIO 14) as the receive pin and D6 (GPIO 12) as the transmit pin.
+
+
 
 The repo for the 9 bit library is found here:
 https://github.com/ionini/espsoftwareserial
+
