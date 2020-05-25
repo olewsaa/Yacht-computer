@@ -77,7 +77,6 @@ const char * pwd = "12345678";
 // IP address to send UDP data to.
 // Settings for SignalK port and SignalK server.
 const char * udpAddress     = "10.10.10.1";
-
 const char * SignalK_server = "10.10.10.1";
 const int udpPort = 55557; // This port is set using the SignalK server web page. Under Server/Connections/add.
 
@@ -108,9 +107,9 @@ void setup() {
   // Wait for connection
     while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
-      #ifdef DEBUG     
+#ifdef DEBUG     
       Serial.print(".");
-      #endif
+#endif
       if (++iter>30) ESP.restart(); // Issue a restart if fail to attach to network. Not really needed, but a restart is ok.
     }
     iter=0;
@@ -155,7 +154,7 @@ void generate_dummy_data(){
 /*  
  *   A function to make some random like Seatalk data.
  */
-  int value;  
+  unsigned int value;  // int is a 16 bit variable. 
  
 // The command bit is 0x01zz where zz are nibbles or byte with data. The command bit is the 9th bit. 
 // The 9-bit version takes a 16 bit word as in/out parameter, unlike the 8 bit version which uses 
@@ -465,7 +464,7 @@ void loop() {
     Serial.println(d, HEX);
     Serial.println((d & 0x0100), HEX);
 #endif 
-    if ((d & 0x0100) == 0) {
+    if ((d & 0x0100) == 0) {  // Check if the command bit is set, if not just enter one more cycle.
 #ifdef DEBUG 
       Serial.println("Error no command bit set");
 #endif 
