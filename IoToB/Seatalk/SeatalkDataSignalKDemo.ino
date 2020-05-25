@@ -71,18 +71,14 @@ WiFiUDP Udp;
   
 
 // WiFi network name and password 
-const char * ssid = "TeamRocketFiber";
-//const char * ssid = "openplotter";
-const char * pwd = "blackpearl";
-// const char * pwd = "12345678";
+const char * ssid = "openplotter";
+const char * pwd = "12345678";
 
 // IP address to send UDP data to.
 // Settings for SignalK port and SignalK server.
-const char * udpAddress        = "192.168.1.103";
-//const char * udpAddress     = "10.10.10.1";
+const char * udpAddress     = "10.10.10.1";
 
-const char * SignalK_server    = "192.168.1.103";
-//const char * SignalK_server = "10.10.10.1";
+const char * SignalK_server = "10.10.10.1";
 const int udpPort = 55557; // This port is set using the SignalK server web page. Under Server/Connections/add.
 
 // a global iteration counter, mostly for initiaring reboot/restart because of fail.
