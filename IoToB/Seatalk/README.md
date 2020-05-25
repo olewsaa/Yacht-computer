@@ -41,7 +41,6 @@ The repo for the 9 bit library is found here:
 https://github.com/ionini/espsoftwareserial
 
 Some adaptation are neeed, and information about this is found in the file UPDATE.md 
-within the SoftwareSerial directory. In addtion a working copy of the SoftwareSerial 
-9bit files. 
-
+within my version of the SoftwareSerial directory. In addtion a working copy of the 
+SoftwareSerial 9bit files.
 

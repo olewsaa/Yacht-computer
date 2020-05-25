@@ -1,10 +1,29 @@
 
 
-// On ESP8266:
-// At 80MHz runs up 57600ps, and at 160MHz CPU frequency up to 115200bps with only negligible errors.
-// Connect pin 12 to 14.
+/*
+ * 
+ * Seatalk demo messages converted to SignalK over wifi.
+ * 
+ * Demo sketch for testing Seatalk to SignalK over wifi. Uses SoftwareSerial to read 9-bit words  
+ * from Seatalk, this is demonstrated by a loopback connection from one pin to another.  Real emulated
+ * Seatalk data is written, decoded converted to SignalK messaged and transmitted over wifi to a SignalK server.
+ * 
+ * Ole W. Saastad,
+ * May 2020.
+ * 
+ * 
+ */
+
+
 
 /*
+ * 
+ * About SoftwareSerial.
+ * On ESP8266:
+ * At 80MHz runs up 57600ps, and at 160MHz CPU frequency up to 115200bps with only negligible errors.
+ * Connect pin 12 to 14.
+ *
+ * 
  * Test for SoftwareSerial (to get en extra serial port on the ESP8266. 
  * This example is part if initial testing using a SoftwareSerial 9 bit implementation.
  * https://github.com/ionini/espsoftwareserial Downloaded and installed as under : ~/Arduino/libraries
@@ -28,28 +47,46 @@
  * 
  */
 
-
+#define DEBUG
 
 #include <SoftwareSerial.h>
+// Including WiFi stuff - this is UDP and differ from TCP and also from ESP32 cards.
+#include <ESP8266WiFi.h>
+#include <ESP8266WiFiMulti.h>
+#include <WiFiUdp.h>
 
-#if defined(ESP8266) && !defined(D5)
+ 
 #define D5 (14)   // D5 is the D5 pin on the board, also named GPIO 14, hence (14) which reflects the GPIO14
 #define D6 (12)   // D6 is the D6 pin on the board, also named GPIO 12, hence (12) which reflects the GPIO12
-#define D7 (13)
-#define D8 (15)
-#endif
-
-#ifdef ESP32
-#define BAUD_RATE 57600
-#else
-#define BAUD_RATE 4800
-#endif
 
 // Reminder: the buffer size optimizations here, in particular the isrBufSize that only accommodates
 // a single 8N1 word, are on the basis that any char written to the loopback SoftwareSerial adapter gets read
 // before another write is performed. Block writes with a size greater than 1 would usually fail. 
 SoftwareSerial SwSerial;
 
+
+// Instanciate WiFi and UDP objects
+ESP8266WiFiMulti WiFiMulti;
+WiFiUDP Udp;
+  
+
+// WiFi network name and password 
+const char * ssid = "TeamRocketFiber";
+//const char * ssid = "openplotter";
+const char * pwd = "blackpearl";
+// const char * pwd = "12345678";
+
+// IP address to send UDP data to.
+// Settings for SignalK port and SignalK server.
+const char * udpAddress        = "192.168.1.103";
+//const char * udpAddress     = "10.10.10.1";
+
+const char * SignalK_server    = "192.168.1.103";
+//const char * SignalK_server = "10.10.10.1";
+const int udpPort = 55557; // This port is set using the SignalK server web page. Under Server/Connections/add.
+
+// a global iteration counter, mostly for initiaring reboot/restart because of fail.
+int iter=0;
 
 
 void setup() {
@@ -59,23 +96,55 @@ void setup() {
  * Set up wifi and connect.
  * 
  */
-
+  #ifdef DEBUG   
   Serial.begin(115200);
-  SwSerial.begin(BAUD_RATE, D5, D6, SWSERIAL_9N1, false, 95, 11);
+  #endif
+  pinMode(LED_BUILTIN, OUTPUT); // Initialize the LED_BUILTIN pin as an output
+  #ifdef DEBUG    
+  Serial.begin(115200);         // Setup Serial port speed
+  #endif 
+
+  // Connect to the WiFi network
+  WiFi.begin(ssid, pwd);
+  #ifdef DEBUG
+  Serial.println("Connect to the WiFi network");
+  #endif
+  // Wait for connection
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(1000);
+      #ifdef DEBUG     
+      Serial.print(".");
+      #endif
+      if (++iter>30) ESP.restart(); // Issue a restart if fail to attach to network. Not really needed, but a restart is ok.
+    }
+    iter=0;
+    #ifdef DEBUG    
+    Serial.println("");
+    Serial.print("Connected to ");
+    Serial.println(ssid);
+    Serial.print("IP address: ");
+    Serial.println(WiFi.localIP());
+    #endif
+    // This initializes udp and transfer buffer
+    Udp.begin(udpPort);    
+    delay(10);
+
+
+  // Set up SoftwareSerial.  
+  // Baud rade 4800 (Seatalk), Rx pin D5, Tx pin D6, 9 bits word, No parity, 1 stop bit. Rest is std.
+  SwSerial.begin(4800, D5, D6, SWSERIAL_9N1, false, 95, 11);
 
 // The command bit is 0x01zz where zz are nibbles or byte with data. The command bit is the 9t bit.
 
+  #ifdef DEBUG
   Serial.println("\nSoftware serial test started");
-
-}
-
-
+  #endif
+} // End setup
 
 
 /*
- * Seatalk data related constants
+ * Seatalk data related constants, included for reference.
  */
-
 
 #define DBT      0x00,0x02,0x44,0x01,0x60    //  (DBT): 00 02 YZ XX XX
 #define AWA      0x10,0x01,0x01,0x20         //  (AWA): 10 01 XX YY
@@ -155,9 +224,9 @@ void generate_dummy_data(){
  
 void Send_to_SignalK(String key, double value){
    
-  // Settings for SignalK port and SignalK server.
-    //const uint16_t port = udpPort;   // SignalK uses this port.
-    //const char * host = SignalK_server; // ip number of the SignalK server.
+    // Settings for SignalK port and SignalK server.
+    const uint16_t port = udpPort;   // SignalK uses this port.
+    const char * host = SignalK_server; // ip number of the SignalK server.
     String cmd;
     char valuestring[6];
 
@@ -166,8 +235,21 @@ void Send_to_SignalK(String key, double value){
     dtostrf(value,3,2,valuestring); // Convert double to a string
     cmd += valuestring;
     cmd += "}]}]}\0";
+    #ifdef DEBUG      
     Serial.println(cmd);
+    Serial.println(cmd.length());
+    #endif     
+    
+    char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
+    Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
+    strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
+    #ifdef DEBUG      
+    Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
+    #endif    
+    Udp.write(cmdc);                  // Send the message to the SignalK server. 
+    Udp.endPacket();                  // End the connection.
     delay(10);                        // Short delay to recover. 
+  
 } /* End Send_to_SignalK */
 
 
@@ -191,13 +273,17 @@ int aws(){
   float awsp;
   
   d=SwSerial.read();
-  //Serial.println(d, HEX);
-  //if (d == 0x0001) Serial.write("Wind speed : ");
+  #ifdef DEBUG
+  Serial.println(d, HEX);
+  if (d == 0x0001) Serial.write("Wind speed : ");
+  #endif
   d=SwSerial.read();
   awsp = d;
   d=SwSerial.read();
   awsp+=d/10.0;
-  //Serial.println(awsp);
+  #ifdef DEBUG
+  Serial.println(awsp);
+  #endif
   Send_to_SignalK("environment.wind.speedApparent",awsp);
 }
 
@@ -212,17 +298,25 @@ int awa() {
   int awang;
   
   d=SwSerial.read();
-  //Serial.println(d, HEX);
-  //if (d == 0x0001) Serial.write("Wind angle : ");
+  #ifdef DEBUG
+  Serial.println(d, HEX);
+  if (d == 0x0001) Serial.write("Wind angle : ");
+  #endif
   d=SwSerial.read();
   c1=lowByte(d);
-  //Serial.println(c1, HEX);  
+  #ifdef DEBUG  
+  Serial.println(c1, HEX);  
+  #endif
   d=SwSerial.read();
-  c2=lowByte(d);  
-  //Serial.println(c2, HEX); 
+  c2=lowByte(d);
+  #ifdef DEBUG  
+  Serial.println(c2, HEX);
+  #endif 
   awang=makeWord(c1,c2);
-  //Serial.println(awang);
-  Send_to_SignalK("environment.wind.angleApparent",awang);
+  #ifdef DEBUG
+  Serial.println(awang);
+  #endif
+  Send_to_SignalK("environment.wind.angleApparent",(awang/180.0)*3.1415);
 }
 
 
@@ -317,20 +411,30 @@ void loop() {
   unsigned int d;
   char c1, c2;
 
-
+  digitalWrite(LED_BUILTIN, LOW);  // Turn the LED on while we transfer the data.
+  
   generate_dummy_data();
+  #ifdef DEBUG
+  Serial.println("\nRandom data sendt:");
+  #endif  
   
   while (SwSerial.available() > 0) {
     d=SwSerial.read();
-    //Serial.println(d, HEX);
-    //Serial.println((d & 0x0100), HEX); 
-    if ((d & 0x0100) == 0) { 
-      // Serial.println("Error no command bit set"); 
+    #ifdef DEBUG
+    Serial.println(d, HEX);
+    Serial.println((d & 0x0100), HEX);
+    #endif 
+    if ((d & 0x0100) == 0) {
+      #ifdef DEBUG 
+      Serial.println("Error no command bit set");
+      #endif 
       continue; 
     }
-    d=(d & 0x00FF); // Strip off the comand bit. Only the last 8 bits in variable d (16 bits uint) are left.
-    //Serial.println(d, HEX);
-    
+    d=(d & 0x00FF); // Strip off the comand bit. Only the least significant 8 bits in variable d (16 bits uint) 
+                    // are left.
+    #ifdef DEBUG
+    Serial.println(d, HEX);
+    #endif
     // Apparent wind speed 
     if (d == 0x0011) aws();
 
@@ -346,10 +450,10 @@ void loop() {
     // Water temperature
     if (d == 0x0027) wtemp();
 
-    yield(); // Let other tasks, like wifi/tcp etc do their work.
+    yield(); // Let other tasks like wifi/tcp etc do their work.
   } // End while loop
-
-  delay(2000);
-  Serial.println("\nRandom data sendt:");
+  
+  digitalWrite(LED_BUILTIN, HIGH); // Turn the LED off by making the voltage HIGH.
+  delay(4000);
   
 }
