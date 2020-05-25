@@ -91,20 +91,20 @@ void setup() {
  * Set up the Serial port and the Software Serial port to 9 bits
  * Set up wifi and connect.
  * 
- */
-  #ifdef DEBUG   
+ */ 
+#ifdef DEBUG   
   Serial.begin(115200);
-  #endif
+#endif
   pinMode(LED_BUILTIN, OUTPUT); // Initialize the LED_BUILTIN pin as an output
-  #ifdef DEBUG    
+#ifdef DEBUG    
   Serial.begin(115200);         // Setup Serial port speed
-  #endif 
+#endif 
 
   // Connect to the WiFi network
   WiFi.begin(ssid, pwd);
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.println("Connect to the WiFi network");
-  #endif
+#endif
   // Wait for connection
     while (WiFi.status() != WL_CONNECTED) {
       delay(1000);
@@ -114,13 +114,13 @@ void setup() {
       if (++iter>30) ESP.restart(); // Issue a restart if fail to attach to network. Not really needed, but a restart is ok.
     }
     iter=0;
-    #ifdef DEBUG    
+#ifdef DEBUG    
     Serial.println("");
     Serial.print("Connected to ");
     Serial.println(ssid);
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
-    #endif
+#endif
     // This initializes udp and transfer buffer
     Udp.begin(udpPort);    
     delay(10);
@@ -132,9 +132,9 @@ void setup() {
 
 // The command bit is 0x01zz where zz are nibbles or byte with data. The command bit is the 9t bit.
 
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.println("\nSoftware serial test started");
-  #endif
+#endif
 } // End setup
 
 
@@ -156,13 +156,16 @@ void generate_dummy_data(){
  *   A function to make some random like Seatalk data.
  */
   int value;  
-  long ran;
- // The command bit is 0x01zz where zz are nibbles or byte with data. The command bit is the 9t bit. 
+ 
+// The command bit is 0x01zz where zz are nibbles or byte with data. The command bit is the 9th bit. 
+// The 9-bit version takes a 16 bit word as in/out parameter, unlike the 8 bit version which uses 
+// byte/char 8 bit sized argument. 
+ 
 
 // Apparent Wind speed:
   SwSerial.write(0x0111);
   SwSerial.write(0x0001);
-  value=(int)random(0,15);
+  value=(int)random(0,25);  // Random return long (32 bit), cast to int (16 bit).
   SwSerial.write(value);
   value=(int)random(0,255);
   SwSerial.write(value);
@@ -188,7 +191,6 @@ void generate_dummy_data(){
   SwSerial.write(value);
 
 // Speed through water
-
   SwSerial.write(0x0120); // 20 Speed through water
   SwSerial.write(0x0001); // 01 
   value=(int)random(0,1);
@@ -196,7 +198,7 @@ void generate_dummy_data(){
   value=(int)random(0,255);
   SwSerial.write(value); // 
 
-
+// Some data with error (no command bit, should just be trown)
   SwSerial.write(0x001a); // No command bit. Should be not be handled.
   SwSerial.write(0x003c); // No command bit. Should be not be handled.
   SwSerial.write(0x006b); // No command bit. Should be not be handled.
@@ -208,9 +210,12 @@ void generate_dummy_data(){
   SwSerial.write(value); // Example Hex 0x101 is 257. WTemp = (257-100)/10 => 15.7 
   value=(int)random(0,255);
   SwSerial.write(value);
-  
-  //Serial.println("\nData written to SoftwareSerial port");
+
+#ifdef DEBUG
+  Serial.println("\nData written to SoftwareSerial port");
+#endif
 } // End generate_dummy_data
+
 
 
 /*
@@ -226,26 +231,26 @@ void Send_to_SignalK(String key, double value){
     String cmd;
     char valuestring[6];
 
+    // Making a SignalK string in this way is a hack. 
     cmd = "{\"updates\": [{\"$source\": \"Simulation\",\"values\":[ {\"path\":\"";
     cmd += key; cmd += "\","; cmd += "\"value\":";
     dtostrf(value,3,2,valuestring); // Convert double to a string
     cmd += valuestring;
     cmd += "}]}]}\0";
-    #ifdef DEBUG      
+#ifdef DEBUG      
     Serial.println(cmd);
     Serial.println(cmd.length());
-    #endif     
+#endif     
     
     char cmdc[cmd.length()+1];        // Convert the String to an array of characters.
     Udp.beginPacket(host,port);       // Connect to to server and prepare for UDP transfer.
     strncpy(cmdc,cmd.c_str(),sizeof(cmdc));  // Convert from String to array of characters. 
-    #ifdef DEBUG      
-    Serial.println(cmdc); Serial.print(" Message har length: "); Serial.println(sizeof(cmdc));
-    #endif    
+#ifdef DEBUG      
+    Serial.println(cmdc); Serial.print(" Message has length: "); Serial.println(sizeof(cmdc));
+#endif    
     Udp.write(cmdc);                  // Send the message to the SignalK server. 
     Udp.endPacket();                  // End the connection.
     delay(10);                        // Short delay to recover. 
-  
 } /* End Send_to_SignalK */
 
 
@@ -267,19 +272,32 @@ int aws(){
   unsigned int d;
   char c1, c2;
   float awsp;
+  float corr;
   
   d=SwSerial.read();
-  #ifdef DEBUG
-  Serial.println(d, HEX);
+#ifdef DEBUG
+  Serial.write("d HEX "); Serial.println(d, HEX);
   if (d == 0x0001) Serial.write("Wind speed : ");
-  #endif
+#endif
   d=SwSerial.read();
-  awsp = d;
+  corr = (d & 0x80)?1.0:1.852;
+  c1 = lowByte((d & 0x7f));
+#ifdef DEBUG
+  Serial.write("d  HEX "); Serial.println(d, HEX);
+  Serial.write("c1 HEX ");Serial.println(c1, HEX);
+  Serial.write("corr "); Serial.println(corr);
+#endif
   d=SwSerial.read();
-  awsp+=d/10.0;
-  #ifdef DEBUG
+  c2=lowByte(d);
+#ifdef DEBUG
+  Serial.write("c2 HEX "); Serial.println(c2, HEX);
+#endif   
+  awsp=((float)c1+((float)c2)/10.0)/corr;
+#ifdef DEBUG
+  Serial.println(corr);
+  Serial.write("AWS : ");
   Serial.println(awsp);
-  #endif
+#endif
   Send_to_SignalK("environment.wind.speedApparent",awsp);
 }
 
@@ -294,24 +312,24 @@ int awa() {
   int awang;
   
   d=SwSerial.read();
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.println(d, HEX);
   if (d == 0x0001) Serial.write("Wind angle : ");
-  #endif
+#endif
   d=SwSerial.read();
   c1=lowByte(d);
-  #ifdef DEBUG  
+#ifdef DEBUG  
   Serial.println(c1, HEX);  
-  #endif
+#endif
   d=SwSerial.read();
   c2=lowByte(d);
-  #ifdef DEBUG  
+#ifdef DEBUG  
   Serial.println(c2, HEX);
-  #endif 
+#endif 
   awang=makeWord(c1,c2);
-  #ifdef DEBUG
+#ifdef DEBUG
   Serial.println(awang);
-  #endif
+#endif
   Send_to_SignalK("environment.wind.angleApparent",(awang/180.0)*3.1415);
 }
 
@@ -329,26 +347,43 @@ int dbt() {
   
   int meters;
   d=SwSerial.read();
-  //Serial.println(d, HEX);
-  //if (d == 0x0002) Serial.write("Depth : ");
+#ifdef DEBUG
+  Serial.println(d, HEX);
+  if (d == 0x0002) Serial.write("Depth : ");
+#endif
   d=SwSerial.read();
-  //Serial.println((d & 0x00F0), HEX);
+#ifdef DEBUG
+  Serial.println((d & 0x00F0), HEX);
+#endif
   meters=((d & 0x00F0) == 0x40);
-  //Serial.println(meters, HEX);
-  // Read the data XX XX 
-  d=SwSerial.read();  
-  //Serial.println(d);
+#ifdef DEBUG
+  Serial.println(meters, HEX);
+#endif  
+  //Read the data XX XX 
+  d=SwSerial.read(); 
+#ifdef DEBUG 
+  Serial.println(d);
+#endif  
   c1=lowByte(d);
-  //Serial.println(c1, HEX);
+#ifdef DEBUG
+  Serial.println(c1, HEX);
+#endif
   d=SwSerial.read();
-  //Serial.println(d, HEX);
+#ifdef DEBUG
+  Serial.println(d, HEX);
+#endif
   c2=lowByte(d);
-  //Serial.println(c2, HEX);
+#ifdef DEBUG
+  Serial.println(c2, HEX);
+#endif
   d=makeWord(c1,c2);
-  //Serial.println(d);
-      
+#ifdef DEBUG
+  Serial.println(d);
+#endif      
   if (meters) dbt = (int)d/10.0; else dbt=(int)d/10.0*3.28;
-  //Serial.println(dbt);
+#ifdef DEBUG
+  Serial.println(dbt);
+#endif
   Send_to_SignalK("environment.depth.belowTransducer",dbt);
 }
 
@@ -363,14 +398,18 @@ int wtemp() {
   float wtemp;
   
   d=SwSerial.read(); // Read the 01.
-  //Serial.write("Water Temperature : ");
+#ifdef DEBUG
+  Serial.write("Water Temperature : ");
+#endif
   // Read the data XX XX
   d=SwSerial.read();
   c1=lowByte(d);
   d=SwSerial.read();
   c2=lowByte(d);
   d=makeWord(c1,c2); wtemp=(((float)d-100.0)/10.0);
-  //Serial.println(wtemp);
+#ifdef DEBUG
+  Serial.println(wtemp);
+#endif
   Send_to_SignalK("environment.water.temperature",(wtemp+273.15));
 }
 
@@ -386,21 +425,27 @@ int stw() {
   float stw;
   
   d=SwSerial.read(); // Read the 01.
-  //Serial.println(d, HEX);
-  //Serial.write("Speed through water : ");
+#ifdef DEBUG
+  Serial.println(d, HEX);
+  Serial.write("Speed through water : ");
+#endif
   // Read the data XX XX
   d=SwSerial.read();
   c1=lowByte(d);
   d=SwSerial.read();
   c2=lowByte(d);
   d=makeWord(c1,c2); stw=((float)d/10.0)/1.852; // SignalK is in m/s.
-  //Serial.println(stw);
+#ifdef DEBUG
+  Serial.println(stw);
+#endif
   Send_to_SignalK("navigation.speedThroughWater",stw);
 }
 
 
+
+
 /*
- * Main loop start here.
+ * Main loop start here, this is the endless loop.
  */
 
 void loop() {
@@ -409,31 +454,32 @@ void loop() {
 
   digitalWrite(LED_BUILTIN, LOW);  // Turn the LED on while we transfer the data.
   
-  generate_dummy_data();
-  #ifdef DEBUG
+  generate_dummy_data(); // Generate some random data in order to have some changing data to display.
+#ifdef DEBUG
   Serial.println("\nRandom data sendt:");
-  #endif  
+#endif  
   
   while (SwSerial.available() > 0) {
     d=SwSerial.read();
-    #ifdef DEBUG
+#ifdef DEBUG
     Serial.println(d, HEX);
     Serial.println((d & 0x0100), HEX);
-    #endif 
+#endif 
     if ((d & 0x0100) == 0) {
-      #ifdef DEBUG 
+#ifdef DEBUG 
       Serial.println("Error no command bit set");
-      #endif 
+#endif 
       continue; 
-    }
-    d=(d & 0x00FF); // Strip off the comand bit. Only the least significant 8 bits in variable d (16 bits uint) 
-                    // are left.
-    #ifdef DEBUG
+    }  // if comand bit is set, this is the 9th bit. 
+     
+    d=(d & 0x00FF); // Strip off the comand bit. Only the least significant 8 bits in 
+                    // variable d (16 bits uint) are left.
+#ifdef DEBUG
     Serial.println(d, HEX);
-    #endif
+#endif
     // Apparent wind speed 
     if (d == 0x0011) aws();
-
+    
     // Apparent wind angle
     if (d == 0x0010) awa();
 
@@ -450,6 +496,6 @@ void loop() {
   } // End while loop
   
   digitalWrite(LED_BUILTIN, HIGH); // Turn the LED off by making the voltage HIGH.
-  delay(4000);
+  delay(20000);
   
-}
+}  // End loop 
