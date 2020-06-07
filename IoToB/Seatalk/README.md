@@ -64,5 +64,3 @@ http://berreizeta.blogspot.com/2016/12/blog-post.html and the software at the
 google drive : https://drive.google.com/open?id=0B-aQ4eIWtpZcV3pMRTYyV2FpY1U .
 
 
-
-
