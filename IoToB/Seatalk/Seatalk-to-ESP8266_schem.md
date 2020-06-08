@@ -11,14 +11,15 @@ logic 1.  See the the [Thomas Knauf Seatalk
 page](http://www.thomasknauf.de/rap/seatalk1.htm) which the reference
 page for Seatalk information. This require a level convertion from
 +12V to +3.3V in order to process the signal using the
-ESP8222. ESP8622 uses 3.3V while Arduino uses 5V.
+ESP8222 which uses uses 3.3V (Arduino uses 5V).
 
 #### Simulation
 
-The figure show how the level convertion is done using a single
-transistor, the simulation show the voltage levels and that the output
-is safe to output to the pins of the ESP8622. The Seatalk data source
-is replaced by a signal generator to simulate the Seatalk data.
+The figure show how the level convertion is done using a single none
+inverting transistor stage, the simulation show the voltage levels and
+that the output is safe to output to the pins of the ESP8622. The
+Seatalk data source is replaced by a signal generator to simulate the
+Seatalk data.
 
 ![figure](https://github.com/olewsaa/Yacht-computer/blob/master/IoToB/Seatalk/Seatalk-to-ESP8266_schem.png)
 
