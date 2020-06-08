@@ -18,7 +18,7 @@ is safe to output to the pins of the ESP6622. The Seatalk data source
 is replaced by a signal generator to simulate the Seatalk data.
 
 
-[https://github.com/olewsaa/Yacht-computer/blob/master/IoToB/Seatalk/Seatalk-to-ESP8266_schem.png]
+(https://github.com/olewsaa/Yacht-computer/blob/master/IoToB/Seatalk/Seatalk-to-ESP8266_schem.png)
 
 
 
