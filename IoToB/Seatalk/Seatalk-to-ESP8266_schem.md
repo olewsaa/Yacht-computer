@@ -15,7 +15,7 @@ in order to process the signal using thre ESP8222.
 
 The figure show how the level convertion is done using a single
 transistor, the simulation show the voltage levels and that the output
-is safe to output to the pins of the ESP6622. The Seatalk data source
+is safe to output to the pins of the ESP8622. The Seatalk data source
 is replaced by a signal generator to simulate the Seatalk data.
 
 ![figure](https://github.com/olewsaa/Yacht-computer/blob/master/IoToB/Seatalk/Seatalk-to-ESP8266_schem.png)
