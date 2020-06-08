@@ -7,7 +7,8 @@
 The Seatalk uses a different signal level codeing than the serial
 communication fo the normal Arduino/ESP8266. The common TTL serial
 signal level are 0V for logic 0 and +3.3 or 5V for logic 1. 
-See the the [Thomas Knauf Seatalk page](http://www.thomasknauf.de/rap/seatalk1.htm).
+See the the [Thomas Knauf Seatalk page](http://www.thomasknauf.de/rap/seatalk1.htm) 
+which the reference page for Seatalk information.
 
 This require a level convertion from +12V/3.3V to 0V/0V
 in order to process the signal using thre ESP8222. 
