@@ -13,6 +13,8 @@ which the reference page for Seatalk information.
 This require a level convertion from +12V/3.3V to 0V/0V
 in order to process the signal using thre ESP8222. 
 
+#### Simulation
+
 The figure show how the level convertion is done using a single
 transistor, the simulation show the voltage levels and that the output
 is safe to output to the pins of the ESP8622. The Seatalk data source
