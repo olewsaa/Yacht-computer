@@ -19,6 +19,11 @@ is replaced by a signal generator to simulate the Seatalk data.
 
 ![figure](https://github.com/olewsaa/Yacht-computer/blob/master/IoToB/Seatalk/Seatalk-to-ESP8266_schem.png)
 
+And the electric signal simulated to show the 3.3V signaling level.
+
+![figure](https://github.com/olewsaa/Yacht-computer/blob/master/IoToB/Seatalk/Seatalk-Grapher.png)
+
+
 
 
 
