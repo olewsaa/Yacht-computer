@@ -45,8 +45,8 @@
  * 
  */
 
-#define DEBUG
-#define DEBUG2
+#define DEBUG  // Simple debug info
+#define DEBUG2 // Extended debug info 
 
 #include <SoftwareSerial.h>
 
@@ -69,11 +69,11 @@ void setup() {
 
   pinMode(LED_BUILTIN, OUTPUT); // Initialize the LED_BUILTIN pin as an output
 #ifdef DEBUG    
-  Serial.begin(115200);         // Setup Serial port speed
-#endif 
+  Serial.begin(115200);         // Setup Serial port speed, could probably do more
+#endif                          // as upload can run at 2 or 4x this speed. 
 
   // Set up SoftwareSerial.  
-  // Baud rade 4800 (Seatalk), Rx pin D5, Tx pin D6, 9 bits word, No parity, 1 stop bit. Rest is std.
+  // Baud rate 4800 (Seatalk), Rx pin D5, Tx pin D6, 9 bits word, No parity, 1 stop bit. Rest is std.
   //SwSerial.begin(4800, D5, D6, SWSERIAL_9N1, false, 95, 11); // This did not work.
   SwSerial.begin(4800, D5, D6, SWSERIAL_9N1); // Using the defaults seems to work.
 
@@ -81,25 +81,14 @@ void setup() {
 // This is the reason for having to use 9 bits. Some have used the Parity as way of detecting the 9th bit. 
 
 #ifdef DEBUG
-  Serial.println("\nSoftware serial test started");
+  Serial.println("\nSoftware serial test started\n");
 #endif
 } // End setup
 
 
-/*
- * Seatalk data related constants, included for reference.
- */
 
-#define DBT      0x00,0x02,0x44,0x01,0x60    //  (DBT): 00 02 YZ XX XX
-#define AWA      0x10,0x01,0x01,0x20         //  (AWA): 10 01 XX YY
-#define AWS      0x11,0x01,0x20,0x01         //  (AWS): 11 01 XX 0Y
-#define STW      0x20,0x01,0x01,0x20         //  (STW): 20 01 XX XX
-#define TRMIL    0x21,0x02,0x01,0x20,0x05    //  Trip Mileage XXXXX/100 nautical miles : 21 02 XX XX 0X
-#define TMIL     0x22,0x01,0x01,0x20,0x00    //  Total Mileage XXXXX/100 nautical miles : 22 02 XX XX 00
-#define WTEMP    0x27,0x01,0x01,0x20         //  (WTEMP) Water temp xxxx-100/10 Celsius: 27 01 XX XX
-
-
-// Empty function, just a dummy to handle calls to Send_to_SignalK .
+// Empty function, just a dummy to handle calls to Send_to_SignalK,
+// but prints out text and values is simple DEBUG is on.
 
 void Send_to_SignalK(String key, double value){
 #ifdef DEBUG
@@ -374,12 +363,15 @@ void loop() {
       continue; 
     }  // if comand bit is not set, this is the 9th bit. 
 
-    // We have a valid command.  
+    // We have a valid command, or at least hope so.  
     d=(d & 0x00FF); // Strip off the comand bit. Only the least significant 8 bits in 
                     // the variable d (16 bits uint) are left.
+                    // Another option is to just use lowByte(d) to have only the 8 last bits. 
 #ifdef DEBUG2
     Serial.println(d, HEX);
+    Serial.println(lowByte(d), HEX); // The two should be identical.
 #endif
+    // Could have used a switch statement here.
     // Apparent wind speed 
     if (d == 0x0011) aws();
     
