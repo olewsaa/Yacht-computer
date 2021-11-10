@@ -1,5 +1,11 @@
 # Yacht-computer project
 
+## Now supported using SignalK
+The the recent support using SignalK the need to writing a Seatalk-1 to wifi becomes less interesting. 
+The project is currently paused.
+https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/compass-server
+
+
 ## Raymarine Seatalk 1 to SignalK over Wifi
 
 ### Introduction
