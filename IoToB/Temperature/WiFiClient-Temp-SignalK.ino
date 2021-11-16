@@ -1,18 +1,26 @@
 /*
  * 
  *  This sketch uses a ESP 8266 and a number of DS18B20 devices  to measure temperature 
- *  and sends messages to a SignalK server.
+ *  and sends messages to a SignalK server at regular intervals.
  *  
- *  Select board  ESP-12E , NodeMCU 1.0 ESP12-E module
+ *  Select board  ESP-12E , NodeMCU 1.0 ESP12-E module. 
  *
  * 
  *  SignalK uses UDP. The syntax is differ between ESP8622 and ESP32, this sketch 
- *  cannot be used for ESP32.
+ *  cannot be used for ESP32. 
  *  
  *  
  *  Names of Signal K keys of the temperature sensors initialised in the setup function.
+ *  Check valid names of keys with the signal K documentation, 
+ *  https://signalk.org/specification/1.5.0/doc/vesselsBranch.html
  *  
  */
+
+ /*
+  * Version 1.0  02/01-2020
+  * Version 1.1  15/11-2021 
+  * 
+  */
 
 // Enable debug to print out messages on the serial port.
 #define DEBUG;
@@ -44,16 +52,14 @@ DeviceAddress devAddr[ONE_WIRE_MAX_DEV];  // An array devicetemperature sensors
 float tempDev[ONE_WIRE_MAX_DEV];          // Saving the last measurement of temperature
 
 // WiFi network name and password 
-// const char * ssid = "TeamRocketHQ";
 const char * ssid = "openplotter";
 const char * pwd = "blackpearl";
-// const char * pwd = "12345678";
+
 
 // IP address to send UDP data to.
 // Settings for SignalK port and SignalK server.
 // const char * udpAddress        = "192.168.1.252";
-// const char * udpAddress     = "10.10.10.1";
-
+// const char * udpAddress        = "10.10.10.1";
 // const char * SignalK_server    = "192.168.1.252";
 const char * SignalK_server = "10.10.10.1";
 const int udpPort = 55557;
@@ -64,7 +70,8 @@ const int udpPort = 55557;
 const char * keys[ONE_WIRE_MAX_DEV];  // keys assigned in setup function.
 
 /*
- * Iterations counter before restart, an ugly hack.
+ * Iterations counter zeroed before restart, global interation counter. 
+ * Used to reset at regular inrervals as the loop tend to hang at random intervals.
  */
 int  iter=0;
 
@@ -76,7 +83,7 @@ int  iter=0;
 
 
 
-// Setup function
+// The Setup function
 
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT); // Initialize the LED_BUILTIN pin as an output
@@ -116,14 +123,14 @@ void setup() {
 /*
  * 
  * Set up the different SignalK names/paths which must be spec  
- * compliant (see: https://signalk.org/specification/1.3.0/doc/vesselsBranch.html ):
+ * compliant (see: https://signalk.org/specification/1.5.0/doc/vesselsBranch.html ):
  * 
  * Some of these expect temperature in K like environment.inside.temperature.
  */
 //********************************************************************************************************************************** 
 
     keys[0]="propulsion.1.temperature";                       // Engine engine block ; SignalK: propulsion/<RegExp>/temperature
-    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp   ; SignalK: environment/inside/engineRoom 
+    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp   ; SignalK: environment/inside/engineRoom   environment/inside/engineRoom1/temperature
     keys[2]="electrical.alternators.1.temperature.warnUpper"; // Alternator ; SignalK: electrical/alternators/<RegExp>/temperature
 
     keys[3]="propulsion.engine.coolantTemperature"; 
@@ -131,7 +138,7 @@ void setup() {
     
 //**********************************************************************************************************************************
 
-}  // End setup 
+}  // End setup function
 
 
 
@@ -155,7 +162,8 @@ void SetupDS18B20(){
   Serial.print("Parasite power is: "); 
   if( DS18B20.isParasitePowerMode() ){ 
     Serial.println("ON");
-  }else{
+  }
+  else {
     Serial.println("OFF");
   }
 #endif
@@ -208,6 +216,9 @@ void SetupDS18B20(){
 
 /*
  * Function to convert strings and values and forward it using UDP to the Signal K server 
+ *
+ * The SignalK message is manually put together to make it simple. A library might be 
+ * simpler, but introduce yet dependencies. 
  * 
  */
  
@@ -252,12 +263,13 @@ void Send_to_SignalK(String key, double value){
 
 void TempLoop(){
     for(int i=0; i<numberOfDevices; i++){
-      float tempC = DS18B20.getTempC(devAddr[i]); //Measuring temperature in Celsius
+      float tempC = DS18B20.getTempC(devAddr[i]);
+      // Measuring temperature in Celsius
       // If temperature reading fails, e.g. the error code -127 is reported the
       // 1-wire setup is called and the function return. Hopefully this will cause the
       // reading to return to normal again. Initially some electric noise caused the sensor
       // readings to fail after only a few minutes.
-      if (tempC<-100) {   
+      if (tempC < -100) {   
           // Error trigger er restart, it might work.
           ESP.restart();
           return; 
@@ -266,7 +278,7 @@ void TempLoop(){
 #ifdef DEBUG        
       Serial.print("Device "); Serial.print(i); Serial.print(" Temp C: "); Serial.println(tempC);
 #endif      
-      Send_to_SignalK(keys[i],tempDev[i]);
+      Send_to_SignalK(keys[i],tempDev[i]);  // Send the key with its temperature to the SignalK sever. 
     }
     DS18B20.setWaitForConversion(false); // No waiting for measurement
     DS18B20.requestTemperatures();       // Initiate the temperature measurement
@@ -279,7 +291,6 @@ void loop() {
   digitalWrite(LED_BUILTIN, LOW);  // Turn the LED on while we transfer the data.
   TempLoop();                      // Loop through devices and measure 
   digitalWrite(LED_BUILTIN, HIGH); // Turn the LED off by making the voltage HIGH.
-  delay(5000);                     // Send frequancy 5s => 0.2 Hz.
+  delay(5000);                     // Send frequency, every 5 second => 0.2 Hz.
 }  // End looop
  
-
