@@ -23,7 +23,7 @@
   */
 
 // Enable debug to print out messages on the serial port.
-#define DEBUG;
+#define DEBUG ;
 
 // One wire bus setup
 #include <OneWire.h>
