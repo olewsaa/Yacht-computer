@@ -36,7 +36,7 @@ The 1-wire sensors are powered by 3.3 Volt from the ESP-8266. There
 should be a pull up resistor from +3.3V to the signal wire.  My setup
 is a star topology which is not really in line with best practice. The
 pullup resistor is lowered to 2.2k as the three cables introduce a lot
-os capacitance and inductance. In addition to limit the impedance
+of capacitance and inductance. In addition to limit the impedance
 misfit and reflection problems on the transmission line a serial
 resistor of 100 ohms is inserted in each line. So far these measures have
 worked and the system now seem to be stable.
@@ -47,6 +47,13 @@ all the signals travels on a shared single bus wire, hence the name
 1-wire. It's a very simple setup and extra sensors can easily be
 added. Each sensor has a unique serial number so there is no
 addressing issues.
+
+### Experience
+
+The box was placed inside the stairway obove the engine, but outside of the 
+isolation. While not 70°C like inside the engine room, hot enough for the B1205 
+converter to overheat. The box is now placed in the technical room with a junction
+inside the machine room and a 3 wire cable run to the box.
 
 
 
