@@ -76,7 +76,7 @@ List the audio devices / soundcards
 The relevant one yield:
 Rates: 8000, 16000, 24000, 32000, 44100, 48000, Bits 16.
 
-Start piardopc (use port 8515, btw is the default)
+Start piardopc (use port 8515, btw is the default), 2 for card number and 0 for device 0.
 
      ./piardopc 8515 plughw:2,0 plughw:2,0
 
