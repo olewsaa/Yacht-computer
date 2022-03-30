@@ -6,11 +6,11 @@ Using pat with Raspberry Pi4.
 Please review the instructions found at [getpat](https://getpat.io/)
 and possibly the 3 video instructions at
 
-- [Part 1](https://youtu.be/oZJJLfVz23k) 
-- [Part 2](https://youtu.be/BgqsTbxzR4E) 
-- [Part 3](https://youtu.be/ZCMHeuNjhK0)
+- Installing pat [Part 1](https://youtu.be/oZJJLfVz23k) 
+- Installing pat [Part 2](https://youtu.be/BgqsTbxzR4E) 
+- Installing pat [Part 3](https://youtu.be/ZCMHeuNjhK0)
 
-Below is provided a quicj cut and paste installation example.
+Below is provided a quick cut and paste installation example.
 
 We assume the rig control flrig is installed. I use a Xiegu G90
 which is supported in version 1.4.5. See [fldigi](http://www.w1hkj.com/),
@@ -33,7 +33,7 @@ As your prefered user, in my case just pi.
 
 change some variables (as the youtube suggest I use port 5000 for pat),
 
-`  "mycall": "Callsign",
+`  "mycall": "Callsign",<br>
   "secure_login_password": "PASSWORD",
   "auxiliary_addresses": [],
   "locator": "JO59JX",
