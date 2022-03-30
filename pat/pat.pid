@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for app in pat piardopc rigctld ; do
+	#echo $app 
+	p=$(pidof $app);	
+	if [ $? -eq 0 ]; then
+		echo "PID of " $app  $p
+	else 
+		echo $app "not running"
+	fi	
+done

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+killall pat
+killall piardopc
+killall rigctld
+
+pidof pat
+pidof piardopc
+pidof rigctld
+
+
