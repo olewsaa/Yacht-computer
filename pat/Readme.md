@@ -23,9 +23,9 @@ which is supported in version 1.4.5. See [fldigi](http://www.w1hkj.com/),
 Download pat, check [pat releases](https://github.com/la5nta/pat/releases),
 below is shown 0.12.1 version, this gets updated regularly.
 
-`sudo -i 
-wget https://github.com/la5nta/pat/releases/download/v0.12.1/pat_0.12.1_linux_armhf.deb
-dpkg --install pat_0.12.1_linux_armhf.deb`
+     sudo -i 
+     wget https://github.com/la5nta/pat/releases/download/v0.12.1/pat_0.12.1_linux_armhf.deb
+     dpkg --install pat_0.12.1_linux_armhf.deb`
 
 As your prefered user, in my case just pi.
 
@@ -53,67 +53,78 @@ The Amateur Radio Digital Open Protocol [ARPAP](https://www.cantab.net/users/joh
 
 The ardopc is distributed as a binary, source code is available.
 
-`sudo -i
-cd /root
-mkdir ardop ; cd ardop
-wget https://www.cantab.net/users/john.wiseman/Downloads/Beta/piardopc
-cp piardopc /usr/local/bin/`
+     sudo -i
+     cd /root
+     mkdir ardop ; cd ardop
+     wget https://www.cantab.net/users/john.wiseman/Downloads/Beta/piardopc
+     cp piardopc /usr/local/bin/`
 
 This would install the binary and make it accessable by default.
 
 Test for USB soundcard / audio device :
-`arecord -l`
+
+     arecord -l
+
 record the device 
 (I got: card 2: Device (USB Audio Device), device 0: USB Audio (USB Audio))
 
 List the audio devices / soundcards
-`cat   /proc/asound/card
-cat   /proc/asound/card3/stream0`
+
+     cat   /proc/asound/card
+     cat   /proc/asound/card3/stream0
+	 
 The relevant one yield:
 Rates: 8000, 16000, 24000, 32000, 44100, 48000, Bits 16.
 
 Start piardopc (use port 8515, btw is the default)
-`./piardopc 8515 plughw:2,0 plughw:2,0`
+
+     ./piardopc 8515 plughw:2,0 plughw:2,0
 
 
 You can try to set the ARDOP speed to 2000, as your user do
-`nano .config/pat/config.json`
 
-`"ardop": {
-    "addr": "localhost:8515",
-    "arq_bandwidth": {
-      "Forced": false,
-      "Max": 2000`
+     nano .config/pat/config.json
+
+     "ardop": {
+     "addr": "localhost:8515",
+     "arq_bandwidth": {
+       "Forced": false,
+       "Max": 2000`
 	  
 
 ## Hamlib
 
 Become root and install hamlib.
 
-`sudo -i
-mkdir hamlib; cd hamlib
-https://github.com/Hamlib/Hamlib/releases/download/4.4/hamlib-4.4.tar.gz
+     sudo -i
+     mkdir hamlib; cd hamlib
+     https://github.com/Hamlib/Hamlib/releases/download/4.4/hamlib-4.4.tar.gz
+
 Building,
-tar xf hamlib-4.4.tar.gz
-cd hamlib-4.4
-./configure
-make
-make install
-ldconfig`
+
+     tar xf hamlib-4.4.tar.gz
+     cd hamlib-4.4
+     ./configure
+     make
+     make install
+     ldconfig`
 
 Back as your favorite user,
-`rigctl -l| grep -i flrig`
+
+     rigctl -l| grep -i flrig
+
 *4  FLRig  FLRig  202101014.0  Stable  RIG_MODEL_FLRIG*
 Entry number 4, stable support.
 
 Hamlib support flrig and you can control your rig via flrig.
 
 Test:
-`rigctl -m 4 f
-rigctl -m 4 M USB 2700
-rigctl -m 4 M LSB 2400
-rigctl -m 4 T 1
-rigctl -m 4 T 0`
+
+     rigctl -m 4 f
+     rigctl -m 4 M USB 2700
+     rigctl -m 4 M LSB 2400
+     rigctl -m 4 T 1
+     rigctl -m 4 T 0`
 
 Documentation for [Hamlib](https://github.com/Hamlib/Hamlib/wiki/Documentation)
 
@@ -121,10 +132,10 @@ Pat need to known your rig control,
 Edit .config/pat/config.json unser sections *hamlib rigs*, 
 *ax25* and *ardop*.
 
-`"hamlib_rigs": {"G90": {"address": "localhost:4532", "network": "tcp"}}
+     "hamlib_rigs": {"G90": {"address": "localhost:4532", "network": "tcp"}}
 
-"ax25" section, "rig": "G90"
-"ardop" section, "rig": "G90"`
+     "ax25" section, "rig": "G90"
+     "ardop" section, "rig": "G90"
 
 
 
@@ -145,27 +156,33 @@ scripts are found together with this file.
 Here are some simple examples:
 
 Starting deamon for flrig, 4 is flrig.
-`rigctld -m 4 > rigctld.log & `
+
+     rigctld -m 4 > rigctld.log & 
 
 Starting ardop
-`piardopc 8515 plughw:2,0 plughw:2,0 > piardopc.log & `
+
+     piardopc 8515 plughw:2,0 plughw:2,0 > piardopc.log & 
+	 
 Start pat
-`pat http > pat.log &`
+
+     pat http > pat.log &
 
 
 
 Setting frequency works nice from PAT. 
 While rigctl works nicely:
-`rigctl -m 4 T 1`
-`rigcrl -m 4 T 0`
+
+     rigctl -m 4 T 1
+     rigcrl -m 4 T 0
 
 An update of setting is needed in the config file to use PTT.
 
 Enable PTT here :
-` "rig": "G90",
-    "ptt_ctrl": true,
-    "beacon_interval": 0,
-    "cwid_enabled": true`
+
+    "rig": "G90",
+       "ptt_ctrl": true,
+       "beacon_interval": 0,
+       "cwid_enabled": true`
 
 The alternative to rig control is using VOX.
 
