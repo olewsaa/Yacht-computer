@@ -33,15 +33,15 @@ As your prefered user, in my case just pi.
 
 change some variables (as the youtube suggest I use port 5000 for pat),
 
-`     "mycall": "Callsign",
+      "mycall": "Callsign",
       "secure_login_password": "PASSWORD",
       "auxiliary_addresses": [],
       "locator": "JO59JX",
       "service_codes": [
         "PUBLIC"
       ],
-      "http_addr": "0.0.0.0:5000",`
-
+      "http_addr": "0.0.0.0:5000",
+	  
 save and exit. 
 If you do not have winlink account contacting them for the first time will
 issue a password for you, edit the file : $HOME/.config/pat/config.json 
