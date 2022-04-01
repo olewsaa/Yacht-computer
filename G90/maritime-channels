@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+
+#
+# Script to set Maritime ITA channels frequency
+# These MF & HF working channels are duplex channels
+# require split mode and setting VFO A and VFO B.
+#
+# Used for Xiegu G90, but as flrig is used to control the
+# radio it should be fairly portable.
+#
+# Ole W. Saastad, LB4PJ
+# v0.1 31 Mar 2022 
+# v0.2  1 Apr 2022
+#
+
+import sys
+import os
+import tkinter as tk
+from tkinter import simpledialog
+
+# Maritime working channel frequencies imported from file
+
+with open('channels.dta', 'r') as infile:
+    fq = {};
+    for line in infile:
+        ch, rxfrq, txfrq = line.strip().split(' ')
+        if ch not in fq:
+            fq[ch]={}
+            fq[ch]['rx'] = rxfrq
+            fq[ch]['tx'] = txfrq
+        else :
+            print("Channel already assigned, skipping channel",ch)
+infile.close()
+
+root = tk.Tk()
+root.withdraw()
+ch = '0'
+while ch not in fq.keys():
+    ch = simpledialog.askstring("MF/HF","ITU channel number")
+root.quit()
+
+# If X11 windows don't work, this cli can be used.
+#if len(sys.argv) < 2 :
+#    print("Need a frequency argument")
+#    exit(1)
+#
+#ch = sys.argv[1]
+#print("Selecting channel : ",ch)
+#
+#if ch not in fq.keys():
+#  print("Not a defined channel number")
+#  exit(1)
+
+
+print("Setting RX VFOA to",int(int(fq[ch]['rx'])/1000),"kHz")
+print("Setting TX VFOB to",int(int(fq[ch]['tx'])/1000),"kHz")  
+
+
+# Maritime channels are USB
+cmd = "rigctl -m 4 M USB 2700"
+print(cmd)
+#os.system(cmd)
+cmd = "rigctl -m 4 X USB 2700"
+print(cmd)
+cmd = "rigctl -m 4 S 1 ‘VFOB’"
+print(cmd)
+
+
+cmd = "rigctl -m 4 V \'VFOA\' "
+print(cmd)
+cmd = "rigctl -m 4 F "+fq[ch]['rx']
+print(cmd)
+cmd = "rigctl -m 4 V \'VFOB\' "
+print(cmd)
+cmd = "rigctl -m 4 F "+fq[ch]['tx']
+print(cmd)
+cmd = "rigctl -m 4 G \'TUNE\' "
+print(cmd)
+
+
+
