@@ -15,6 +15,7 @@
 
 import sys
 import os
+import time
 import tkinter as tk
 from tkinter import simpledialog
 
@@ -57,25 +58,16 @@ print("Setting TX VFOB to",int(int(fq[ch]['tx'])/1000),"kHz")
 
 
 # Maritime channels are USB
-cmd = "rigctl -m 4 M USB 2700"
-print(cmd)
-#os.system(cmd)
-cmd = "rigctl -m 4 X USB 2700"
-print(cmd)
-cmd = "rigctl -m 4 S 1 ‘VFOB’"
-print(cmd)
-
-
-cmd = "rigctl -m 4 V \'VFOA\' "
-print(cmd)
-cmd = "rigctl -m 4 F "+fq[ch]['rx']
-print(cmd)
-cmd = "rigctl -m 4 V \'VFOB\' "
-print(cmd)
-cmd = "rigctl -m 4 F "+fq[ch]['tx']
-print(cmd)
-cmd = "rigctl -m 4 G \'TUNE\' "
-print(cmd)
+cmd = "rigctl -m 4 M USB 2700"; os.system(cmd)
+cmd = "rigctl -m 4 X USB 2700"; os.system(cmd)
+cmd = "rigctl -m 4 S 1 'VFOA'"; os.system(cmd)
+cmd = "rigctl -m 4 V 'VFOA'"; os.system(cmd)
+cmd = "rigctl -m 4 F "+fq[ch]['rx']; os.system(cmd)
+cmd = "rigctl -m 4 V 'VFOB'"; os.system(cmd); 
+time.sleep(0.5)
+cmd = "rigctl -m 4 F "+fq[ch]['tx']; os.system(cmd)
+cmd = "rigctl -m 4 V 'VFOA'"; os.system(cmd)
+cmd = "rigctl -m 4 G 'TUNE'" ; #os.system(cmd)
 
 
 
