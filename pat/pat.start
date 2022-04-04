@@ -2,7 +2,7 @@
 
 
 # change to a log dir.
-cd par/log
+cd $HOME/pi/pat/log
 
 # Start flrig if not running
 PID_FLRIG=$(pidof flrig)
