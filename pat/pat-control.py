@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os
 import tkinter as tk
 from subprocess import check_output, CalledProcessError
