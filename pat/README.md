@@ -187,3 +187,11 @@ Enable PTT here :
 The alternative to rig control is using VOX.
 
 
+## Script to control PAT
+Since the computer is running a lot of services related to OpenPlotter and other
+navigational stuff I do not want to have the Pat relater services running all the time.
+I turn them on when needed and off when no longer used. To do this I have 
+written a GUI with start, stop and PID buttons, the latter to check that the
+services have started. 
+
+It's a combination of Python GUI and bash scripts. 
