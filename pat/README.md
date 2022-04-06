@@ -1,4 +1,7 @@
-- [Pat hint and tips](#pat-hint-and-tips)
+
+
+# Pat hint and tips
+
   * [Introduction](#introduction)
   * [Installation hints](#installation-hints)
     + [pat](#pat)
@@ -8,7 +11,6 @@
   * [Script to control PAT](#script-to-control-pat)
 
 
-# Pat hint and tips
 
 ## Introduction 
 Using pat with Raspberry Pi4.
