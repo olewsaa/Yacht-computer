@@ -195,3 +195,13 @@ written a GUI with start, stop and PID buttons, the latter to check that the
 services have started. 
 
 It's a combination of Python GUI and bash scripts. 
+
+The script is placed on my desktop with a "Postman Pat" icon (copyrighted ?). 
+
+If you have a dedicated RPi there is no need, just launch the servives at boot time. 
+This is nicely explained in the videos.
+
+I'm using a Xiegu G90 for which Hamlib (current version March 2022) don't support.
+Howver, flrig support G90 and I'm using hamlib with device 4 which is flrig. 
+I still need to press the "Tune" button after changing frequency as my hamlib build
+do not support this function. 
