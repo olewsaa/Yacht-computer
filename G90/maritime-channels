@@ -38,6 +38,8 @@ root.withdraw()
 ch = '0'
 while ch not in fq.keys():
     ch = simpledialog.askstring("MF/HF","ITU channel number")
+    if (isinstance(ch,type(None))==True):
+        exit(1)
 root.quit()
 
 # If X11 windows don't work, this cli can be used.
