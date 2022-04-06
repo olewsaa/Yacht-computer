@@ -5,8 +5,8 @@
   * [Introduction](#introduction)
   * [Installation hints](#installation-hints)
     + [pat](#pat)
-  * [ARDOP](#ardop)
-  * [Hamlib](#hamlib)
+    + [ARDOP](#ardop)
+    +  [Hamlib](#hamlib)
   * [Running](#running)
   * [Script to control PAT](#script-to-control-pat)
 
