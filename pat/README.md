@@ -59,7 +59,7 @@ If you do not have winlink account contacting them for the first time will
 issue a password for you, edit the file : $HOME/.config/pat/config.json 
 
 
-## ARDOP
+### ARDOP
 
 The Amateur Radio Digital Open Protocol [ARPAP](https://www.cantab.net/users/john.wiseman/Documents/ARDOPC.html) is used as the transport layer.
 
@@ -104,7 +104,7 @@ You can try to set the ARDOP speed to 2000, as your user do
        "Max": 2000`
 	  
 
-## Hamlib
+### Hamlib
 
 Become root and install hamlib.
 
