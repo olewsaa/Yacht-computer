@@ -4,7 +4,7 @@
 
   * [Introduction](#introduction)
   * [Installation hints](#installation-hints)
-    + [pat](#pat)
+    + [Pat](#pat)
     + [ARDOP](#ardop)
     +  [Hamlib](#hamlib)
   * [Running](#running)
@@ -31,8 +31,8 @@ which is supported in version 1.4.5. See [fldigi](http://www.w1hkj.com/),
 
 ## Installation hints
 
-### pat
-Download pat, check [pat releases](https://github.com/la5nta/pat/releases),
+### Pat
+Download Pat, check [pat releases](https://github.com/la5nta/pat/releases),
 below is shown 0.12.1 version, this gets updated regularly.
 
      sudo -i 
