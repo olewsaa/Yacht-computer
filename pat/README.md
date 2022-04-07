@@ -29,7 +29,7 @@ which is supported in version 1.4.5. See [fldigi](http://www.w1hkj.com/),
 [flrig download](http://www.w1hkj.com/files/flrig/).
 
 This [page](https://f1rum.fr/posts/mails-via-hf-with_ardop-and-pat/) provide 
-a nice graphic explaination with [figure](https://f1rum.fr/img/pat-archi.png) 
+a nice graphic explaination with a [figure](https://f1rum.fr/img/pat-archi.png) 
 showing control and data flow, including port numbers.
 
 ## Installation hints
