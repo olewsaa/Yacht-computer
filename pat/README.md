@@ -28,8 +28,9 @@ We assume the rig control flrig is installed. I use a Xiegu G90
 which is supported in version 1.4.5. See [fldigi](http://www.w1hkj.com/),
 [flrig download](http://www.w1hkj.com/files/flrig/).
 
-This [page](https://f1rum.fr/posts/mails-via-hf-with_ardop-and-pat/) provide a nice
-explaination with figures showing control and data flow. 
+This [page](https://f1rum.fr/posts/mails-via-hf-with_ardop-and-pat/) provide 
+a nice graphic explaination with [figure](https://f1rum.fr/img/pat-archi.png) 
+showing control and data flow, including port numbers.
 
 ## Installation hints
 
