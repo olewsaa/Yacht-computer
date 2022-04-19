@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import time
 import tkinter as tk
 from subprocess import check_output, CalledProcessError
 
@@ -18,14 +19,17 @@ def start_pat():
     for r in 1,2,3 :
         tk.Label(master, text="                     ",anchor="e").grid(row=r)
     tk.Label(master, text="Starting Pat",anchor="e").grid(row=0)
-    os.system("echo start pat - launch bash script start")
+    os.system("/home/pi/pat/pat.start")
+    time.sleep(3)
+    display_pids()	
     
     
 def stop_pat():
     for r in 1,2,3 :
         tk.Label(master, text="                      ",anchor="e").grid(row=r)
     tk.Label(master, text="Stopping Pat",anchor="e").grid(row=0)    
-    os.system("echo stop pat - launch bash script stop")
+    os.system("/home/pi/pat/pat.stop")
+    display_pids()	
 
 
 def display_pids():
