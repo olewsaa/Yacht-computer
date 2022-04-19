@@ -5,8 +5,6 @@ import tkinter as tk
 from subprocess import check_output, CalledProcessError
 
 
-
-#p = check_output(["pidof","evolution"]).split()[0].decode())
 def check_pid(name):    
     try:
         p = check_output(["pidof",name]).split()
