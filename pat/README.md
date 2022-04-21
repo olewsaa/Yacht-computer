@@ -76,6 +76,15 @@ The ardopc is distributed as a binary, source code is available.
 
 This would install the binary and make it accessable by default.
 
+To install the ARDOP GUI
+
+	 sudo -i
+     cd /root
+     cd ardop
+     wget http://www.cantab.net/users/john.wiseman/Downloads/Beta/piARDOP_GUI
+     cp  /usr/local/bin/`
+
+
 Test for USB soundcard / audio device :
 
      arecord -l
