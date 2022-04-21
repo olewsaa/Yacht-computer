@@ -32,6 +32,10 @@ if [ $? -ne 0 ]; then
 else
 	echo "piardopc running";
 fi
+PID_ARDOP_GUI=$(pidof piARDOP_GUI)
+if [ $? -ne 0 ]; then
+        piARDOP_GUI &
+fi
 
 
 

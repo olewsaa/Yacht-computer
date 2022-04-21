@@ -3,9 +3,11 @@
 killall pat
 killall piardopc
 killall rigctld
+killall piARDOP_GUI
 
 pidof pat
 pidof piardopc
 pidof rigctld
+pidof piARDOP_GUI
 
 
