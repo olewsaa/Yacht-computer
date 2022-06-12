@@ -2,6 +2,11 @@
 
 There are always some minor settings that can easily be overlooked. Most things comes nicely packaged with the [NOOB Openplotter distro](http://www.sailoog.com/blog-categories/openplotter-rpi).
 
+## Forwarding
+If laptop or other clients are connected to the OpenPlotter node requests to other destinations need to be forwarded, either to other 
+nodes on the wifi range or via the Ethernet interface to a node which connec to the internet like a router (raspap using a RPi3).
+The line in  /etc/sysctl.conf to : net.ipv4.ip_forward = 1
+
 ## Lost access point 
 As always, updates and upgrades are not always safe. Most major
 disasters happen after an update or upgrade, where important services
