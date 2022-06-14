@@ -6,7 +6,8 @@
   * [Installation hints](#installation-hints)
     + [Pat](#pat)
     + [ARDOP](#ardop)
-    +  [Hamlib](#hamlib)
+    + [VARA](#VARA)
+    + [Hamlib](#hamlib)
   * [Running](#running)
   * [Script to control PAT](#script-to-control-pat)
 
@@ -114,11 +115,32 @@ You can try to set the ARDOP speed to 2000, as your user do
      "arq_bandwidth": {
        "Forced": false,
        "Max": 2000`
-	  
+
+### VARA
+
+Using VARA on a Raspberry Pi is not simple, the VARA is Windows program compiled for x86 processors. This require the Box86 x86 emulator 
+and the Windows emulator Wine. While Wine doesn't requite much extra performance the emulator doesn. It runs nicely if a decdicated RPi4 is
+used, but using a RPi 4 that run all the services of OpenPlotter it fails. 
+
+The installation is reletively straightformward. Good instructions can be found, https://github.com/WheezyE/Winelink/blob/main/docs/README.md
+I suggest doing it a bit more manual, as it's a one time job.
+
+      wget https://raw.githubusercontent.com/WheezyE/Winelink/main/install_winelink.sh
+      chmod +x install_winelink.sh 
+      ./install_winelink.sh vara_only
+
+It takes some time and the installer use X11 (Wine) so you need a console VNC or screen. It does not work using a ssh connection (maybe if you
+set up X11 forwarding? - I did not try). You need to answer a few questions. Select your audio device, often a USB device. 
+
+The instructions found in the git repo linked to above give far more details. 
+
+If you want full VARA you need to email the author and forward the license fee. My experience is very good, VARA works as good as the user
+stories tell. Two main issues with VARA is Windows/x86 and the license. 
+
 
 ### Hamlib
 
-Become root and install hamlib.
+Become root and install hamlib. Hamlib do not support Xiegu G90 in the 4.4 version.
 
      sudo -i
      mkdir hamlib; cd hamlib
