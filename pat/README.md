@@ -120,7 +120,7 @@ You can try to set the ARDOP speed to 2000, as your user do
 
 Using VARA on a Raspberry Pi is not simple, the VARA is Windows program compiled for x86 processors. This require the Box86 x86 emulator 
 and the Windows emulator Wine. While Wine doesn't requite much extra performance the emulator doesn. It runs nicely if a decdicated RPi4 is
-used, but using a RPi 4 that run all the services of OpenPlotter it fails. 
+used, but using a RPi 4 that run all the services of OpenPlotter VARA fails. 
 
 The installation is reletively straightformward. Good instructions can be found, https://github.com/WheezyE/Winelink/blob/main/docs/README.md
 I suggest doing it a bit more manual, as it's a one time job.
@@ -137,6 +137,7 @@ The instructions found in the git repo linked to above give far more details.
 If you want full VARA you need to email the author and forward the license fee. My experience is very good, VARA works as good as the user
 stories tell. Two main issues with VARA is Windows/x86 and the license. 
 
+Keep a copy of the script as it deletes itself when run, saves you from downloading it again if something goes wrong (as it often does).
 
 ### Hamlib
 
@@ -164,7 +165,7 @@ Entry number 4, stable support.
 
 Hamlib support flrig and you can control your rig via flrig.
 
-Test:
+Test, run interactively from the shell:
 
      rigctl -m 4 f
      rigctl -m 4 M USB 2700
