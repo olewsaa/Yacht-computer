@@ -139,6 +139,14 @@ stories tell. Two main issues with VARA is Windows/x86 and the license.
 
 Keep a copy of the script as it deletes itself when run, saves you from downloading it again if something goes wrong (as it often does).
 
+ 	"vara": {
+   	"host": "localhost",
+   	"cmdPort": 8300,
+   	"dataPort": 8301,
+   	"rig": "G90",
+   	"ptt_ctrl": true
+   	},
+
 ### Hamlib
 
 Become root and install hamlib. Hamlib do not support Xiegu G90 in the 4.4 version.
