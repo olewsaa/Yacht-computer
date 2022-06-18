@@ -48,6 +48,13 @@
     "beacon_interval": 0,
     "cwid_enabled": true
   },
+   "vara": {
+   "host": "localhost",
+   "cmdPort": 8300,
+   "dataPort": 8301,
+   "rig": "G90",
+   "ptt_ctrl": true
+   },
   "pactor": {
     "path": "/dev/ttyUSB0",
     "baudrate": 57600,
