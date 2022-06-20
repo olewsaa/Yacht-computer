@@ -139,6 +139,8 @@ stories tell. Two main issues with VARA is Windows/x86 and the license.
 
 Keep a copy of the script as it deletes itself when run, saves you from downloading it again if something goes wrong (as it often does).
 
+The pat config file need to have a vara section, I use the following:
+
  	"vara": {
    	"host": "localhost",
    	"cmdPort": 8300,
