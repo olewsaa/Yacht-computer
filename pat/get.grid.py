@@ -1,21 +1,27 @@
 # -*- coding: utf-8 -*-
 
-# Adapted, collected and edited by Ole W. Saasyad, LB4PJ
+# Adapted, collected and edited by Ole W. Saastad, LB4PJ
 # 22 June 2022. 
 
 # Original code from user «Sailoog» at openmarine forum.
 # 
 
 import sys, json, requests
+
 #resp = requests.get('http://localhost:3000/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
 resp = requests.get('http://demo.signalk.org:80/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
+# Insert your local Signal K server name or IP number and default port 3000
+
 data = json.loads(resp.content)
 #print(data)
 #print(data['longitude'])
 #print(data['latitude'])
 
-# Original code by Walter Underwood, K6WRU 
 
+# Converting to grid.
+# 
+# Original code by Walter Underwood, K6WRU 
+#
 # Convert latitude and longitude to Maidenhead grid locators.
 #
 # Arguments are in signed decimal latitude and longitude. For example,
