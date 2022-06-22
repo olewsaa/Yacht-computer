@@ -10,7 +10,7 @@
     + [Hamlib](#hamlib)
   * [Running](#running)
   * [Script to control PAT](#script-to-control-pat)
-  * [Grid coord. from Signal K](#Grid from Signal K)
+  * [Grid coord. from Signal K](#Grid-from-Signal-K)
 
 
 ## Introduction 
@@ -273,7 +273,7 @@ after changing frequency as my hamlib build do not support this
 function.
 
 
-##Grid from Signal K
+## Grid from Signal K
 The code get.grid.py is a Python script to request a position from
 the Signal K server and convert it to a Grid representation to be 
 used for the current position. AFAIK pat will support gpsd, but I
