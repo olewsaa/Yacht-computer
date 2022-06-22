@@ -10,7 +10,7 @@
     + [Hamlib](#hamlib)
   * [Running](#running)
   * [Script to control PAT](#script-to-control-pat)
-
+  * [Grid coord. from Signal K](#Grid from Signal K)
 
 
 ## Introduction 
@@ -30,7 +30,7 @@ which is supported in version 1.4.5. See [fldigi](http://www.w1hkj.com/),
 [flrig download](http://www.w1hkj.com/files/flrig/).
 
 This [page](https://f1rum.fr/posts/mails-via-hf-with_ardop-and-pat/) provide 
-a nice graphic explaination with a [figure](https://f1rum.fr/img/pat-archi.png) 
+a nice graphic explanation with a [figure](https://f1rum.fr/img/pat-archi.png) 
 showing control and data flow, including port numbers.
 
 ## Installation hints
@@ -119,10 +119,10 @@ You can try to set the ARDOP speed to 2000, as your user do
 ### VARA
 
 Using VARA on a Raspberry Pi is not simple, the VARA is Windows program compiled for x86 processors. This require the Box86 x86 emulator 
-and the Windows emulator Wine. While Wine doesn't requite much extra performance the emulator doesn. It runs nicely if a decdicated RPi4 is
+and the Windows emulator Wine. While Wine doesn't requite much extra performance the emulator doesn't. It runs nicely if a dedicated RPi4 is
 used, but using a RPi 4 that run all the services of OpenPlotter VARA fails. 
 
-The installation is reletively straightformward. Good instructions can be found, https://github.com/WheezyE/Winelink/blob/main/docs/README.md
+The installation is relatively straightforward. Good instructions can be found, https://github.com/WheezyE/Winelink/blob/main/docs/README.md
 I suggest doing it a bit more manual, as it's a one time job.
 
       wget https://raw.githubusercontent.com/WheezyE/Winelink/main/install_winelink.sh
@@ -166,7 +166,7 @@ Building,
      make install
      ldconfig`
 
-Back as your favorite user,
+Back as your favourite user,
 
      rigctl -l| grep -i flrig
 
@@ -186,7 +186,7 @@ Test, run interactively from the shell:
 Documentation for [Hamlib](https://github.com/Hamlib/Hamlib/wiki/Documentation)
 
 Pat need to known your rig control,
-Edit .config/pat/config.json unser sections *hamlib rigs*, 
+Edit .config/pat/config.json under sections *hamlib rigs*, 
 *ax25* and *ardop*.
 
      "hamlib_rigs": {"G90": {"address": "localhost:4532", "network": "tcp"}}
@@ -203,7 +203,7 @@ https://github.com/la5nta/pat/wiki/The-web-GUI
 I have opted for manual control as I don't want the
 PAT email setup to be active at all time. I have the RPi4 
 installed as a yacht computer with openplotter and CAN bus interface,
-with signalK dashboard etc. 
+with Signal K dashboard etc. 
 
 
 As user :
@@ -245,20 +245,38 @@ The alternative to rig control is using VOX.
 
 
 ## Script to control PAT
-Since the computer is running a lot of services related to OpenPlotter and other
-navigational stuff I do not want to have the Pat relater services running all the time.
-I turn them on when needed and off when no longer used. To do this I have 
-written a GUI with start, stop and PID buttons, the latter to check that the
-services have started. 
+Since the computer is running a lot of services related to OpenPlotter
+and other navigational stuff I do not want to have the Pat relater
+services running all the time.  I turn them on when needed and off
+when no longer used. To do this I have written a GUI with start, stop
+and PID buttons, the latter to check that the services have started.
 
+There are two set of scrips, one set for the control when only ARDOP is 
+used and another when VARA is used, I start and stop VARA with its icon,
+and use the pat.start to launch just pat and if necessary flrig and hamlib.
+As said in the beginning, if you run only ARDOP it can run on the same 
+Raspberry as the OpenPlotter services. 
+
+The script pat-control.py is used to launch and test the services for
+a pure ARDOP setup. Maybe this should be cleaned up :)
 It's a combination of Python GUI and bash scripts. 
 
 The script is placed on my desktop with a "Postman Pat" icon (copyrighted ?). 
 
-If you have a dedicated RPi there is no need, just launch the servives at boot time. 
-This is nicely explained in the videos.
+If you have a dedicated RPi there is no need, just launch the services
+at boot time.  This is nicely explained in the videos.
 
-I'm using a Xiegu G90 for which Hamlib (current version March 2022) don't support.
-Howver, flrig support G90 and I'm using hamlib with device 4 which is flrig. 
-I still need to press the "Tune" button after changing frequency as my hamlib build
-do not support this function. 
+I'm using a Xiegu G90 for which Hamlib (current version March 2022)
+don't support.  However, flrig support G90 and I'm using hamlib with
+device 4 which is flrig.  I still need to press the "Tune" button
+after changing frequency as my hamlib build do not support this
+function.
+
+
+##Grid from Signal K
+The code get.grid.py is a Python script to request a position from
+the Signal K server and convert it to a Grid representation to be 
+used for the current position. AFAIK pat will support gpsd, but I
+would be nice to support Signal K also. In this case the position 
+would be updated automatically when a position report is composed.
+
