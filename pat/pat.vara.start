@@ -1,0 +1,50 @@
+#!/bin/bash
+
+
+# change to a log dir.
+cd $HOME/pi/pat/log
+
+# Start flrig if not running
+PID_FLRIG=$(pidof flrig)
+if [ $? -ne 0 ]; then
+	echo "Flrig not running, starting flrig."
+	flrig &
+	sleep 2
+	PID_FLRIG=$(pidof flrig)
+	if [ $? -ne 0 ]; then
+		exit;
+	fi
+fi
+sleep 2;
+
+# Start rigctl deamon -m 4 (4 is flrig).
+PID_FLRIG=$(pidof rigctld)
+if [ $? -ne 0 ]; then
+	echo "Starting rigctld deamon";
+	rigctl -m 4  M USB 2400
+	rigctld -m 4 > rigctld.log &
+fi
+
+#PID_ARDOP=$(pidof piardopc)
+#if [ $? -ne 0 ]; then
+#	echo "Starting piardopc";
+#	piardopc 8515 plughw:2,0 plughw:2,0 > piardopc.log &
+#else
+#	echo "piardopc running";
+#fi
+#PID_ARDOP_GUI=$(pidof piARDOP_GUI)
+#if [ $? -ne 0 ]; then
+#        piARDOP_GUI &
+#fi
+
+
+
+PID_PAT=$(pidof pat)
+if [ $? -ne 0 ]; then
+	echo "Staring Pat"
+	pat http > pat.log &
+else
+	echo "pat running"
+fi
+
+

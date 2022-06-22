@@ -1,0 +1,19 @@
+#!/bin/bash 
+
+
+# change to a log dir.
+cd $HOME/pi/pat/log
+
+PID_ARDOP=$(pidof piardopc)
+if [ $? -ne 0 ]; then
+	echo "Starting piardopc";
+	piardopc 8515 plughw:2,0 plughw:2,0 > piardopc.log &
+else
+	echo "piardopc running";
+fi
+PID_ARDOP_GUI=$(pidof piARDOP_GUI)
+if [ $? -ne 0 ]; then
+        piARDOP_GUI &
+fi
+
+
