@@ -280,3 +280,7 @@ used for the current position. AFAIK pat will support gpsd, but I
 would be nice to support Signal K also. In this case the position 
 would be updated automatically when a position report is composed.
 
+The script update.pos.pat.conf.py will request a position from the
+Signal K server and update the pat config file. Runing this before 
+launching pat your current position will be used.
+
