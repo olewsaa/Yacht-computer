@@ -75,11 +75,12 @@ def to_grid(dec_lat, dec_lon):
 # position.
 
 
-cf="/home/pi/.config/pat/config.json"  # Insert exact location 
+cf="/home/pi/.config/pat/config.json"
 f=open(cf,"r+")
 config = json.load(f)
 config['locator']=to_grid(data['longitude'], (data['latitude']))
 json_obj=json.dumps(config, indent=4)
+f.truncate(0) # Clear the file 
 f.seek(0) # I miss the rewind statement.
 f.write(json_obj)
 f.close()
