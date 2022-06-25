@@ -17,13 +17,14 @@
 import sys, json, requests
 
 #resp = requests.get('http://localhost:3000/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
-resp = requests.get('http://demo.signalk.org:80/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
+resp = requests.get('http://10.10.10.1:3000/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
 # Insert your local Signal K server name or IP number and default port 3000
 
 data = json.loads(resp.content)
 #print(data)
 #print(data['longitude'])
 #print(data['latitude'])
+
 
 
 # 
@@ -63,7 +64,9 @@ def to_grid(dec_lat, dec_lon):
 
     return grid_lon_sq + grid_lat_sq + grid_lon_field + grid_lat_field + grid_lon_subsq + grid_lat_subsq
 
-#grid=to_grid(data['longitude'], (data['latitude']))
+#print(data['latitude'], data['longitude'])
+
+grid=to_grid(float(data['latitude']), float((data['longitude'])))
 #print(grid)
 
 
@@ -74,11 +77,11 @@ def to_grid(dec_lat, dec_lon):
 # script before pat is launched and pat will start with the current 
 # position.
 
-
+# /home/pi/.config/pat/config.json
 cf="/home/pi/.config/pat/config.json"
 f=open(cf,"r+")
 config = json.load(f)
-config['locator']=to_grid(data['longitude'], (data['latitude']))
+config['locator']=to_grid(data['latitude'], (data['longitude']))
 json_obj=json.dumps(config, indent=4)
 f.truncate(0) # Clear the file 
 f.seek(0) # I miss the rewind statement.
