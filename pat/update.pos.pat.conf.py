@@ -77,14 +77,17 @@ grid=to_grid(float(data['latitude']), float((data['longitude'])))
 # script before pat is launched and pat will start with the current 
 # position.
 
+# The default location:
 # /home/pi/.config/pat/config.json
-cf="/home/pi/.config/pat/config.json"
-f=open(cf,"r+")
+
+cf = "/home/pi/.config/pat/config.json"
+f = open(cf,"r+")
 config = json.load(f)
-config['locator']=to_grid(data['latitude'], (data['longitude']))
-json_obj=json.dumps(config, indent=4)
-f.truncate(0) # Clear the file 
-f.seek(0) # I miss the rewind statement.
+config['locator'] = to_grid(data['latitude'], (data['longitude']))
+json_obj = json.dumps(config, indent=4)
+f.truncate(0)    # Clear the file 
+f.seek(0)        # I miss the rewind statement.
 f.write(json_obj)
 f.close()
+
 
