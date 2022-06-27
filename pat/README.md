@@ -187,13 +187,13 @@ Documentation for [Hamlib](https://github.com/Hamlib/Hamlib/wiki/Documentation)
 
 Pat need to known your rig control,
 Edit .config/pat/config.json under sections *hamlib rigs*, 
-*ax25* and *ardop*.
+*ax25*, *ardop* and *VARA*
 
      "hamlib_rigs": {"G90": {"address": "localhost:4532", "network": "tcp"}}
 
-     "ax25" section, "rig": "G90"
+     "ax25"  section, "rig": "G90"
      "ardop" section, "rig": "G90"
-
+     "vara"  section, "rig": "G90"
 
 
 ## Running
