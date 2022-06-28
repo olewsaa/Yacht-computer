@@ -119,24 +119,39 @@ You can try to set the ARDOP speed to 2000, as your user do
 
 ### VARA
 
-Using VARA on a Raspberry Pi is not simple, the VARA is Windows program compiled for x86 processors. This require the Box86 x86 emulator 
-and the Windows emulator Wine. While Wine doesn't requite much extra performance the emulator doesn't. It runs nicely if a dedicated RPi4 is
-used, but using a RPi 4 that run all the services of OpenPlotter VARA fails. 
+First step to use VARA with pat is to download and install a special VARA enabled 
+pat version. This is located on a google drive by Rainer Grosskopf :
+https://drive.google.com/drive/folders/1v__JXBHHD7w11SS5WyfPtMmVrzZ-uqx3
 
-The installation is relatively straightforward. Good instructions can be found, https://github.com/WheezyE/Winelink/blob/main/docs/README.md
+The latest version (June 22) is : pat_45c5064_linux_armhf.deb , this is the ARM 32 bit 
+version who work well with my RPi4. Close the any running pat and install this package. 
+
+Using VARA on a Raspberry Pi is not simple, the VARA is Windows
+program compiled for x86 processors. This require the Box86 x86
+emulator and the Windows emulator Wine. While Wine doesn't requite
+much extra performance the emulator doesn't. It runs nicely if a
+dedicated RPi4 is used, but using a RPi 4 that run all the services of
+OpenPlotter VARA fails.
+
+The installation is relatively straightforward. Good instructions can be found, 
+https://github.com/WheezyE/Winelink/blob/main/docs/README.md
 I suggest doing it a bit more manual, as it's a one time job.
 
       wget https://raw.githubusercontent.com/WheezyE/Winelink/main/install_winelink.sh
       chmod +x install_winelink.sh 
       ./install_winelink.sh vara_only
 
-It takes some time and the installer use X11 (Wine) so you need a console VNC or screen. It does not work using a ssh connection (maybe if you
-set up X11 forwarding? - I did not try). You need to answer a few questions. Select your audio device, often a USB device. 
+It takes some time and the installer use X11 (Wine) so you need a
+console VNC or screen. It does not work using a ssh connection (maybe
+if you set up X11 forwarding? - I did not try). You need to answer a
+few questions. Select your audio device, often a USB device.
 
 The instructions found in the git repo linked to above give far more details. 
 
-If you want full VARA you need to email the author and forward the license fee. My experience is very good, VARA works as good as the user
-stories tell. Two main issues with VARA is Windows/x86 and the license. 
+If you want full VARA you need to email the author and forward the
+license fee. My experience is very good, VARA works as good as the
+user stories tell. Two main issues with VARA is Windows/x86 and the
+license.
 
 Keep a copy of the script as it deletes itself when run, saves you from downloading it again if something goes wrong (as it often does).
 
