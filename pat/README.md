@@ -124,7 +124,9 @@ pat version. This is located on a google drive by Rainer Grosskopf :
 https://drive.google.com/drive/folders/1v__JXBHHD7w11SS5WyfPtMmVrzZ-uqx3
 
 The latest version (June 22) is : pat_45c5064_linux_armhf.deb , this is the ARM 32 bit 
-version who work well with my RPi4. Close the any running pat and install this package. 
+version who work well with my RPi4. Close any running pat and install this package. 
+After restart of pat there should be a VARA entry in the menu of possible connections
+in the web interface. 
 
 Using VARA on a Raspberry Pi is not simple, the VARA is Windows
 program compiled for x86 processors. This require the Box86 x86
