@@ -120,7 +120,8 @@ You can try to set the ARDOP speed to 2000, as your user do
 ### VARA
 
 First step to use VARA with pat is to download and install a special VARA enabled 
-pat version. This is located on a google drive by Rainer Großkopf :
+pat version. This is located on a google drive by Rainer Großkopf and Chris Keller
+(two names shows up on updates, unsure who to credit) :
 https://drive.google.com/drive/folders/1v__JXBHHD7w11SS5WyfPtMmVrzZ-uqx3
 
 The latest version (June 22) is : pat_45c5064_linux_armhf.deb , this is the ARM 32 bit 
