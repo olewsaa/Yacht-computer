@@ -37,7 +37,10 @@ showing control and data flow, including port numbers.
 
 ### Pat
 Download Pat, check [pat releases](https://github.com/la5nta/pat/releases),
-below is shown 0.12.1 version, this gets updated regularly.
+below is shown 0.12.1 version, this gets updated regularly. This version do not
+support VARA, if you want to use VARA see the VARA section below. You need a special 
+version of pat to use VARA. Install this special version and not the version given here.
+The dpkg command is the same, it's just another pat*deb package file. 
 
      sudo -i 
      wget https://github.com/la5nta/pat/releases/download/v0.12.1/pat_0.12.1_linux_armhf.deb
