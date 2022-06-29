@@ -298,8 +298,12 @@ It's a combination of Python GUI and bash scripts.
 
 The script is placed on my desktop with a "Postman Pat" icon (copyrighted ?). 
 
-If you have a dedicated RPi there is no need, just launch the services
-at boot time.  This is nicely explained in the videos.
+If you have a dedicated RPi and want pat active at all times there is no need for 
+any of these scripts, just launch the services at boot time.  This is nicely 
+explained in the videos. I use the rig to receive weatherfax, RTTY forecasts and
+record MSI audio messages all which need the audio device. Hence ARDOP and VARA 
+should be stopped. Pat could probaly be left running, but I stop that too when 
+not doing email communication. 
 
 I'm using a Xiegu G90 for which Hamlib (current version March 2022)
 don't support.  However, flrig support G90 and I'm using hamlib with
