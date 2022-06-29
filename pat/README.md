@@ -33,6 +33,18 @@ This [page](https://f1rum.fr/posts/mails-via-hf-with_ardop-and-pat/) provide
 a nice graphic explanation with a [figure](https://f1rum.fr/img/pat-archi.png) 
 showing control and data flow, including port numbers.
 
+The different script used to start the servies are in two classes, one without VARA
+where the pat start script start everything including ARDOP. While the other script 
+start and stop pat but not VARA as this har its own icon. This is simple start and 
+stop, if you want something more sophisticated try 
+[pat menu](https://github.com/km4ack/patmenu2).
+
+As gpsd interface is not yet fully functional the script update.pos.pat.conf.py will 
+alter the pat configure file and update the current position som the SignalK server.
+If you run a stand alone RPi with no internet connection, you can update the time 
+and date from the SignalK server using the set-date-from-SignalK.py script.
+
+
 ## Installation hints
 
 ### Pat
@@ -127,7 +139,7 @@ pat version. This is located on a google drive by Rainer Großkopf and Chris Kel
 (two names shows up on updates, unsure who to credit) :
 https://drive.google.com/drive/folders/1v__JXBHHD7w11SS5WyfPtMmVrzZ-uqx3
 
-The latest version (June 22) is : pat_45c5064_linux_armhf.deb , this is the ARM 32 bit 
+The latest version (June 2022) is : pat_45c5064_linux_armhf.deb , this is the ARM 32 bit 
 version who work well with my RPi4. Close any running pat and install this package. 
 After restart of pat there should be a VARA entry in the menu of possible connections
 in the web interface. 
@@ -154,12 +166,12 @@ few questions. Select your audio device, often a USB device.
 
 The instructions found in the git repo linked to above give far more details. 
 
-If you want full VARA you need to email the author and forward the
+If you want full VARA support you need to email the author and forward the
 license fee. My experience is very good, VARA works as good as the
 user stories tell. Two main issues with VARA is Windows/x86 and the
 license.
 
-Keep a copy of the script as it deletes itself when run, saves you from downloading it again if something goes wrong (as it often does).
+Keep a copy of the script as it deletes itself when run, saves you from downloading it again if something goes wrong (as it some times do).
 
 The pat config file need to have a vara section, I use the following:
 
@@ -273,7 +285,8 @@ services running all the time.  I turn them on when needed and off
 when no longer used. To do this I have written a GUI with start, stop
 and PID buttons, the latter to check that the services have started.
 
-There are two set of scrips, one set for the control when only ARDOP is 
+As touched upon the introduction,
+there are two set of scrips, one set for the control when only ARDOP is 
 used and another when VARA is used, I start and stop VARA with its icon,
 and use the pat.start to launch just pat and if necessary flrig and hamlib.
 As said in the beginning, if you run only ARDOP it can run on the same 
