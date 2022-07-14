@@ -8,8 +8,8 @@
 #
 # Adapted, collected and edited by Ole W. Saastad, LB4PJ
 # 23 June 2022. 
-# 
-
+# 14 July 2022 Added check for valid SignalK response  
+#
 
 # Original code to request from Signal K - from user «Sailoog» at 
 # openmarine forum.
@@ -19,6 +19,9 @@ import sys, json, requests
 #resp = requests.get('http://localhost:3000/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
 resp = requests.get('http://10.10.10.1:3000/signalk/v1/api/vessels/self/navigation/position/value', verify=False)
 # Insert your local Signal K server name or IP number and default port 3000
+if (resp.status_code == 404):
+	exit(1)
+# Just exit if no valid response from the SignalK server.
 
 data = json.loads(resp.content)
 #print(data)
@@ -77,17 +80,14 @@ grid=to_grid(float(data['latitude']), float((data['longitude'])))
 # script before pat is launched and pat will start with the current 
 # position.
 
-# The default location:
 # /home/pi/.config/pat/config.json
-
-cf = "/home/pi/.config/pat/config.json"
-f = open(cf,"r+")
+cf="/home/pi/.config/pat/config.json"
+f=open(cf,"r+")
 config = json.load(f)
-config['locator'] = to_grid(data['latitude'], (data['longitude']))
-json_obj = json.dumps(config, indent=4)
-f.truncate(0)    # Clear the file 
-f.seek(0)        # I miss the rewind statement.
+config['locator']=to_grid(data['latitude'], (data['longitude']))
+json_obj=json.dumps(config, indent=4)
+f.truncate(0) # Clear the file 
+f.seek(0) # I miss the rewind statement.
 f.write(json_obj)
 f.close()
-
 
