@@ -11,7 +11,10 @@
     "Open source Winlink client - getpat.io"
   ],
   "connect_aliases": {
-    "telnet": "telnet://{mycall}:CMSTelnet@cms.winlink.org:8772/wl2k"
+    "LA2T-160m": "vara:///LA2T?freq=1843&bw=500",
+    "LA2T-80m":  "vara:///LA2T?freq=3595.5&bw=500",
+    "LA1T-60m":  "vara:///LA1T?freq=5273&bw=2300",
+    "telnet":    "telnet://{mycall}:CMSTelnet@cms.winlink.org:8772/wl2k"
   },
   "listen": [],
   "hamlib_rigs": {"G90": {"address": "localhost:4532", "network": "tcp"}},
