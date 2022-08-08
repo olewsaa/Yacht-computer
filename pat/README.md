@@ -11,6 +11,7 @@
   * [Running](#running)
   * [Script to control PAT](#script-to-control-pat)
   * [Grid coord. from Signal K](#Grid-from-Signal-K)
+  * [Position from OpenPlotter/gpsd] (#Position-from-OpenPlotter)
 
 
 ## Introduction 
@@ -323,3 +324,25 @@ The script update.pos.pat.conf.py will request a position from the
 Signal K server and update the pat config file. Runing this before 
 launching pat your current position will be used.
 
+
+## Position from OpenPlotter/gpsd
+Pat have an interface to gpsd to obtain position from GPS when composing
+a position report. When no GPS is attached on USB this becomes a bit more
+complicated. OpenPlotter is a hub on board and it accept GPS from both AIS transceiver
+and chart plotter. The chart plotter GPS provide all needed data to fulfill 
+gpsd's needs. It want a bit more data than just time/lat/long.
+
+Editing the gpsd config file at /etc/defaults/gpsd will enable gpsd to receive 
+it's GPS data from OpenPlotter instead of a USB GPS. OpenPlotter must be configured
+to export these NMEA183 sentences. 
+
+Pat's config need to be edited to use gpsd to get the current position:
+
+ "gpsd": {
+        "enable_http": true,
+        "allow_forms": true,
+        "use_server_time": false,
+        "addr": "localhost:2947"
+    },
+    
+    
