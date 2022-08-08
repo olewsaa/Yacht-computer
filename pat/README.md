@@ -332,7 +332,7 @@ complicated. OpenPlotter is a hub on board and it accept GPS from both AIS trans
 and chart plotter. The chart plotter GPS provide all needed data to fulfill 
 gpsd's needs. It want a bit more data than just time/lat/long.
 
-Editing the gpsd config file at /etc/defaults/gpsd will enable gpsd to receive 
+Editing the gpsd config file at /etc/defaults/gpsd (in this repo) will enable gpsd to receive 
 it's GPS data from OpenPlotter instead of a USB GPS. OpenPlotter must be configured
 to export these NMEA183 sentences. 
 
