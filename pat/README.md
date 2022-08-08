@@ -325,7 +325,7 @@ Signal K server and update the pat config file. Runing this before
 launching pat your current position will be used.
 
 
-## Position from OpenPlotter/gpsd
+## Position from OpenPlotter
 Pat have an interface to gpsd to obtain position from GPS when composing
 a position report. When no GPS is attached on USB this becomes a bit more
 complicated. OpenPlotter is a hub on board and it accept GPS from both AIS transceiver
