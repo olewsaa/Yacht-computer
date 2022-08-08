@@ -4,14 +4,14 @@
 
   * [Introduction](#introduction)
   * [Installation hints](#installation-hints)
-    + [Pat](#pat)
-    + [ARDOP](#ardop)
+    + [Pat](#Pat)
+    + [ARDOP](#ARDOP)
     + [VARA](#VARA)
-    + [Hamlib](#hamlib)
-  * [Running](#running)
+    + [Hamlib](#Hamlib)
+  * [Running](#Running)
   * [Script to control PAT](#script-to-control-pat)
   * [Grid coord. from Signal K](#Grid-from-Signal-K)
-  * [Position from OpenPlotter/gpsd] (#Position-from-OpenPlotter)
+  * [Position from OpenPlotter](#Position-from-OpenPlotter)
 
 
 ## Introduction 
@@ -337,12 +337,11 @@ it's GPS data from OpenPlotter instead of a USB GPS. OpenPlotter must be configu
 to export these NMEA183 sentences. 
 
 Pat's config need to be edited to use gpsd to get the current position:
-
+```
  "gpsd": {
         "enable_http": true,
         "allow_forms": true,
         "use_server_time": false,
         "addr": "localhost:2947"
     },
-    
-    
+```
