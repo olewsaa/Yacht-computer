@@ -27,6 +27,9 @@ The server part is running OpenPlotter which takes care of almost all the server
 
 The server also run OpenCPN as a chart plotter on board. The OpenCPN accept various signals from OpenPlotter and display GPS positions to update the boats position and accept AIS NMEA signals again to be plotted.  All of this is nicely run on a Raspberry Pi.
 
+## HF/SSB radio control
+
+The pat directory contain software used to control the HF/SSB radio, including winlink email which uses the pat software. 
 
 ## Wifi gateway - wifi2wifi
 
