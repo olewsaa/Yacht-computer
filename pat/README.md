@@ -322,15 +322,20 @@ would be updated automatically when a position report is composed.
 
 The script update.pos.pat.conf.py will request a position from the
 Signal K server and update the pat config file. Runing this before 
-launching pat your current position will be used.
+launching pat your current position will be used. As you sail along
+towards your destination your position changes and you need to restart pat
+to get the current position. 
 
 
 ## Position from OpenPlotter
-Pat have an interface to gpsd to obtain position from GPS when composing
+Pat has an interface to gpsd to obtain position from GPS when composing
 a position report. When no GPS is attached on USB this becomes a bit more
-complicated. OpenPlotter is a hub on board and it accept GPS from both AIS transceiver
+complicated as gpsd expect more than just the position. 
+
+OpenPlotter is a hub on board and it accept GPS from both AIS transceiver
 and chart plotter. The chart plotter GPS provide all needed data to fulfill 
-gpsd's needs. It want a bit more data than just time/lat/long.
+gpsd's needs, it want a bit more data than just time/lat/long. Data is exported
+over tcp on a dedicated port (default 10110) as NMEA183 sentences which gpsd happily accept.
 
 Editing the gpsd config file at /etc/defaults/gpsd (in this repo) will enable gpsd to receive 
 it's GPS data from OpenPlotter instead of a USB GPS. OpenPlotter must be configured
@@ -345,3 +350,5 @@ Pat's config need to be edited to use gpsd to get the current position:
         "addr": "localhost:2947"
     },
 ```
+An interface for SignalK would be more elegant. 
+
