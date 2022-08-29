@@ -45,14 +45,27 @@
                       // ADC 2 cannot be used concurrent with wifi.
 // Define the pins to use.                      
 const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALOG_PIN_5, ANALOG_PIN_6, ANALOG_PIN_7}; 
+
 /*
- * Signal K paths/names name of the temperature sensors, description of what they measure.
+ * Signal K paths/names name of the temperature sensors, description of what 
+ * they measure. Temperatures in K.
+ *
+ * Set up the different SignalK names/paths which must be spec      
+ * compliant (see: https://signalk.org/specification/1.7.0/doc/vesselsBranch.html )
+ * 
  */
-const char * keys[MAX_SENSORS];  // keys assigned in setup function.
+const char * signalk_keys[MAX_SENSORS] =
+  {"environment.inside.engineroom.temperature",     // environment/inside/[A-Za-z0-9]+/temperature	  
+   "propulsion.engine.temperature",                 // propulsion/<RegExp>/temperature		
+   "propulsion.engine.coolantTemperature",          // propulsion/<RegExp>/coolantTemperature
+   "electrical.alternators.1.temperature",          // electrical/alternators/<RegExp>/temperature	
+   "electrical.alternators.1.regulatorTemperature", // electrical/alternators/<RegExp>/regulatorTemperature	
+   "propulsion.engine.transmission.oilTemperature"};// propulsion/<RegExp>/transmission/oilTemperature
 
+/* 
+ * How many sensors are installed ? 
+*/
 #define SENSORS 1 // Number of sensors currently.
-
-
 
 
 // ADC stuff
@@ -131,24 +144,6 @@ void setup() {
     adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_11);
     adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11);
 
-/*
- * 
- * Set up the different SignalK names/paths which must be spec  
- * compliant (see: https://signalk.org/specification/1.5.0/doc/vesselsBranch.html ):
- * 
- * Some of these expect temperature in K like environment.inside.temperature.
- */
-//********************************************************************************************************************************** 
-
-    keys[0]="propulsion.1.temperature";                       // Engine engine block ; SignalK: propulsion/<RegExp>/temperature
-    keys[1]="environment.inside.engineRoom.temperature";      // Engine room temp   ; SignalK: environment/inside/engineRoom   environment/inside/engineRoom1/temperature
-    keys[2]="electrical.alternators.1.temperature.warnUpper"; // Alternator ; SignalK: electrical/alternators/<RegExp>/temperature
-
-    keys[3]="propulsion.engine.coolantTemperature"; 
-    keys[4]="propulsion.1.transmission.oilTemperature";        // Engine; SignalK: propulsion/<RegExp>/transmission/oilTemperature
-    
-//**********************************************************************************************************************************
-
 
 } /* End setup */
 
@@ -157,7 +152,7 @@ void setup() {
 void Send_to_SignalK(String path, double value){
     String cmd;
     char valuestring[6]; // Must be long enough to accomodate the number.
-    int len;             // Len of "289.2" is 5 so this is ok. 
+    int len;             // Length of "289.2" is 5 so this is ok with dtostrf(). 
 
   // SignalK selected keys expects the temperaure in Kelvin
     value+=273.15;
@@ -174,10 +169,10 @@ void Send_to_SignalK(String path, double value){
     Serial.print("JSON string "); Serial.println(cmd); 
     Serial.print("Length of JSON string "); Serial.println(len);
 #endif    
-  //data will be sent to server
-    uint8_t buffer[120]; // UDP write will only write sequence of bytes. 
-    for(int j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char to bytes. 
-    //memcpy(buffer,&cmd,len); // simpler, not tested.
+  //data will be sent to the SignalK server
+    uint8_t buffer[160]; // UDP write will only write sequence of bytes. 
+    //for(int j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char to bytes. 
+    memcpy(buffer,&cmd[0],len); // Convert from char to bytes, only len bytes.
     //send cmd to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); 
@@ -220,9 +215,9 @@ void TemperatureLoop() { // Loop through all the sensors.
     Serial.print("  : "); Serial.print(sensor[j]);
     Serial.print(", "); Serial.print(temp[j]); Serial.println("°C"); 
 #endif
-    Send_to_SignalK(keys[j],temp[j]);  // Send the key with its
-                                       // temperature to the SignalK sever.  
-  } // End looping through sensor
+    Send_to_SignalK(signalk_keys[j], temp[j]);  // Send the key with its
+                                                // temperature to the SignalK sever.  
+  } // End looping through sensors
 } // End TemperatureLoop 
 
 
@@ -231,15 +226,17 @@ void TemperatureLoop() { // Loop through all the sensors.
 void loop() { 
   digitalWrite(LED_BUILTIN, HIGH); // Turn the LED on while we transfer the data.
 #ifdef DEBUG 
-  Serial.println("Read voltage");
+  Serial.println("Read voltage as ADC count");
 #endif
   TemperatureLoop();
   
   delay(100); digitalWrite(LED_BUILTIN, LOW); // Turn the LED off by making the voltage LOW.
 #ifdef DEBUG     
   Serial.println("wait 1 sec...");  // This high refresh rate put a load in the SignalK server.
-#endif
   delay(1000);  // 1000 ms delay.
+#else
+  delay(5000); // 5 sec delay, update only every 5th second.
+#endif
 }  /* End infinite loop, this is the only thread the controller run  */
 
 // End program.
