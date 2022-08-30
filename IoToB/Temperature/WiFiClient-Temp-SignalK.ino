@@ -53,7 +53,7 @@ float tempDev[ONE_WIRE_MAX_DEV];          // Saving the last measurement of temp
 
 // WiFi network name and password 
 const char * ssid = "openplotter";
-const char * pwd = "blackpearl";
+const char * pwd = "password";
 
 
 // IP address to send UDP data to.

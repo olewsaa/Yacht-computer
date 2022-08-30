@@ -78,8 +78,10 @@ const char * signalk_keys[MAX_SENSORS] =
 #include <WiFiUdp.h>
 
 /* WiFi network name and password */
-const char * ssid = "openplotter";
+const char * ssid = "TeamRocketHQ";
 const char * pwd = "password";
+//const char * ssid = "openplotter";
+//const char * pwd = "password";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -149,18 +151,18 @@ void setup() {
 
 
 
-void Send_to_SignalK(String path, double value){
+void Send_to_SignalK(String path, float value){
     String cmd;
     char valuestring[6]; // Must be long enough to accomodate the number.
     int len;             // Length of "289.2" is 5 so this is ok with dtostrf(). 
 
-  // SignalK selected keys expects the temperaure in Kelvin
+  // SignalK selected keys expects the temperaure in Kelvin.
     value+=273.15;
 
   // Prepage the SignalK string to send.
     cmd = "{\"updates\": [{\"$source\": \"ESP32\",\"values\":[ {\"path\":\"";
     cmd += path; cmd += "\","; cmd += "\"value\":";
-    dtostrf(value,4,1,valuestring); // Convert double to a string, width need
+    dtostrf(value,4,1,valuestring); // Convert float to a string, width need
                                     // to be enough, overflow cause abort.
     cmd += valuestring;
     cmd += "}]}]}\0";
@@ -173,7 +175,7 @@ void Send_to_SignalK(String path, double value){
     uint8_t buffer[160]; // UDP write will only write sequence of bytes. 
     //for(int j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char to bytes. 
     memcpy(buffer,&cmd[0],len); // Convert from char to bytes, only len bytes.
-    //send cmd to server
+    //send buffer to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); 
     Udp.endPacket();
@@ -184,9 +186,9 @@ void Send_to_SignalK(String path, double value){
    
 } /* End Send_to_SignalK */
 
-
+// Calibration from ADC count to degree °C. 
 float cal(int adc){
-  // fourth order polynomal a+bx+cx2+dx3+ex4
+  // fourth order polynomal a + bx + cx^2 + dx^3 + ex^4
   const double  a=-27.6846446459551;
   const double  b=0.01991717672664;
   const double  c=3.8135734768874e-05;
@@ -209,7 +211,7 @@ void TemperatureLoop() { // Loop through all the sensors.
     int  sum=0;
     for(int k=0;k<200;k++) sum += analogRead(adcpin[j]); 
     sensor[j] = sum/200;     
-    temp[j] = cal(sensor[j]);
+    temp[j] = cal(sensor[j]);  // Convert from ADC count to temperature.
 #ifdef DEBUG     
     Serial.print("Sensor "); Serial.print(j);
     Serial.print("  : "); Serial.print(sensor[j]);
