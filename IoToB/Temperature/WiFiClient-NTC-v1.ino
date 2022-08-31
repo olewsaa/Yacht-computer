@@ -153,9 +153,10 @@ void setup() {
 
 void Send_to_SignalK(String path, float value){
     String cmd;
-    char valuestring[6]; // Must be long enough to accomodate the number.
-    int len;             // Length of "289.2" is 5 so this is ok with dtostrf(). 
-
+    char valuestring[6]; // Must be long enough to accomodate the number. Length of "289.2" is 5 so this is ok with dtostrf(). 
+    uint8_t buffer[160]; // Buffer to hold the cmd string.
+    int len;     
+            
   // SignalK selected keys expects the temperaure in Kelvin.
     value+=273.15;
 
@@ -172,12 +173,13 @@ void Send_to_SignalK(String path, float value){
     Serial.print("Length of JSON string "); Serial.println(len);
 #endif    
   //data will be sent to the SignalK server
-    uint8_t buffer[160]; // UDP write will only write sequence of bytes. 
+    //uint8_t buffer[160]; 
     //for(int j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char to bytes. 
-    memcpy(buffer,&cmd[0],len); // Convert from char to bytes, only len bytes.
+    //memcpy(buffer,&cmd[0],len); // Convert from char to bytes, only len bytes.
+    cmd.getBytes(buffer, len); // Extract the characters into a byte array.
     //send buffer to server
     Udp.beginPacket(udpAddress, udpPort);
-    Udp.write(buffer, len); 
+    Udp.write(buffer, len); // UDP write will only write sequence of bytes. 
     Udp.endPacket();
 #ifdef DEBUG    
     Serial.println(cmd); 
