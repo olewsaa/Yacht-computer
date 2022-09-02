@@ -88,13 +88,17 @@ const char * pwd = "password";
 // Settings for SignalK port and SignalK server.
 //const char * udpAddress = "192.168.1.160";
 const char * udpAddress = "10.10.10.1"; // This is the openplotter address.
-const int udpPort = 55557;  // Openplotter is listening on this port,
+const int udpPort = 55558;  // Openplotter is listening on this port,
                             // port is set in Openplotter connections.
-                            // Each of the wifi clients can have a unique
-                            // port.
+                            // Each of the wifi clients can have a unique user selectable port.
 
 // Instanciate WiFi object
 WiFiUDP Udp;
+
+
+/*
+ * Init start. The setup function is run at start and all initialisations must be done here.
+ */
 
 
 void setup() {
@@ -147,7 +151,7 @@ void setup() {
     adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11);
 
 
-} /* End setup */
+} /* End function setup */
 
 
 
@@ -173,20 +177,14 @@ void Send_to_SignalK(String path, float value){
     Serial.print("Length of JSON string "); Serial.println(len);
 #endif    
   //data will be sent to the SignalK server
-    //uint8_t buffer[160]; 
-    //for(int j=0;j<len;j++){buffer[j]=cmd[j];} // Convert from char to bytes. 
-    //memcpy(buffer,&cmd[0],len); // Convert from char to bytes, only len bytes.
     cmd.getBytes(buffer, len); // Extract the characters into a byte array.
     //send buffer to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); // UDP write will only write sequence of bytes. 
     Udp.endPacket();
-#ifdef DEBUG    
-    Serial.println(cmd); 
-#endif
-    delay(10); 
-   
+    delay(10);    
 } /* End Send_to_SignalK */
+
 
 // Calibration from ADC count to degree °C. 
 float cal(int adc){
@@ -221,8 +219,8 @@ void TemperatureLoop() { // Loop through all the sensors.
 #endif
     Send_to_SignalK(signalk_keys[j], temp[j]);  // Send the key with its
                                                 // temperature to the SignalK sever.  
-  } // End looping through sensors
-} // End TemperatureLoop 
+  } // End for, looping through sensors
+} // End function TemperatureLoop 
 
 
 // The infinite loop start here, Arduino IDE has no main()
