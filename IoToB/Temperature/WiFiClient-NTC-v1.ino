@@ -56,16 +56,17 @@ const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALO
  */
 const char * signalk_keys[MAX_SENSORS] =
   {"propulsion.engine.coolantTemperature",          // propulsion/<RegExp>/coolantTemperature
+   "environment.inside.galley.temperature",         //  environment/inside/[A-Za-z0-9]+/temperature
+//   "propulsion.engine.temperature",                 // propulsion/<RegExp>/temperature    
    "electrical.alternators.1.temperature",          // electrical/alternators/<RegExp>/temperature 
-   "environment.inside.engineroom.temperature",     // environment/inside/[A-Za-z0-9]+/temperature	  
-   "propulsion.engine.temperature",                 // propulsion/<RegExp>/temperature		
-   "propulsion.engine.coolantTemperature",          // propulsion/<RegExp>/coolantTemperature
+   "environment.inside.engineroom2.temperature",    // environment/inside/[A-Za-z0-9]+/temperature	  
+   "environment.outside.temperature",               // environment/outside/temperature
    "propulsion.engine.transmission.oilTemperature"};// propulsion/<RegExp>/transmission/oilTemperature
 
 /* 
  * How many sensors are installed ? 
 */
-#define SENSORS 1 // Number of sensors currently.
+#define SENSORS 6 // Number of sensors currently.
 
 
 // ADC stuff
@@ -79,9 +80,9 @@ const char * signalk_keys[MAX_SENSORS] =
 
 /* WiFi network name and password */
 //const char * ssid = "TeamRocketHQ";
-//const char * pwd = "password";
+//const char * pwd = "blackpearl";
 const char * ssid = "openplotter";
-const char * pwd = "password";
+const char * pwd = "blackpearl";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -234,8 +235,8 @@ void loop() {
   
   delay(100); digitalWrite(LED_BUILTIN, LOW); // Turn the LED off by making the voltage LOW.
 #ifdef DEBUG     
-  Serial.println("wait 1 sec...");  // This high refresh rate put a load in the SignalK server.
-  delay(1000);  // 1000 ms delay.
+  Serial.println("wait 2 sec...");  // This high refresh rate put a load in the SignalK server.
+  delay(2000);  // 2000 ms delay.
 #else
   delay(5000); // 5 sec delay, update only every 5th second.
 #endif
