@@ -55,11 +55,11 @@ const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALO
  * 
  */
 const char * signalk_keys[MAX_SENSORS] =
-  {"environment.inside.engineroom.temperature",     // environment/inside/[A-Za-z0-9]+/temperature	  
+  {"propulsion.engine.coolantTemperature",          // propulsion/<RegExp>/coolantTemperature
+   "electrical.alternators.1.temperature",          // electrical/alternators/<RegExp>/temperature 
+   "environment.inside.engineroom.temperature",     // environment/inside/[A-Za-z0-9]+/temperature	  
    "propulsion.engine.temperature",                 // propulsion/<RegExp>/temperature		
    "propulsion.engine.coolantTemperature",          // propulsion/<RegExp>/coolantTemperature
-   "electrical.alternators.1.temperature",          // electrical/alternators/<RegExp>/temperature	
-   "electrical.alternators.1.regulatorTemperature", // electrical/alternators/<RegExp>/regulatorTemperature	
    "propulsion.engine.transmission.oilTemperature"};// propulsion/<RegExp>/transmission/oilTemperature
 
 /* 
@@ -78,10 +78,10 @@ const char * signalk_keys[MAX_SENSORS] =
 #include <WiFiUdp.h>
 
 /* WiFi network name and password */
-const char * ssid = "TeamRocketHQ";
-const char * pwd = "password";
-//const char * ssid = "openplotter";
+//const char * ssid = "TeamRocketHQ";
 //const char * pwd = "password";
+const char * ssid = "openplotter";
+const char * pwd = "password";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -177,7 +177,7 @@ void Send_to_SignalK(String path, float value){
     Serial.print("Length of JSON string "); Serial.println(len);
 #endif    
   //data will be sent to the SignalK server
-    cmd.getBytes(buffer, len); // Extract the characters into a byte array.
+    memcpy(buffer,&cmd[0],len); // Convert from char t bytes.
     //send buffer to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); // UDP write will only write sequence of bytes. 
