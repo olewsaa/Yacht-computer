@@ -178,7 +178,8 @@ void Send_to_SignalK(String path, float value){
     Serial.print("Length of JSON string "); Serial.println(len);
 #endif    
   //data will be sent to the SignalK server
-    memcpy(buffer,&cmd[0],len); // Convert from char t bytes.
+    memcpy(buffer,&cmd[0],len); // Convert from char to bytes, udp.write don't
+                                // accept string type buffer as input.
     //send buffer to server
     Udp.beginPacket(udpAddress, udpPort);
     Udp.write(buffer, len); // UDP write will only write sequence of bytes. 
