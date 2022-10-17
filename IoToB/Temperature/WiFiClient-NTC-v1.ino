@@ -6,7 +6,7 @@
  *  v1.00 23 Aug 2022
  *  v1.01 26 Aug 2022 Polynomial eval macro.
  *  v1.02 27 Aug 2022 Fixed Temp to Kelvin, change width in dtostrf, check size.
- *  
+ *  v1.03 16 Oct 2022 Added reset at regular intervals
  * 
  *  Select board ESP32 , NodeMCU-32S, Node32s
  *  
@@ -26,6 +26,8 @@
  *  https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
  *  https://www.electronics-tutorials.ws/io/thermistors.html
  *  
+ *  To restart:  ESP.restart();
+ *
  */
 #define DEBUG ;
  
@@ -43,8 +45,8 @@
 
 #define MAX_SENSORS 6 // Maximum number of ADCs on channel 1 
                       // ADC 2 cannot be used concurrent with wifi.
-// Define the pins to use.                      
-const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALOG_PIN_5, ANALOG_PIN_6, ANALOG_PIN_7}; 
+// Define the pins to use. Numbered to match pins consequtively.
+const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALOG_PIN_7, ANALOG_PIN_6, ANALOG_PIN_5}; 
 
 /*
  * Signal K paths/names name of the temperature sensors, description of what 
@@ -54,19 +56,18 @@ const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALO
  * compliant (see: https://signalk.org/specification/1.7.0/doc/vesselsBranch.html )
  * 
  */
-const char * signalk_keys[MAX_SENSORS] =
-  {"propulsion.engine.coolantTemperature",          // propulsion/<RegExp>/coolantTemperature
-   "environment.inside.galley.temperature",         //  environment/inside/[A-Za-z0-9]+/temperature
-//   "propulsion.engine.temperature",                 // propulsion/<RegExp>/temperature    
-   "electrical.alternators.1.temperature",          // electrical/alternators/<RegExp>/temperature 
-   "environment.inside.engineroom2.temperature",    // environment/inside/[A-Za-z0-9]+/temperature	  
-   "environment.outside.temperature",               // environment/outside/temperature
-   "propulsion.engine.transmission.oilTemperature"};// propulsion/<RegExp>/transmission/oilTemperature
-
+const char * signalk_keys[MAX_SENSORS] =             // Only the N first is used if SENSORS (se below) < 6.
+  {"propulsion.engine.coolantTemperature",           // propulsion/<RegExp>/coolantTemperature
+   "propulsion.engineW.temperature",                 // propulsion/<RegExp>/temperature
+   "propulsion.engineB.temperature",                 // propulsion/<RegExp>/temperature    
+   "electrical.alternators.1.temperature",           // electrical/alternators/<RegExp>/temperature 
+   "environment.inside.engineRoom.temperature",      // environment/inside/[A-Za-z0-9]+/temperature	  
+   "propulsion.engine.transmission.oilTemperature"}; // propulsion/<RegExp>/transmission/oilTemperature
+  
 /* 
  * How many sensors are installed ? 
 */
-#define SENSORS 6 // Number of sensors currently.
+#define SENSORS 5 // Number of sensors currently. 6 sensors is the max when running wifi.
 
 
 // ADC stuff
@@ -79,10 +80,8 @@ const char * signalk_keys[MAX_SENSORS] =
 #include <WiFiUdp.h>
 
 /* WiFi network name and password */
-//const char * ssid = "TeamRocketHQ";
-//const char * pwd = "password";
 const char * ssid = "openplotter";
-const char * pwd = "password";
+const char * pwd = "blackpearl";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -96,6 +95,8 @@ const int udpPort = 55558;  // Openplotter is listening on this port,
 // Instanciate WiFi object
 WiFiUDP Udp;
 
+// 
+short Resetcount=60; // at 5 sek interval 60*5=300 sek or  5 min 
 
 /*
  * Init start. The setup function is run at start and all initialisations must be done here.
@@ -116,7 +117,10 @@ void setup() {
 
   // Wait for connection
    while (WiFi.status() != WL_CONNECTED) {
-      delay(500);
+      digitalWrite(LED_BUILTIN, HIGH); // Turn the LED on while we try to connect
+      delay(250);
+      digitalWrite(LED_BUILTIN, LOW); // Turn the LED off by making the voltage LOW.
+      delay(250);
 #ifdef DEBUG 
       Serial.print(".");
 #endif
@@ -158,8 +162,7 @@ void setup() {
 
 void Send_to_SignalK(String path, float value){
     String cmd;
-    char valuestring[6]; // Must be long enough to accomodate the number. Length of "289.2" is 5 so this is ok with dtostrf(). 
-    uint8_t buffer[160]; // Buffer to hold the cmd string.
+    char valuestring[6]; // Must be long enough to accomodate the number. Length of "289.2" is 5 so this is ok with dtostrf().     
     int len;     
             
   // SignalK selected keys expects the temperaure in Kelvin.
@@ -178,7 +181,8 @@ void Send_to_SignalK(String path, float value){
     Serial.print("Length of JSON string "); Serial.println(len);
 #endif    
   //data will be sent to the SignalK server
-    memcpy(buffer,&cmd[0],len); // Convert from char to bytes, udp.write don't
+    uint8_t buffer[len];        // Buffer to hold the cmd string characters. 
+    memcpy(buffer,&cmd[0],len); // Convert from string to bytes, udp.write don't
                                 // accept string type buffer as input.
     //send buffer to server
     Udp.beginPacket(udpAddress, udpPort);
@@ -241,6 +245,10 @@ void loop() {
 #else
   delay(5000); // 5 sec delay, update only every 5th second.
 #endif
-}  /* End infinite loop, this is the only thread the controller run  */
+  if ((Resetcount--) == 0) ESP.restart(); // Reset at some intervals to keep it up at all times. 
+}  /* End loop function, this is the only thread the controller run  */
 
-// End program.
+
+// End sketch.
+
+
