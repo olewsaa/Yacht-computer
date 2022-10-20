@@ -25,6 +25,8 @@ degree polynomial, with the downside that I needed double presicison
 vaiables (64 bits float), the ESP32 don't support this in hardware. 
 However, it's only done every 5 second (my current measurement frequency).
 
+As I run into stability issues with the 1-wire sensors I added a restart every N minutes.
+While not a power cycle restart it's a full reboot of the ESP32.
 
 ### Openplotter and SignalK
 The SignalK server can accept UDP input at a user selectable port. The ESP8266
