@@ -28,6 +28,9 @@ However, it's only done every 5 second (my current measurement frequency).
 As I run into stability issues with the 1-wire sensors I added a restart every N minutes.
 While not a power cycle restart it's a full reboot of the ESP32.
 
+![Breadboard](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperature-NTC.png 
+"prototype to be installed")
+
 ### Openplotter and SignalK
 The SignalK server can accept UDP input at a user selectable port. The ESP8266
 is using 55557 hence the ESP32 could use 55558 or another suitable port. This 
