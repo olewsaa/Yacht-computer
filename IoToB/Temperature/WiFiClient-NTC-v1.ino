@@ -193,7 +193,7 @@ void Send_to_SignalK(String path, float value){
 
 
 // Calibration from ADC count to degree °C. 
-float cal(unsigned int adc){
+float cal(uint16_t adc){
   // fourth order polynomal a + bx + cx^2 + dx^3 + ex^4
   const double  a=-27.6846446459551;
   const double  b=0.01991717672664;
@@ -209,12 +209,12 @@ float cal(unsigned int adc){
 
 
 void TemperatureLoop() { // Loop through all the sensors.
-  unsigned int sensor[SENSORS]; // Maximum number of sensors used
+  uint16_t sensor[SENSORS]; // Maximum number of sensors used
   float temp[SENSORS]; // Keep temperatures in an array
    // Loop through the NTC sensors
   for(int j=0;j<SENSORS;j++) {
     // Average over a number of samples, 200 samples seems to work nice.
-    unsigned int  sum=0; // ESP32 uses 32 bit int.
+    uint32_t  sum=0; // ESP32 uses 32 bit int.
     for(int k=0;k<200;k++) sum += analogRead(adcpin[j]); // sum need 32 bit int.
     sensor[j] = sum/200;     
     temp[j] = cal(sensor[j]);  // Convert from ADC count to temperature.
@@ -250,5 +250,3 @@ void loop() {
 
 
 // End sketch.
-
-
