@@ -28,7 +28,7 @@ However, it's only done every 5 second (my current measurement frequency).
 As I run into stability issues with the 1-wire sensors I added a restart every N minutes.
 While not a power cycle restart it's a full reboot of the ESP32.
 
-![Breadboard](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperature-NTC.png 
+![prototype](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperature-NTC.png 
 "prototype to be installed")
 
 ### Openplotter and SignalK
