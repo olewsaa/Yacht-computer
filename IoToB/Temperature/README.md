@@ -32,7 +32,7 @@ While not a power cycle restart it's a full reboot of the ESP32.
 "prototype to be installed")
 
 Schematic can be found in projects diretory along with source code,
-[webpages](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/temperature-monitoring)
+[webpages](https://github.com/olewsaa/Yacht-computer/tree/master/IoToB/Temperature)
 
 ### Openplotter and SignalK
 The SignalK server can accept UDP input at a user selectable port. The ESP8266
