@@ -31,6 +31,9 @@ While not a power cycle restart it's a full reboot of the ESP32.
 ![prototype](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperature-NTC.png 
 "prototype to be installed")
 
+Schematic can be found in projects diretory along with source code,
+[webpages](https://sites.google.com/site/olewsaa/yacht-server-with-raspberry/temperature-monitoring)
+
 ### Openplotter and SignalK
 The SignalK server can accept UDP input at a user selectable port. The ESP8266
 is using 55557 hence the ESP32 could use 55558 or another suitable port. This 
