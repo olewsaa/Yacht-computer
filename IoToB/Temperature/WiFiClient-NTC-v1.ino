@@ -7,8 +7,9 @@
  *  v1.01 26 Aug 2022 Polynomial eval macro.
  *  v1.02 27 Aug 2022 Fixed Temp to Kelvin, change width in dtostrf, check size.
  *  v1.03 16 Oct 2022 Added reset at regular intervals
+ *  v1.04 24 Oct 2022 Cleaned code
  * 
- *  Select board ESP32 , NodeMCU-32S, Node32s
+ *  Select board ESP32 Arduino , NodeMCU-32S, Node32s
  *  
  *  IDE Arduino 1.8.19 
  *  ESP modules can be added with this string in settings "boards manager"
@@ -16,17 +17,15 @@
  *
  *  Analog voltage is single ended and read by the ESP analog inputs. 
  *  
- *  The current sensors emits Vdd/2 for zero current and voler that Vdd/2 for flow
- *  in one direction and voltage higher than Vdd/2 for flow in the oposite direction,
- *  Hence differential measurement is sensible as it yield negative values below Vdd/2 
- *  and positive values above Vdd/2.
- *
  *  SignalK uses UDP. The syntax is differ between ESP8622 and ESP32.
+ *  
+ *  
+ *  Analog input and NTC negative temperature themistors. 
  *  
  *  https://randomnerdtutorials.com/esp32-adc-analog-read-arduino-ide/
  *  https://www.electronics-tutorials.ws/io/thermistors.html
  *  
- *  To restart:  ESP.restart();
+ *  To restart the ESP32 module:  ESP.restart();
  *
  */
 #define DEBUG ;
@@ -36,12 +35,12 @@
 #define POLY4(x,a,b,c,d,e) (a + b*x + c*x*x + d*x*x*x + e*x*x*x*x)
 
 // Analog Input on the ESP32, this board has many analog inputs.
-#define ANALOG_PIN_0 36  // Pin GPIO 36
-#define ANALOG_PIN_3 39  // Pin GPIO 39
-#define ANALOG_PIN_4 32  // Pin GPIO 32
-#define ANALOG_PIN_5 33  // Pin GPIO 33
-#define ANALOG_PIN_6 34  // Pin GPIO 34
-#define ANALOG_PIN_7 35  // Pin GPIO 35
+#define ANALOG_PIN_0 36  // Pin GPIO D36 also VP
+#define ANALOG_PIN_3 39  // Pin GPIO D39 also UN
+#define ANALOG_PIN_4 32  // Pin GPIO D32
+#define ANALOG_PIN_5 33  // Pin GPIO D33
+#define ANALOG_PIN_6 34  // Pin GPIO D34
+#define ANALOG_PIN_7 35  // Pin GPIO D35
 
 #define MAX_SENSORS 6 // Maximum number of ADCs on channel 1 
                       // ADC 2 cannot be used concurrent with wifi.
@@ -56,13 +55,17 @@ const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALO
  * compliant (see: https://signalk.org/specification/1.7.0/doc/vesselsBranch.html )
  * 
  */
-const char * signalk_keys[MAX_SENSORS] =             // Only the N first is used if SENSORS (se below) < 6.
-  {"propulsion.engine.coolantTemperature",           // propulsion/<RegExp>/coolantTemperature
-   "propulsion.engineW.temperature",                 // propulsion/<RegExp>/temperature
-   "propulsion.engineB.temperature",                 // propulsion/<RegExp>/temperature    
-   "electrical.alternators.1.temperature",           // electrical/alternators/<RegExp>/temperature 
-   "environment.inside.engineRoom.temperature",      // environment/inside/[A-Za-z0-9]+/temperature	  
-   "propulsion.engine.transmission.oilTemperature"}; // propulsion/<RegExp>/transmission/oilTemperature
+const char * signalk_keys[MAX_SENSORS] =          // Only the N first is used if SENSORS (se below) < 6.
+
+
+//********************************* SignalK path names  ***************************************************** 
+  {"propulsion.engine.coolantTemperature",        // propulsion/<RegExp>/coolantTemperature
+   "propulsion.engine.temperature",               // propulsion/<RegExp>/temperature    
+   "propulsion.engine.exhaustTemperature",        // /vessels/<RegExp>/propulsion/<RegExp>/exhaustTemperature
+   "environment.inside.engineRoom.temperature",   // environment/inside/[A-Za-z0-9]+/temperature	  
+   "electrical.alternators.1.temperature"};       // electrical/alternators/<RegExp>/temperature 
+//********************************* SignalK path names  ***************************************************** 
+
   
 /* 
  * How many sensors are installed ? 
@@ -96,7 +99,7 @@ const int udpPort = 55558;  // Openplotter is listening on this port,
 WiFiUDP Udp;
 
 // 
-short Resetcount=60; // at 5 sek interval 60*5=300 sek or  5 min 
+//short Resetcount=60; // at 5 sek interval 60*5=300 sek or  5 min 
 
 /*
  * Init start. The setup function is run at start and all initialisations must be done here.
@@ -108,6 +111,34 @@ void setup() {
 #ifdef DEBUG 
     Serial.begin(115200);
 #endif
+
+
+#ifdef DEBUG
+    Serial.println("Setting up ADC");
+#endif       
+ // Set up ADC1 and its channels, restart ESP if errors.
+    // Set 12 bits (4096) values
+    if (adc1_config_width(ADC_WIDTH_BIT_12) != ESP_OK) ESP.restart();
+    // Set all channels to 11 dB attenuation,
+    // 11 dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 3.9 V
+    
+    // esp_err_t status;
+    // status = adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_11);
+    // if (status != ESP_OK) ESP.restart();
+    // if (adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+    
+    if (adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+    if (adc1_config_channel_atten(ADC1_CHANNEL_1, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+    if (adc1_config_channel_atten(ADC1_CHANNEL_2, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+    if (adc1_config_channel_atten(ADC1_CHANNEL_3, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+    if (adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+    if (adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
+
+#ifdef DEBUG
+    Serial.println("ADC setup OK");
+#endif
+
+
 
   //Connect to the WiFi network
     WiFi.begin(ssid, pwd);
@@ -136,25 +167,6 @@ void setup() {
     Udp.begin(udpPort);    
     delay(10);
    
-
- // Set up ADC1 and its channels.
-    // Set 12 bits (4096) values
-    adc1_config_width(ADC_WIDTH_BIT_12);
-    // Set all channels to 11 dB attenuation,
-    // 11 dB attenuation (ADC_ATTEN_DB_11) gives full-scale voltage 3.9 V
-    
-    // esp_err_t status;
-    // status = adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_11);
-    // if (status != ESP_OK) ESP.restart();
-    // if (adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11) != ESP_OK) ESP.restart();
-    
-    adc1_config_channel_atten(ADC1_CHANNEL_0, ADC_ATTEN_DB_11);
-    adc1_config_channel_atten(ADC1_CHANNEL_1, ADC_ATTEN_DB_11);
-    adc1_config_channel_atten(ADC1_CHANNEL_2, ADC_ATTEN_DB_11);
-    adc1_config_channel_atten(ADC1_CHANNEL_3, ADC_ATTEN_DB_11);
-    adc1_config_channel_atten(ADC1_CHANNEL_4, ADC_ATTEN_DB_11);
-    adc1_config_channel_atten(ADC1_CHANNEL_5, ADC_ATTEN_DB_11);
-
 
 } /* End function setup */
 
@@ -245,7 +257,9 @@ void loop() {
 #else
   delay(5000); // 5 sec delay, update only every 5th second.
 #endif
-  if ((Resetcount--) == 0) ESP.restart(); // Reset at some intervals to keep it up at all times. 
+
+  //if ((Resetcount--) == 0) ESP.restart(); // Reset at some intervals to keep it up at all times. 
+  
 }  /* End loop function, this is the only thread the controller run  */
 
 
