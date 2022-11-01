@@ -25,8 +25,14 @@ degree polynomial, with the downside that I needed double presicison
 vaiables (64 bits float), the ESP32 don't support this in hardware. 
 However, it's only done every 5 second (my current measurement frequency).
 
-As I run into stability issues with the 1-wire sensors I added a restart every N minutes.
+As I run into stability issues with the 1-wire sensors I added a restart every N minutes,
+it might not be needed if it turns out to be stable with the NTC and ESP32.
 While not a power cycle restart it's a full reboot of the ESP32.
+
+### Prototype 
+The picture below show the prototype with 1W power converter installed. 
+This turned out to be too little power for the wifi initialisation, 200 mA is not enough. 
+After replacing it with a 3W unit it works fine. 
 
 ![prototype](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperature-NTC.png 
 "prototype to be installed")
