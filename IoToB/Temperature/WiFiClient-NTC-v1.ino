@@ -8,6 +8,8 @@
  *  v1.02 27 Aug 2022 Fixed Temp to Kelvin, change width in dtostrf, check size.
  *  v1.03 16 Oct 2022 Added reset at regular intervals
  *  v1.04 24 Oct 2022 Cleaned code
+ *  v1.05 29 Oct 2022 Added wifi disconnect before restart
+ *  v1.06 01 Nov 2022 None debug build, no restart.
  * 
  *  Select board ESP32 Arduino , NodeMCU-32S, Node32s
  *  
@@ -28,7 +30,7 @@
  *  To restart the ESP32 module:  ESP.restart();
  *
  */
-#define DEBUG ;
+//#define DEBUG ;
  
 #define POLY2(x,a,b,c)     (a + b*x + c*x*x)
 #define POLY3(x,a,b,c,d)   (a + b*x + c*x*x + d*x*x*x)
@@ -99,7 +101,7 @@ const int udpPort = 55558;  // Openplotter is listening on this port,
 WiFiUDP Udp;
 
 // 
-//short Resetcount=60; // at 5 sek interval 60*5=300 sek or  5 min 
+short Resetcount=60; // at 5 sek interval 60*5=300 sek or  5 min 
 
 /*
  * Init start. The setup function is run at start and all initialisations must be done here.
@@ -257,9 +259,13 @@ void loop() {
 #else
   delay(5000); // 5 sec delay, update only every 5th second.
 #endif
-
-  //if ((Resetcount--) == 0) ESP.restart(); // Reset at some intervals to keep it up at all times. 
-  
+/*
+  if ((Resetcount--) == 0){
+    WiFi.disconnect();
+    delay(10000);
+    ESP.restart(); // Reset at some intervals to keep it up at all times. 
+  }
+*/
 }  /* End loop function, this is the only thread the controller run  */
 
 
