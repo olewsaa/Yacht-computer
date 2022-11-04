@@ -57,17 +57,17 @@ const int adcpin[MAX_SENSORS] = {ANALOG_PIN_0, ANALOG_PIN_3, ANALOG_PIN_4, ANALO
  * compliant (see: https://signalk.org/specification/1.7.0/doc/vesselsBranch.html )
  * 
  */
-const char * signalk_keys[MAX_SENSORS] =          // Only the N first is used if SENSORS (se below) < 6.
-
-
+const char * signalk_keys[MAX_SENSORS] = {  // Only the N first is used if SENSORS (se below) < 6.
 //********************************* SignalK path names  ***************************************************** 
-  {"propulsion.engine.coolantTemperature",        // propulsion/<RegExp>/coolantTemperature
+  
+   "propulsion.engine.coolantTemperature",        // propulsion/<RegExp>/coolantTemperature
    "propulsion.engine.temperature",               // propulsion/<RegExp>/temperature    
    "propulsion.engine.exhaustTemperature",        // /vessels/<RegExp>/propulsion/<RegExp>/exhaustTemperature
    "environment.inside.engineRoom.temperature",   // environment/inside/[A-Za-z0-9]+/temperature	  
-   "electrical.alternators.1.temperature"};       // electrical/alternators/<RegExp>/temperature 
+   "electrical.alternators.1.temperature"       // electrical/alternators/<RegExp>/temperature 
+  
 //********************************* SignalK path names  ***************************************************** 
-
+   };  
   
 /* 
  * How many sensors are installed ? 
