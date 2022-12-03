@@ -40,6 +40,12 @@ After replacing it with a 3W unit it works fine.
 Schematic can be found in projects diretory along with source code,
 [webpages](https://github.com/olewsaa/Yacht-computer/tree/master/IoToB/Temperature)
 
+An essential part is the voltage reference, I have used a LM285 2.5 V voltage reference. 
+Keeping a stable reference voltage is importent as the ADC converter depend on a 
+voltage measurement and the NTC is just a voltage divider. The NTC is at 10k at 298K
+and the resistors are 10k the voltage is 1.25 volt at 25°C. The resolution of 12 bits
+is enough to make sensible readings even if not the whole range from 0-4095 is used.
+
 ### Openplotter and SignalK
 The SignalK server can accept UDP input at a user selectable port. The ESP8266
 is using 55557 hence the ESP32 could use 55558 or another suitable port. This 
