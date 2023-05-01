@@ -21,6 +21,10 @@ import os, json, requests
 
 resp = requests.get('http://demo.signalk.org/signalk/v1/api/vessels/self/navigation/datetime/value', verify=False)
 
+#resp = requests.get('http://10.10.10.1:3000/signalk/v1/api/vessels/self/nav
+igation/datetime/value', verify=False)
+
+
 data = json.loads(resp.content)
 print(data)
 #cmd="sudo date -s "+data
