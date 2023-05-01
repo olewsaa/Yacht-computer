@@ -19,20 +19,17 @@ import os, json, requests
 # sudo timedatectl set-timezone UTC
 #
 
-NTPrunning=os.system('ntpstat>/dev/null') 
-#print("NTP status", NTPrunning)
-if (NTPrunning != 0):    
-    #resp = requests.get('http://10.10.10.1:3000/signalk/v1/api/vessels/self/navigation/datetime/value', verify=False)a
+resp = requests.get('http://demo.signalk.org/signalk/v1/api/vessels/self/navigation/datetime/value', verify=False)
 
-    resp = requests.get('http://demo.signalk.org/signalk/v1/api/vessels/self/navigation/datetime/value', verify=False)
-
-    #print(resp)
-    data = json.loads(resp.content)
-    #print(data)
-    cmd="sudo date -s "+data
-    print(cmd)
-    #os.system(cmd)
-
-    
-
+data = json.loads(resp.content)
+print(data)
+#cmd="sudo date -s "+data
+#os.system(cmd)
+Y=data[0:4]
+M=data[5:7]
+D=data[8:10]
+h=data[11:13]
+m=data[14:16]
+s=data[17:24]
+print(D,"/",M,"-",Y," ",h,":",m,":",s)
 
