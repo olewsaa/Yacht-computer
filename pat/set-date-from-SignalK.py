@@ -5,7 +5,7 @@ import os, json, requests
 # real time battery powered clock to keep time. Without internet
 # connection it cannot set its clock. When a separate GPS is not
 # connected it ned to ask the SignalK server for time data. 
-
+#
 #
 # Setting UTC timezone via CLI :
 # sudo rm /etc/localtime
