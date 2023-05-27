@@ -4,7 +4,7 @@
 Position and time are always of interest. There are several sources available
 onboard:
 1. The internet provide time from ntp servers if connected to the net.
-2. The Chart plotter (when turned on) provide both time and position via NMEA2000 and OpenPlotte and SignalK. 
+2. The Chart plotter (when turned on) provide both time and position via NMEA2000 and OpenPlotter and SignalK. 
 3. Then no other source is available an attached USB GPS will provide the Yacht computer with both time and position.
 
 As one need to save power when at anchor the sailing instruments and chart 
@@ -12,7 +12,10 @@ plotter are turned off. The yacht computer is very handy to have on as it
 record air pressure. Wind require the instruments to be on, but not the 
 chart plotter. The simple GPS "mouse" will provide a time nice time signal
 to the yacht computer which in turn provide time to any other computer 
-(the ham radio one) and any laptops. 
+(the ham radio one) and any laptops.  The ham radio Raspberry need to keep
+track of the tme to the nearest second. Digital modes like FT8 rely on 
+accurate time.
+
 
 
 ## GPSD
