@@ -16,8 +16,6 @@ to the yacht computer which in turn provide time to any other computer
 track of the tme to the nearest second. Digital modes like FT8 rely on 
 accurate time.
 
-
-
 ## GPSD
 The gpsd config file is included in this repo, gpsd.
 

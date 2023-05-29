@@ -1,5 +1,5 @@
 #
-# This is the config file for gpsd loacted at: /etc/dafault/gpsd 
+# This is the config file for gpsd loacted at: /etc/default/gpsd 
 
 # Default settings for the gpsd init script and the hotplug wrapper.
 

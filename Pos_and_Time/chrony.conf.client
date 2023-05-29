@@ -41,7 +41,7 @@ maxupdateskew 100.0
 rtcsync
 
 # Step the system clock instead of slewing it if the adjustment is larger than
-# one second, but only in the first three clock updates.
+# one second, on any (-1) clock updates.
 makestep 1 -1
 
 # Get TAI-UTC offset and leap seconds from the system tz database.

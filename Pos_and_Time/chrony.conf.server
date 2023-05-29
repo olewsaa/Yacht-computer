@@ -4,7 +4,6 @@
 
 # Local GPS / GPSD
 refclock SHM 0 offset 0.5 delay 0.1 refid GPS
-#refclock SOCK /var/run/chrony/chronyd.sock  delay 0.0 refid SOCK
 
 # This directive specify the location of the file containing ID/key pairs for
 # NTP authentication.
