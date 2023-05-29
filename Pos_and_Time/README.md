@@ -17,7 +17,8 @@ track of the tme to the nearest second. Digital modes like FT8 rely on
 accurate time.
 
 ## GPSD
-The gpsd config file is included in this repo, gpsd.
+The gpsd config file is included in this repo,
+[https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd](gpsd).
 
 The config file assume that the GPS present itself as /dev/ttyACM0, this is 
 normally the case, but variants are known, ACM0 or USB0 etc. Check this.
