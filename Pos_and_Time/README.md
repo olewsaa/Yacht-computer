@@ -38,6 +38,12 @@ After the GPS has found the satellites and gotten a fix it should report positio
 and additional information, another utility is xgps which display a graphical 
 map of the satellites.
 
+To enable connection from clients in the network some settings need to be updated.
+See the file gpsd in this repo for the gpsd config file, in addition the file
+gpsd.socket (also in this repo) also need to be updated in order to allow for any client node in 
+the network to connect. After a reboot any gpsd client (gpsmon, xgps etc) should be allowed to
+connect to the openplotter server.
+
 ## Chrony
 Chrony will provide time for it's own host are well as act a server for 
 any other hosts that synchronise its clock to the yacht computer. 

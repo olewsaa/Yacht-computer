@@ -1,0 +1,15 @@
+#
+# Located at : /run/gpsd.sock 
+[Unit]
+Description=GPS (Global Positioning System) Daemon Sockets
+
+[Socket]
+ListenStream=/var/run/gpsd.sock
+ListenStream=[::1]:2947
+#ListenStream=127.0.0.1:2947
+# Change to '0.0.0.0' to let all clients connect.
+ListenStream=0.0.0.0:2947
+SocketMode=0600
+
+[Install]
+WantedBy=sockets.target

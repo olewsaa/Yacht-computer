@@ -1,12 +1,22 @@
-# /etc/default/gpsd
 #
+# This is the config file for gpsd loacted at: /etc/dafault/gpsd 
+
+# Default settings for the gpsd init script and the hotplug wrapper.
+
+# Start the gpsd daemon automatically at boot time
+START_DAEMON="true"
+
+# Use USB hotplugging to add new USB devices automatically to the daemon
+USBAUTO="false"
+
+# Openplotter might use several deives, canbus interface will also
+# show up as ttyACM? , which sequence it not always predicable
+# However, it seems to be reproducable. I have found no setting to
+# lock there devices to spesific USB port. 
+
 # Devices gpsd should collect to at boot time.
 # They need to be read/writeable, either by user gpsd or the group dialout.
-DEVICES="/dev/ttyACM0" 
+DEVICES="/dev/ttyACM0"
 
 # Other options you want to pass to gpsd
 GPSD_OPTIONS="-G -n"
-
-# Automatically hot add/remove USB GPS devices via gpsdctl
-USBAUTO="false"
-
