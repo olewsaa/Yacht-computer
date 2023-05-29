@@ -4,7 +4,7 @@
 Position and time are always of interest. There are several sources available
 onboard:
 1. The internet provide time from ntp servers if connected to the net.
-2. The Chart plotter (when turned on) provide both time and position via NMEA2000 and OpenPlotter and SignalK. 
+2. The Chart plotter (when turned on) provide both time and position via NMEA2000, SignalK and OpenPlotter.
 3. Then no other source is available an attached USB GPS will provide the Yacht computer with both time and position.
 
 As one need to save power when at anchor the sailing instruments and chart 
@@ -20,7 +20,13 @@ accurate time.
 The gpsd config file is included in this repo, gpsd.
 
 The config file assume that the GPS present itself as /dev/ttyACM0, this is 
-normally the case, but variants are known, ACM1 or USB0 etc. Check this.
+normally the case, but variants are known, ACM0 or USB0 etc. Check this.
+
+As many other devices also present themselves as ttyACM? this might lead to 
+conflicts. The CANbus to USB device and a few others also show up as ttyACM?,
+this need to be sorted out, trial and error. The assigngment sequence seems
+to be reproducable. It's possible to bind each device to a specific USB port,
+but this is on the to-do list.
 
 Installing gpsd is straightforward 
 ```
@@ -52,6 +58,16 @@ control of the time. Installing chrony is simple just an apt install command.
 
 There are two chrony config files in this repo, one for client and one for the 
 chrony server. 
+
+To check if things are working and chrony sync time via GPSD, try:
+```
+chrony tracking
+```
+or in loop:
+```
+watch chrony tracking
+```
+
 
 ### Chrony control commands
 If the timings are totally out of sync it might not step the clock. 
