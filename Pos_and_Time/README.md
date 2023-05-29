@@ -18,9 +18,9 @@ accurate time.
 
 ## GPSD
 The gpsd config file is included in this repo,
-[https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd](gpsd).
+[gpsd](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd).
 
-The config file assume that the GPS present itself as /dev/ttyACM0, this is 
+The config file assume that the GPS present itself as ```/dev/ttyACM0```, this is 
 normally the case, but variants are known, ACM0 or USB0 etc. Check this.
 
 As many other devices also present themselves as ttyACM? this might lead to 
@@ -45,7 +45,8 @@ map of the satellites.
 
 To enable connection from clients in the network some settings need to be updated.
 See the file gpsd in this repo for the gpsd config file, in addition the file
-gpsd.socket (also in this repo) also need to be updated in order to allow for any client node in 
+[gpsd.socket](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd.socket) 
+also need to be updated in order to allow for any client node in 
 the network to connect. After a reboot any gpsd client (gpsmon, xgps etc) should be allowed to
 connect to the openplotter server.
 
@@ -57,8 +58,10 @@ time daemon chrony and will step back if chrony is running. With an attached
 GPS chrony will always have time (when GPS has fix) and chrony should be in
 control of the time. Installing chrony is simple just an apt install command.
 
-There are two chrony config files in this repo, one for client and one for the 
-chrony server. 
+There are two chrony config files in this repo, one for 
+[client](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/chrony.conf.client) 
+and one for the  chrony 
+[server](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/chrony.conf.server). 
 
 To check if things are working and chrony sync time via GPSD, try:
 ```
@@ -89,4 +92,11 @@ The command
 chronyc help
 ```
 will provide a nice list of commands that can be used.
+
+
+### Position from GPDS
+A Python script to ask the GPSD server for the position is need to update the config files
+for ham radio, it can be done from SignalK when the chartplotter is working but also from GPSD
+running on the Yacht computer. The simple Python GPSD CLI client is 
+[gpsd.cliclient.py](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd.cliclient.py)
 
