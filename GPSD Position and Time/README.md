@@ -45,7 +45,7 @@ map of the satellites.
 
 To enable connection from clients in the network some settings need to be updated.
 See the file gpsd in this repo for the gpsd config file, in addition the file
-[gpsd.socket](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd.socket) 
+[gpsd.socket](https://github.com/olewsaa/Yacht-computer/blob/master/GPSD%20Position%20and%20Time/gpsd.socket) 
 also need to be updated in order to allow for any client node in 
 the network to connect. After a reboot any gpsd client (gpsmon, xgps etc) should be 
 allowed to connect to the openplotter server.
