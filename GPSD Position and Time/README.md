@@ -18,7 +18,7 @@ accurate time.
 
 ## GPSD
 The gpsd config file is included in this repo,
-[gpsd](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd).
+[gpsd](https://github.com/olewsaa/Yacht-computer/blob/master/GPSD%20Position%20and%20Time/gpsd).
 
 The config file assume that the GPS present itself as ```/dev/ttyACM0```, this is 
 normally the case, but variants are known, ACM0 or USB0 etc. Check this.
