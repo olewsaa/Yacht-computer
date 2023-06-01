@@ -100,9 +100,9 @@ GPS chrony will always have time (when GPS has fix) and chrony should be in
 control of the time. Installing chrony is simple just an apt install command.
 
 There are two chrony config files in this repo, one for 
-[client](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/chrony.conf.client) 
+[client](https://github.com/olewsaa/Yacht-computer/blob/master/GPSD%20Position%20and%20Time/chrony.conf.client) 
 and one for the  chrony 
-[server](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/chrony.conf.server). 
+[server](https://github.com/olewsaa/Yacht-computer/blob/master/GPSD%20Position%20and%20Time/chrony.conf.server). 
 
 To check if things are working and chrony sync time via GPSD, try:
 ```
@@ -139,5 +139,5 @@ will provide a nice list of commands that can be used.
 A Python script to ask the GPSD server for the position is need to update the config files
 for ham radio, it can be done from SignalK when the chartplotter is working but also from GPSD
 running on the Yacht computer. The simple Python GPSD CLI client is 
-[gpsd.cliclient.py](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd.cliclient.py)
+[gpsd.cliclient.py](https://github.com/olewsaa/Yacht-computer/blob/master/GPSD%20Position%20and%20Time/gpsd.cliclient.py)
 
