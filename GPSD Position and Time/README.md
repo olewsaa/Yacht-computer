@@ -7,14 +7,14 @@ onboard:
 2. The Chart plotter (when turned on) provide both time and position via NMEA2000, SignalK and OpenPlotter.
 3. Then no other source is available an attached USB GPS will provide the Yacht computer with both time and position.
 
-As one need to save power when at anchor the sailing instruments and chart 
+As one need to save power when at anchor, the sailing instruments and chart 
 plotter are turned off. The yacht computer is very handy to have on as it 
 record air pressure. Wind require the instruments to be on, but not the 
-chart plotter. The simple GPS "mouse" will provide a time nice time signal
-to the yacht computer which in turn provide time to any other computer 
-(the ham radio one) and any laptops.  The ham radio Raspberry need to keep
-track of the tme to the nearest second. Digital modes like FT8 rely on 
-accurate time.
+chart plotter. The simple USB GPS "mouse" will provide position and time signal
+to the yacht computer which in turn can provide time and position to any other 
+computer (the ham radio one) and any laptops or mobile phones.  
+The ham radio Raspberry need to keep track of the tme to the nearest second. 
+Digital modes like FT8 rely on accurate timing.
 
 ## GPSD
 The gpsd config file is included in this repo,
@@ -26,8 +26,7 @@ normally the case, but variants are known, ACM0 or USB0 etc. Check this.
 As many other devices also present themselves as ttyACM? this might lead to 
 conflicts. The CANbus to USB device and a few others also show up as ttyACM?,
 this need to be sorted out, trial and error. The assigngment sequence seems
-to be reproducable. It's possible to bind each device to a specific USB port,
-but this is on the to-do list.
+to be reproducable. More on this below.
 
 Installing gpsd is straightforward 
 ```
@@ -50,12 +49,16 @@ also need to be updated in order to allow for any client node in
 the network to connect. After a reboot any gpsd client (gpsmon, xgps etc) should be 
 allowed to connect to the openplotter server.
 
-As there are several devices that show up as /dev/ttyACM[0,1,2...] management of these 
-can be important. There is a comprehensive list of USB GPS  devices in the file with 
-rules for user devices, /lib/udev/rules.d/60-gpsd.rules . If your device is found is this 
-file it should show up as /dev/gps0 , if you have more then one, gps1.
 
-To check use the following command to find the identity of your USB GPS device,
+### Device and port management
+As there are several devices that show up as /dev/ttyACM[0,1,2...] management of these 
+is  important. There is a comprehensive list of USB GPS  devices in the file with 
+rules for user devices, /lib/udev/rules.d/60-gpsd.rules . If your device is found is this 
+file it should show up as /dev/gps0 , if you have more then one or replugged recently 
+/dev/gps1.
+
+To check, use the following command to find the identity of your USB GPS device,
+(asuming /dev/ttyACM0):
 ``` 
 udevadm info --query=all --name=/dev/ttyACM0
 ``` 
