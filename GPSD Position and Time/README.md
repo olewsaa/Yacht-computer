@@ -47,11 +47,52 @@ To enable connection from clients in the network some settings need to be update
 See the file gpsd in this repo for the gpsd config file, in addition the file
 [gpsd.socket](https://github.com/olewsaa/Yacht-computer/blob/master/Pos_and_Time/gpsd.socket) 
 also need to be updated in order to allow for any client node in 
-the network to connect. After a reboot any gpsd client (gpsmon, xgps etc) should be allowed to
-connect to the openplotter server.
+the network to connect. After a reboot any gpsd client (gpsmon, xgps etc) should be 
+allowed to connect to the openplotter server.
+
+As there are several devices that show up as /dev/ttyACM[0,1,2...] management of these 
+can be important. There is a comprehensive list of USB GPS  devices in the file with 
+rules for user devices, /lib/udev/rules.d/60-gpsd.rules . If your device is found is this 
+file it should show up as /dev/gps0 , if you have more then one, gps1.
+
+To check use the following command to find the identity of your USB GPS device,
+``` 
+udevadm info --query=all --name=/dev/ttyACM0
+``` 
+Look for the fields for vendor id and model:
+``` 
+E: ID_VENDOR=u-blox_AG_-_www.u-blox.com
+E: ID_VENDOR_ENC=u-blox\x20AG\x20-\x20www.u-blox.com
+E: ID_VENDOR_ID=1546
+E: ID_MODEL=u-blox_7_-_GPS_GNSS_Receiver
+E: ID_MODEL_ENC=u-blox\x207\x20-\x20GPS\x2fGNSS\x20Receiver
+E: ID_MODEL_ID=01a7
+``` 
+Then look for a match in /lib/udev/rules.d/60-gpsd.rules, if there is a match
+then your device should show up at /dev/gps0 and you can use this in the gpsd condig file.
+
+Example :
+```
+devadm info --query=all --name=/dev/ttyACM0 
+E: ID_VENDOR=u-blox_AG_-_www.u-blox.com
+E: ID_VENDOR_ENC=u-blox\x20AG\x20-\x20www.u-blox.com
+E: ID_VENDOR_ID=1546
+E: ID_MODEL=u-blox_7_-_GPS_GNSS_Receiver
+E: ID_MODEL_ENC=u-blox\x207\x20-\x20GPS\x2fGNSS\x20Receiver
+E: ID_MODEL_ID=01a7
+```
+```
+grep 1546 /lib/udev/rules.d/60-gpsd.rules
+ATTRS{idVendor}=="1546", ATTRS{idProduct}=="01a7", SYMLINK+="gps%n", TAG+="systemd", ENV{SYSTEMD_WANTS}="gpsdctl@%k.service"
+```
+
+If there is no match you might need to add a new entry with the relevant info. The 
+two numbers needed are the ID '1546' and the model '01a7'.
+
+
 
 ## Chrony
-Chrony will provide time for it's own host are well as act a server for 
+ Chrony will provide time for it's own host are well as act a server for 
 any other hosts that synchronise its clock to the yacht computer. 
 Openplotter will try to set its time from SignalK if it can, but it recognise 
 time daemon chrony and will step back if chrony is running. With an attached 
