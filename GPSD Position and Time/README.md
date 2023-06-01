@@ -13,8 +13,9 @@ record air pressure. Wind require the instruments to be on, but not the
 chart plotter. The simple USB GPS "mouse" will provide position and time signal
 to the yacht computer which in turn can provide time and position to any other 
 computer (the ham radio one) and any laptops or mobile phones.  
-The ham radio Raspberry need to keep track of the tme to the nearest second. 
-Digital modes like FT8 rely on accurate timing.
+The ham radio Raspberry need to keep track of the time to the nearest second, digital 
+modes like FT8 rely on accurate timing. Ham radio also need your Maidenhead grid cell 
+location.
 
 ## GPSD
 The gpsd config file is included in this repo,
