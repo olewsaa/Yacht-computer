@@ -1,5 +1,5 @@
 #
-# Located at : /run/gpsd.sock 
+# Located at : /lib/systemd/system/gpsd.socket 
 [Unit]
 Description=GPS (Global Positioning System) Daemon Sockets
 
