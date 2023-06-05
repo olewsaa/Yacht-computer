@@ -33,7 +33,7 @@ capabilities.
 ## Using the Canable device
 
 The [canable](https://canable.io/) can translate the CANbus messages and data to a serial Linux device. 
-This device will manifest itself as a */dev/ttyACM0* (og 1,2 etc if many devices are connected). 
+This device will manifest itself as a ```/dev/ttyACM0``` (og 1,2 etc if many devices are connected). 
 
 In openplotter dialog window this device could be selected, but that is nor always a good solution as the 
 *ttyACMx* number can change. A far better option is to make a udev entry and give the canable device a 
@@ -41,7 +41,7 @@ proper name in the ```/dev/``` directory, my coice is 'canable'.
 
 ### Making a udev antry
 The [udev](https://en.wikipedia.org/wiki/Udev) is a Linux subsystem
-that manages the device nodes in the */dev* directory. It is
+that manages the device nodes in the ```/dev``` directory. It is
 responsible for handling the dynamic creation and management of device
 nodes as devices are connected or disconnected from the system. udev
 allows for automatic device recognition and configuration, making it
@@ -52,7 +52,7 @@ files. These rules match devices based on their attributes and provide
 instructions on how to handle them.
 
 To make a new udev entry one need to find the right numbers for the device,
-assuming that the canable device came up as */dev/ttyACM0* :
+assuming that the canable device came up as ```/dev/ttyACM0``` :
 ```
 udevadm info --query=all --name=/dev/ttyACM0 | grep ID_VENDOR_ID 
 E: ID_VENDOR_ID=ad50
@@ -60,11 +60,11 @@ udevadm info --query=all --name=/dev/ttyACM0 | grep ID_MODEL_ID
 E: ID_MODEL_ID=60c4
 ```
 The numbers differ from the ones given on the canable [web page](https://canable.io/updater/udev.html).
-If the pipe grep is omitted text identifying the device will be displayed, nice if *ttyACM0* is not 
+If the pipe grep is omitted text identifying the device will be displayed, nice if ```ttyACM0``` is not 
 the canable device.
 
-The udev rules files are found at : */lib/udev/rules.d/* and the file *10-local-rpi.rules* is used for 
-local rules. Append the line :
+The udev rules files are found at : ```/lib/udev/rules.d/``` and the file 
+```10-local-rpi.rules``` is used for  local rules. Append the line :
 ```
 ATTRS{idVendor}=="ad50", ATTRS{idProduct}=="60c4", SYMLINK="canable%n"
 ```
