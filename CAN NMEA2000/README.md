@@ -33,42 +33,58 @@ capabilities.
 ## Using the Canable device
 
 The [canable](https://canable.io/) can translate the CANbus messages and data to a serial Linux device. 
-This device will manifest itself as a /dev/ttyACM0 (og 1,2 etc if many devices are connected). 
+This device will manifest itself as a */dev/ttyACM0* (og 1,2 etc if many devices are connected). 
 
 In openplotter dialog window this device could be selected, but that is nor always a good solution as the 
-ttyACMx number can change. A far better option is to make a udev entry and give the canable device a 
-proper name in the /dev/ directory, my coice is 'canable'.
+*ttyACMx* number can change. A far better option is to make a udev entry and give the canable device a 
+proper name in the ```/dev/``` directory, my coice is 'canable'.
 
 ### Making a udev antry
+The [udev](https://en.wikipedia.org/wiki/Udev) is a Linux subsystem
+that manages the device nodes in the */dev* directory. It is
+responsible for handling the dynamic creation and management of device
+nodes as devices are connected or disconnected from the system. udev
+allows for automatic device recognition and configuration, making it
+easier to manage hardware devices in a Linux environment.
 
-To make a new udev entry one need to find the right numbers for the device. Assuming that the canable device
-came up as /dev/tty ACM0 :
+udev operates based on a set of rules defined in configuration
+files. These rules match devices based on their attributes and provide
+instructions on how to handle them.
+
+To make a new udev entry one need to find the right numbers for the device,
+assuming that the canable device came up as */dev/ttyACM0* :
 ```
-udevadm info --query=all --name=/dev/ttyACM1 | grep ID_VENDOR_ID 
+udevadm info --query=all --name=/dev/ttyACM0 | grep ID_VENDOR_ID 
 E: ID_VENDOR_ID=ad50
-udevadm info --query=all --name=/dev/ttyACM1 | grep ID_MODEL_ID
+udevadm info --query=all --name=/dev/ttyACM0 | grep ID_MODEL_ID
 E: ID_MODEL_ID=60c4
 ```
-These numbers differ from the ones given on the canable [web page](https://canable.io/updater/udev.html).
+The numbers differ from the ones given on the canable [web page](https://canable.io/updater/udev.html).
+If the pipe grep is omitted text identifying the device will be displayed, nice if *ttyACM0* is not 
+the canable device.
 
-The udev rules are found at : /lib/udev/rules.d/ and the file 10-local-rpi.rules is used for local rules.
-Append the line :
+The udev rules files are found at : */lib/udev/rules.d/* and the file *10-local-rpi.rules* is used for 
+local rules. Append the line :
 ```
 ATTRS{idVendor}=="ad50", ATTRS{idProduct}=="60c4", SYMLINK="canable%n"
 ```
-to the /lib/udev/rules.d/10-local-rpi.rules and run the command
+to the */lib/udev/rules.d/10-local-rpi.rules* and run the command
 ```
 udevadm trigger
 ```
 if the Vendor and Product match the values found when the device report in you should now have
-a new device in the dev directory, /dev/canablex (x might be 0, 1, 2, I got /dev/canable1 and /dev/canable2).
+a new device in the dev directory, */dev/canablex* (x might be 0, 1, 2, I got */dev/canable1* and */dev/canable2*).
 They are :
 ```
 root@OpenPlotter:/lib/udev/rules.d# ls -l /dev/cana*
 lrwxrwxrwx 1 root root      7 juni   3 12:18 /dev/canable1 -> ttyACM1
 lrwxrwxrwx 1 root root     15 juni   3 12:18 /dev/canable2 -> bus/usb/001/004
 ```
-One is a link to the USB port while the other is a link to the ttyACM1 device. I use canable1 in 
+One is a link to the USB port while the other is a link to the *ttyACM1* device. I use canable1 in 
 Openplotter.
+
+Now try a reboot and check if all devices and entries come up as expected and that all interfacing
+with OpenPlotter work.
+
 
 
