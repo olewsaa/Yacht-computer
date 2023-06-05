@@ -73,8 +73,8 @@ to the ```/lib/udev/rules.d/10-local-rpi.rules``` and run the command
 udevadm trigger
 ```
 if the Vendor and Product match the values found when the device report in you should now have
-a new device in the dev directory, */dev/canablex* (x might be 0, 1, 2, I got */dev/canable1* and */dev/canable2*).
-They are :
+a new device in the dev directory, ```/dev/canablex``` (x might be 0, 1, 2, I got ```/dev/canable1``` 
+and ```/dev/canable2```). They are :
 ```
 root@OpenPlotter:/lib/udev/rules.d# ls -l /dev/cana*
 lrwxrwxrwx 1 root root      7 juni   3 12:18 /dev/canable1 -> ttyACM1
