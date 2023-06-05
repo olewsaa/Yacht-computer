@@ -68,7 +68,7 @@ The udev rules files are found at : ```/lib/udev/rules.d/``` and the file
 ```
 ATTRS{idVendor}=="ad50", ATTRS{idProduct}=="60c4", SYMLINK="canable%n"
 ```
-to the */lib/udev/rules.d/10-local-rpi.rules* and run the command
+to the ```/lib/udev/rules.d/10-local-rpi.rules``` and run the command
 ```
 udevadm trigger
 ```
@@ -80,7 +80,7 @@ root@OpenPlotter:/lib/udev/rules.d# ls -l /dev/cana*
 lrwxrwxrwx 1 root root      7 juni   3 12:18 /dev/canable1 -> ttyACM1
 lrwxrwxrwx 1 root root     15 juni   3 12:18 /dev/canable2 -> bus/usb/001/004
 ```
-One is a link to the USB port while the other is a link to the *ttyACM1* device. I use canable1 in 
+One is a link to the USB port while the other is a link to the ```ttyACM1``` device. I use *canable1* in 
 Openplotter.
 
 Now try a reboot and check if all devices and entries come up as expected and that all interfacing
