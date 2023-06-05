@@ -39,7 +39,7 @@ In openplotter dialog window this device could be selected, but that is nor alwa
 *ttyACMx* number can change. A far better option is to make a udev entry and give the canable device a 
 proper name in the ```/dev/``` directory, my coice is 'canable'.
 
-### Making a udev antry
+### Making a udev entry
 The [udev](https://en.wikipedia.org/wiki/Udev) is a Linux subsystem
 that manages the device nodes in the ```/dev``` directory. It is
 responsible for handling the dynamic creation and management of device
