@@ -1,0 +1,12 @@
+KERNEL=="vchiq", GROUP="video", MODE="0660"
+KERNEL=="vcsm-cma", GROUP="video", MODE="0660"
+KERNEL=="vcio", GROUP="video", MODE="0660"
+
+SUBSYSTEM=="rpivid-*", GROUP="video", MODE="0660"
+SUBSYSTEM=="dma_heap", GROUP="video", MODE="0660"
+
+
+# These entries go into the rule file as 'idVendor' and 'idProduct' .
+ATTRS{idVendor}=="ad50", ATTRS{idProduct}=="60c4", SYMLINK="canable%n"
+
+
