@@ -228,7 +228,7 @@ float cal(uint16_t adc){
   // One -20°C to 31°C and one from 31°C to 130°C.
 
   if (adc < 1820) { // temperature below 31°C.
-  // From Spreedsheet -20°C to 31°C.
+  // From Spreedsheet -20°C to 31°C. Simple straight line. 
   // -145,6192781+0,09994982*D73  
     const double  a1=  -145.6192781;
     const double  b1=     0.09994982 ;
@@ -236,7 +236,7 @@ float cal(uint16_t adc){
     return (float) a1 + b1 *adc ;
   }
 
-  // The second for temperatures above 31°C.
+  // The second for temperatures above 31°C, use a third order polynoal fit.
   
   else {  // adc > 1820 temperature is above 31°C 
   // From spreadsheet 31°C to 130°C :
