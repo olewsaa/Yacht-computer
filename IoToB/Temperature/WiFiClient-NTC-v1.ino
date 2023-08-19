@@ -86,7 +86,7 @@ const char * signalk_keys[MAX_SENSORS] = {  // Only the N first is used if SENSO
 
 /* WiFi network name and password */
 const char * ssid = "openplotter";
-const char * pwd = "blackpearl";
+const char * pwd = "password";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 

@@ -12,7 +12,8 @@
  *  v1.06 01 Nov 2022 None debug build, no restart.
  *  v1.1  18 Aug 2023 New calibration of NTC, done by author using water and oven.
  * 
- *  Select board ESP32 Arduino , NodeMCU-32S, Node32s
+ *  Select board ESP32 Arduino , NodeMCU-32S, Node32s, 
+ *  this project uses a 30 pin ESP32.
  *  
  *  IDE Arduino 1.8.19 
  *  ESP modules can be added with this string in settings "boards manager"
@@ -65,7 +66,7 @@ const char * signalk_keys[MAX_SENSORS] = {  // Only the N first is used if SENSO
    "propulsion.engine.temperature",               // propulsion/<RegExp>/temperature    
    "propulsion.engine.exhaustTemperature",        // /vessels/<RegExp>/propulsion/<RegExp>/exhaustTemperature
    "environment.inside.engineRoom.temperature",   // environment/inside/[A-Za-z0-9]+/temperature	  
-   "electrical.alternators.1.temperature"       // electrical/alternators/<RegExp>/temperature 
+   "electrical.alternators.1.temperature"         // electrical/alternators/<RegExp>/temperature 
   
 //********************************* SignalK path names  ***************************************************** 
    };  
@@ -87,7 +88,7 @@ const char * signalk_keys[MAX_SENSORS] = {  // Only the N first is used if SENSO
 
 /* WiFi network name and password */
 const char * ssid = "openplotter";
-const char * pwd = "blackpearl";
+const char * pwd = "password";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -225,7 +226,7 @@ float cal(uint16_t adc){
   // Alternative is spline, but a bit to complicated for this purpose. Polynomals are
   // quick to calculate.
   
-  // One -20°C to 31°C and one from 31°C to 130°C.
+  // One -20°C to 31°C and one from 3°C to 130°C.
 
   if (adc < 1820) { // temperature below 31°C.
   // From Spreedsheet -20°C to 31°C. Simple straight line. 
