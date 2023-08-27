@@ -11,6 +11,7 @@
  *  v1.05 29 Oct 2022 Added wifi disconnect before restart
  *  v1.06 01 Nov 2022 None debug build, no restart.
  *  v1.1  18 Aug 2023 New calibration of NTC, done by author using water and oven.
+ *  v1.2  27 Aug 2023 Calibration onboard, using IR thermometer and live ADC count.
  * 
  *  Select board ESP32 Arduino , NodeMCU-32S, Node32s, 
  *  this project uses a 30 pin ESP32.
@@ -88,7 +89,7 @@ const char * signalk_keys[MAX_SENSORS] = {  // Only the N first is used if SENSO
 
 /* WiFi network name and password */
 const char * ssid = "openplotter";
-const char * pwd = "password";
+const char * pwd  = "blackpearl";
 
 // IP address to send UDP data to.
 // it can be ip address of the server or 
@@ -160,6 +161,7 @@ void setup() {
       Serial.print(".");
 #endif
    } // end while wifi connection.
+   
 #ifdef DEBUG 
     Serial.println("");
     Serial.print("Connected to ");
@@ -209,54 +211,43 @@ void Send_to_SignalK(String path, float value){
 
 
 // Calibration from ADC count to degree °C. 
-float cal(uint16_t adc){
-  /* fourth order polynomal a + bx + cx^2 + dx^3 + ex^4
-  const double  a=-27.6846446459551;
-  const double  b=0.01991717672664;
-  const double  c=3.8135734768874e-05;
-  const double  d=-2.79430835108657e-08;
-  const double  e=5.8654883747814e-12;
+float cal(uint16_t adc) {
+
+  float result;
+  if (adc <  1160) { // For low temperatures, allow extrapolation below freezing. 
+    const double a1 =  0.0249230111206159 ; // even without calibration points. 
+    const double b1 = -9.75697177074422 ;   // Not perfect but better than just set to 0.
+
+    result = (float) (a1*(double)adc + b1) ; // ax+b
+    
+  }
+  else {  // If adc > 1160, temperatures of interest for operating the engine. 
+  // Second order polynomial a + bx + cx² one for each sensor.
+  const double a2 =  45.1020401080492;    // Constant, a for 0,1,2,3,.. th sensor
+  const double b2 =  -0.0554304542547959; // 1. order coef, b for 0,1,2,3,.. th sensor
+  const double c2 =   2.94317866506764e-5; // 2. order coef, c for 0,1,2,3,.. th sensor
+ 
   
-  // temporary exp function.
-  // return (float) a*exp(b*adc); 
-
-  return (float) POLY4((double)adc, a, b, c, d, e);
-  */
-  // Calibration of NTC sensors. Need two calibration intervals, to fit nicely.
-  // Alternative is spline, but a bit to complicated for this purpose. Polynomals are
-  // quick to calculate.
-  
-  // One -20°C to 31°C and one from 3°C to 130°C.
-
-  if (adc < 1820) { // temperature below 31°C.
-  // From Spreedsheet -20°C to 31°C. Simple straight line. 
-  // -145,6192781+0,09994982*D73  
-    const double  a1=  -145.6192781;
-    const double  b1=     0.09994982 ;
-
-    return (float) a1 + b1 *adc ;
+  result = (float)POLY2((double)adc, a2, b2, c2); // a+bx+bx²
   }
 
-  // The second for temperatures above 31°C, use a third order polynoal fit.
+  // Used for calibration, this is the read ADC count at measured temerature.
+  // result=(float)adc/10.0; 
   
-  else {  // adc > 1820 temperature is above 31°C 
-  // From spreadsheet 31°C to 130°C :
-  // -1290,84375639211+1,74292682004718*D78-0,000763910201934*D78*D78+0,000000112898445843695*D78*D78*D78
-  // D78 is ADC count.
-   
-    const double  a= -1290.84375639211 ;
-    const double  b=     1.74292682004718 ;
-    const double  c=    -0.000763910201934 ;
-    const double  d=     1.12898445843695e-7 ;
+#ifdef DEBUG
+  Serial.print("adc value");
+  Serial.print(adc);
+  Serial.print("  Return value, cal ");
+  Serial.println(result);
+#endif 
 
-    return (float) POLY3((double)adc, a, b, b, d);
-  }
+  return result;  // Return the temperature calulated.
 }
 
 
-void TemperatureLoop() { // Loop through all the sensors.
+void TemperatureLoop() {    // Loop through all the sensors.
   uint16_t sensor[SENSORS]; // Maximum number of sensors used
-  float temp[SENSORS]; // Keep temperatures in an array
+  float temp[SENSORS];      // Keep temperatures in an array
    // Loop through the NTC sensors
   for(int j=0;j<SENSORS;j++) {
     // Average over a number of samples, 200 samples seems to work nice.
@@ -286,8 +277,8 @@ void loop() {
   
   delay(100); digitalWrite(LED_BUILTIN, LOW); // Turn the LED off by making the voltage LOW.
 #ifdef DEBUG     
-  Serial.println("wait 2 sec...");  // This high refresh rate put a load in the SignalK server.
-  delay(2000);  // 2000 ms delay.
+  Serial.println("wait 1 sec...");  // This high refresh rate (1sec) put a load in the SignalK server.
+  delay(1000);  // 
 #else
   delay(5000); // 5 sec delay, update only every 5th second.
 #endif
