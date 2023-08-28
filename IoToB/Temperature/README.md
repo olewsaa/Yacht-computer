@@ -8,26 +8,36 @@ They have a high failure rate which is no good. Maybe I got a bad batch, but
 the sensors are all different. NTC is a better option. NTCs are also used 
 in the automotive sector which make them as better alternative. It require
 analog to digital converting, e.g. reading voltage which the ESP8266 dont't
-have. Using the ESP32 is a better option with several analoge inputs.
+have. Using the ESP32 is a better option with several analoge inputs. As the ESP32
+is very cost effective I highly reccomend the ESP32.
 
 ### NTC 10k sensors
 The NTC sensors come in many packages, some are sensors with M8 threads which
 fit into spare threaded sockets in the engine block and screw on lug terminals.
+A search will revield the large selection of NTC sensors.
 
 ### Calibration of the NTC sensors
 The resistance do not vary linearly with temperature. The curve need
 to be obtained by using table values or by subjecting the sensors to
-different temperatures and noting down the resistance.
+different temperatures and noting down the resistance. However, this 
+is in theory. In practice I needed to install the system and use the
+ADC counts to calibrate, I used an IR thermometer to calibrate. While 
+not highly accurate it good enough for this purpose.
 
 I used table values and arrived at a polynomial fitting, polynomials
-are simple and fast to evaluate. To get the error low I used a fourth
+are simple and fast to evaluate. To get the error low I used a two
 degree polynomial, with the downside that I needed double presicison
 vaiables (64 bits float), the ESP32 don't support this in hardware. 
 However, it's only done every 5 second (my current measurement frequency).
+In addition I divied the temperature intercal into two parts, the part
+from 20°C to 120°C for which I have measured calibration values, below 20°C
+I used a linear extrapolation to get some semi sensible values below the
+calibrated interval. 
 
 As I run into stability issues with the 1-wire sensors I added a restart every N minutes,
 it might not be needed if it turns out to be stable with the NTC and ESP32.
-While not a power cycle restart it's a full reboot of the ESP32.
+While not a power cycle restart it's a full reboot of the ESP32. Currently 
+there is no restart implemented. 
 
 ### Prototype 
 The picture below show the prototype with 1W power converter installed. 
@@ -53,7 +63,7 @@ just need to be entered in the data source section of SignalK. The web
 interface makes this easy. 
 
 
-## Older attempts
+## Older attempts - included for historiacal reasonse.
 
 ## Computer system - ESP-8266
 
