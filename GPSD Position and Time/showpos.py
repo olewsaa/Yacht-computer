@@ -10,6 +10,7 @@
 # 08 August 2022 Changed to only displaying position
 # 22 Decemer 2023 Added dd mm ss and dd mm.mmm printout
 # 10 January 2024 Added popup window with data
+# 12 January 2024 Added check for gpsd and SignalK sources. 
 #
 # Original code to request from Signal K - from user «Sailoog» at 
 # openmarine forum.
@@ -17,15 +18,80 @@
 import sys, math, json, requests
 import tkinter as tk
 
-# Set the IP address of the GPSD or SignalK server. 
-
-#host='192.168.0.160'
-#host='10.10.10.1'
-#host='127.0.0.1'   # Localhost
-host = 'demo.signalk.org' # This is a demo address for SignalK.
-#host = '10.10.10.1'       # My yacht OpenPlotter Raspberry.
-
 # In the main body set gpsdclient or openplotterclient
+
+
+def check_sources():
+    import socket
+    # Scan for GPSD service:
+    def scan_for_gpsd(host, port):
+        try:
+            # Create a socket object
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            # Set a timeout to handle non-responsive hosts quickly
+            s.settimeout(1)
+            # Attempt to connect to the host and port
+            s.connect((host, port))
+            # If successful, print a message
+            #print(f"GPSD service found on {host}:{port}")
+            return host
+        except (socket.timeout, socket.error):
+            # Handle timeout or connection error
+            #print(f"No GPSD service found on {host}:{port}")
+            return '0.0.0.0'
+        finally:
+            # Close the socket
+            s.close()
+        return
+
+    def scan_for_signalk(host):
+        import requests
+        try:
+            requeststring='https://'+host+':/signalk/v1/api/vessels/self/navigation/position/value'
+            resp = requests.get(requeststring, verify=False)
+            if (response.status_code == 200):
+                print("Page found and returning")
+                return host            
+            if (resp.status_code == 404):return  'demo.signalk.org'
+        except:
+            return 'demo.signalk.org'
+        
+
+# Function check sources block start here
+        
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    ip_parts = ip_address.split('.')
+    ip_parts.pop()
+    subnet='.'.join(ip_parts)+'.'
+    
+    print("IP subnet: ", subnet)
+    #subnet = '192.168.0.'    
+    
+    print("Scan for GPSD")
+    # Set the common GPSD port (default is 2947)
+    gpsd_port = 2947
+
+    # Scan a range of IP addresses for GPSD server 
+    for i in range(1, 255):
+        host = f"{subnet}{i}"
+        #print("Host : ", host)
+        host=scan_for_gpsd(host, gpsd_port)
+
+    if host != '0.0.0.0' :
+        print("GPS server found", host)
+        return host, 'gpsd'
+
+    print("Scan for SignalK")
+    for i in range(1, 255):
+        host = f"{subnet}{i}"
+        #print("Host : ", host)    
+        host=scan_for_signalk(host)     
+
+    return host, 'signalk'
+# End check sources
+
+
 
 upper = 'ABCDEFGHIJKLMNOPQRSTUVWX'
 lower = 'abcdefghijklmnopqrstuvwx'
@@ -111,8 +177,14 @@ def display_info(serv, lat, lon, latd, lond, grid):
 
 # Main start here.
 
-#lat, lon = gpsdclient()
-lat, lon = signalkclient()
+
+host, type = check_sources()
+print("Checking sources found : ", host, type)
+if type == 'gpsd':
+    lat, lon = gpsdclient()
+if type == 'signalk':
+    lat, lon = signalkclient()
+
 
 print(lat, lon)
 #
