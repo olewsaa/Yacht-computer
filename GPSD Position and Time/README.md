@@ -22,7 +22,8 @@ modes like FT8 rely on accurate timing. Ham radio also need your
 [Maidenhead](https://en.wikipedia.org/wiki/Maidenhead_Locator_System) grid cell 
 location.
 
-The script showpos.py emit the gpsd or SignalK position if it can find a suitable server. 
+The script showpos.py emit the gpsd or SignalK position if it can find a suitable server
+(it search the subnet for any gpsd or SignalK servers providing position).
 It provide a quick way of both checking if your position and also if gpsd or SignalK works.
 The script also launch a pop-up window displaying som vital information.
 
