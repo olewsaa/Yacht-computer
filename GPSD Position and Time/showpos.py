@@ -28,7 +28,7 @@
 # Enter known servers here to test these before starting to
 # scan the whole subnet which takes some time.
 
-known_servers=['127.0.0.1', '127.0.1.1', '192.168.1.160', '10.10.10.1']
+known_servers=['127.0.0.1', '127.0.1.1', '192.168.0.160', '10.10.10.1']
 
 # Add any others possible servers in addition to the ones listed.
 # IP numbers are text strings.
