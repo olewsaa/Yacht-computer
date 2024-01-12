@@ -14,13 +14,37 @@
 #
 # Original code to request from Signal K - from user «Sailoog» at 
 # openmarine forum.
+#
+# In order for hostname and ipnumber to work correctly and
+# provide a subnet to search for gpsd and signalk server
+# the til /etc/hosts need to contain a line with hostname
+# and ip number.
+# Like :
+# 127.0.0.1	localhost
+# 10.10.10.1	openplotter
+# 192.168.1.160	SSB
+# 
+
+# Enter known servers here to test these before starting to
+# scan the whole subnet which takes some time.
+
+known_servers=['127.0.0.1', '127.0.1.1', '192.168.1.160', '10.10.10.1']
+
+# Add any others possible servers in addition to the ones listed.
+# IP numbers are text strings.
+
 
 import sys, math, json, requests
 import tkinter as tk
 
-# In the main body set gpsdclient or openplotterclient
 
+# Definition of functions:
 
+# This check the subnet for gpsd and signalk servers.
+# It check the ones listed in known_servers first, if this
+# is unciccessful it does a scan over all ip addresses.
+# This can take some time.
+#
 def check_sources():
     import socket
     # Scan for GPSD service:
@@ -33,65 +57,78 @@ def check_sources():
             # Attempt to connect to the host and port
             s.connect((host, port))
             # If successful, print a message
-            #print(f"GPSD service found on {host}:{port}")
+            print(f"GPSD service found on {host}:{port}")
             return host
         except (socket.timeout, socket.error):
             # Handle timeout or connection error
             #print(f"No GPSD service found on {host}:{port}")
-            return '0.0.0.0'
-        finally:
-            # Close the socket
             s.close()
+            return '0.0.0.0'
+        # Close the socket
+        s.close()
+        return '0.0.0.0'
         return
 
     def scan_for_signalk(host):
         import requests
+        #print("in scan for signalk ",host)
         try:
             requeststring='https://'+host+':/signalk/v1/api/vessels/self/navigation/position/value'
-            resp = requests.get(requeststring, verify=False)
+            resp = requests.get(requeststring, verify=False, timeout=2)
+            #print(resp.status)
             if (response.status_code == 200):
-                print("Page found and returning")
+                print("SignalK server found",host)
                 return host            
             if (resp.status_code == 404):return  'demo.signalk.org'
-        except:
-            return 'demo.signalk.org'
-        
+        except requests.exceptions.Timeout:
+            print("Timeout",host)
+            return '0.0.0.0'
+        finally:
+            return '0.0.0.0'
 
 # Function check sources block start here
-        
+
     hostname = socket.gethostname()
+    #print(hostname)
     ip_address = socket.gethostbyname(hostname)
-    ip_parts = ip_address.split('.')
-    ip_parts.pop()
-    subnet='.'.join(ip_parts)+'.'
+    #print(ip_address)
+    subnet='.'.join(ip_address.split('.')[:-1])+'.'
     
-    print("IP subnet: ", subnet)
+    #print("IP subnet: ", subnet)
     #subnet = '192.168.0.'    
     
-    print("Scan for GPSD")
+    #print("Scan ",subnet+'*'," for GPSD server")
     # Set the common GPSD port (default is 2947)
     gpsd_port = 2947
 
-    # Scan a range of IP addresses for GPSD server 
+    # Scan a range of IP addresses for GPSD server, but check the known first.
+
+    servers_to_test=known_servers
+    #print(known_servers)
     for i in range(1, 255):
-        host = f"{subnet}{i}"
+        servers_to_test.append(f"{subnet}{i}")
+
+    for host in servers_to_test:
         #print("Host : ", host)
         host=scan_for_gpsd(host, gpsd_port)
+        if host != '0.0.0.0' :
+            #print("GPS server found", host)
+            return host, 'gpsd'
 
-    if host != '0.0.0.0' :
-        print("GPS server found", host)
-        return host, 'gpsd'
-
-    print("Scan for SignalK")
-    for i in range(1, 255):
-        host = f"{subnet}{i}"
+    print("Scan for SignalK server")    
+    for host in servers_to_test:
         #print("Host : ", host)    
-        host=scan_for_signalk(host)     
-
-    return host, 'signalk'
+        host=scan_for_signalk(host)
+        if host != '0.0.0.0' :
+            print("SignalK server found", host)
+            return host, 'signalk'
+        else:
+            return 'demo.signalk.org', 'signalk'
 # End check sources
 
 
+
+# Function to convert from lat, long to Maidenhead GRID.
 
 upper = 'ABCDEFGHIJKLMNOPQRSTUVWX'
 lower = 'abcdefghijklmnopqrstuvwx'
@@ -122,6 +159,7 @@ def to_grid(dec_lat, dec_lon):
     return grid_lon_sq + grid_lat_sq + grid_lon_field + grid_lat_field + grid_lon_subsq + grid_lat_subsq
 
 
+# Function to retrieve the GPS position from the SignalK server.
 
 def signalkclient():
     import json, requests, urllib3
@@ -141,6 +179,7 @@ def signalkclient():
 # End signalkclient    
 
 
+# Function to get the position from the gpsd server.
 
 def gpsdclient():
     import gps
@@ -161,6 +200,7 @@ def gpsdclient():
 # End gpsdclient
 
 
+# Function to display the server and position in a few formats. 
 
 def display_info(serv, lat, lon, latd, lond, grid):
     tk.Label(master, text="Position",anchor="e").grid(row=0,columnspan = 2)
@@ -175,17 +215,19 @@ def display_info(serv, lat, lon, latd, lond, grid):
 
 
 
-# Main start here.
+# Main routine  start here.
 
 
 host, type = check_sources()
 print("Checking sources found : ", host, type)
 if type == 'gpsd':
     lat, lon = gpsdclient()
-if type == 'signalk':
+elif type == 'signalk':
     lat, lon = signalkclient()
-
-
+else:
+    print("No position servers found, exiting")
+    exit(1)
+    
 print(lat, lon)
 #
 print(math.floor(lat),'°',"%.3f" % (60*(lat-math.floor(lat))),"'")
@@ -209,21 +251,18 @@ grid=to_grid(lat, lon)
 
 print(grid)
 
+
 # Make a GUI pop-up with dd.ddddd and dd mm.mmm positions.
 
 master = tk.Tk()
 master.title("Position")
-
 resp="OK"
 
+# Show the position as a popup X11 window.
 display_info(host, lat, lon, latd, lond, grid)
 tk.Button(master, text=resp, height="2",
           command=master.quit).grid(row=7, column=1, sticky=tk.W, pady=1)
 master.mainloop()
-
-
-
-
 
 
 # end main
