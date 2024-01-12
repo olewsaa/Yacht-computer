@@ -8,14 +8,23 @@ onboard:
 3. Then no other source is available an attached USB GPS will provide the Yacht computer with both time and position.
 
 As one need to save power when at anchor, the sailing instruments and chart 
-plotter are turned off. The yacht computer is very handy to have on as it 
+plotter are ften turned off. The yacht computer is very handy to have on as it 
 record air pressure. Wind require the instruments to be on, but not the 
 chart plotter. The simple USB GPS "mouse" will provide position and time signal
 to the yacht computer which in turn can provide time and position to any other 
-computer (the ham radio one) and any laptops or mobile phones.  
+computer (the ham radio one) and any laptops or mobile phones.  A simple 
+[u-blocx](https://www.u-blox.com) 7th. generation is enough to privide millisecond
+precisision timing. A newer [8th. generation](https://www.u-blox.com/en/product/ubx-m8030-series) is 
+generally better, but also more costly, with faster time to fix and support more families of satellites.
+
 The ham radio Raspberry need to keep track of the time to the nearest second, digital 
-modes like FT8 rely on accurate timing. Ham radio also need your Maidenhead grid cell 
+modes like FT8 rely on accurate timing. Ham radio also need your 
+[Maidenhead](https://en.wikipedia.org/wiki/Maidenhead_Locator_System) grid cell 
 location.
+
+The script showpos.py emit the gpsd or SignalK position if it can find a suitable server. 
+It provide a quick way of both checking if your position and also if gpsd or SignalK works.
+The script also launch a pop-up window displaying som vital information.
 
 ## GPSD
 The gpsd config file is included in this repo,
