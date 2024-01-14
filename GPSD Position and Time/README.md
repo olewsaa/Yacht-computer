@@ -26,6 +26,7 @@ The script showpos.py emit the gpsd or SignalK position if it can find a suitabl
 (it search the subnet for any gpsd or SignalK servers providing position).
 It provide a quick way of both checking if your position and also if gpsd or SignalK works.
 The script also launch a pop-up window displaying som vital information.
+![Control window](https://github.com/olewsaa/amateur-radio/blob/main/on-the-move/showpos.png)
 
 ## GPSD
 The gpsd config file is included in this repo,
