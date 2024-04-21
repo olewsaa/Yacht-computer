@@ -1,0 +1,41 @@
+#!/bin/bash
+
+echo "Generating weather package request for PAT"
+
+# Each file sent as a separate request. As one chart if tens of kilobytes it's
+# better to split them up.
+#
+# 
+# PPVA89.TIF Surface Analysis (North Atlantic)
+# PPVE89.TIF 24HR Surface Forecast (North Atlantic)                         
+# PPVI89.TIF 48HR Surface Forecast (North Atlantic)                         
+# PPVK89.TIF 72HR Surface Forecast (North Atlantic)                         
+#
+# ICON:50N,70N,10W,20E|1,1|0,24,48|WIND,MSLP
+# ECMWF:50N,70N,10W,20E|1,1|0,24,48|MSLP,WIND
+
+#for meteo in PPVA89.TIF PPVE89.TIF PPVI89.TIF \
+#	     "ICON:40N,70N,10W,20E|0.25,0.25|0,24,48|WIND,MSLP"; do
+#    
+#    (echo send $meteo ) | cat
+#    #(echo send $meteo ) | pat compose -s request query@saildocs.com
+#done
+
+for meteo in PPVA89.TIF PPVE89.TIF PPVI89.TIF ; do
+    
+    (echo send $meteo ) | cat
+    (echo send $meteo ) | pat compose -s request query@saildocs.com
+done
+
+MODEL="ICON"
+#MODEL="ECMWF"
+
+GRIB=${MODEL}":"$(./GRIB.py)"|1,1|0,24,48|WIND,MSLP"
+
+(echo send $GRIB) | cat
+(echo send $GRIB) | pat compose -s request query@saildocs.com
+
+
+
+
+
