@@ -1,0 +1,219 @@
+pi@OpenPlotter:/dev $ ls -l | grep A
+lrwxrwxrwx  1 root root           7 feb.  18 16:41 canable1 -> ttyACM1
+lrwxrwxrwx  1 root root           7 feb.  18 16:41 gps0 -> ttyACM0
+lrwxrwxrwx  1 root root           7 feb.  18 16:41 serial1 -> ttyAMA0
+crw-rw----  1 root dialout 166,   0 feb.  18 16:42 ttyACM0
+crw-rw----  1 root dialout 166,   1 feb.  18 16:42 ttyACM1
+crw-rw----  1 root dialout 204,  64 feb.  18 16:42 ttyAMA0
+pi@OpenPlotter:/dev $
+
+
+crw-rw---- 1 root dialout 166,  0 feb.  18 16:42 /dev/ttyACM0
+crw-rw---- 1 root dialout 166,  1 feb.  18 16:42 /dev/ttyACM1
+crw-rw---- 1 root dialout 204, 64 feb.  18 16:42 /dev/ttyAMA0
+crw------- 1 root root      5,  3 feb.  18 16:41 /dev/ttyprintk
+crw--w---- 1 root tty       4, 64 feb.  18 16:42 /dev/ttyS0
+
+pi@OpenPlotter:/dev $ ls -l serial/by-id/
+totalt 0
+lrwxrwxrwx 1 root root 13 feb.  18 16:41 usb-Protofusion_Labs_CANable_1205aa6_https:__github.com_normaldotcom_cantact-fw_0002001E524E430220373533-if00 -> ../../ttyACM1
+lrwxrwxrwx 1 root root 13 feb.  18 16:41 usb-u-blox_AG_-_www.u-blox.com_u-blox_GNSS_receiver-if00 -> ../../ttyACM0
+
+pi@OpenPlotter:/dev $ ls -l serial/by-path/
+totalt 0
+lrwxrwxrwx 1 root root 13 feb.  18 16:41 platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.1:1.0 -> ../../ttyACM0
+lrwxrwxrwx 1 root root 13 feb.  18 16:41 platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2:1.0 -> ../../ttyACM1
+
+pi@OpenPlotter:/lib/udev/rules.d $ grep -i cana *
+10-local-rpi.rules:ATTRS{idVendor}=="ad50", ATTRS{idProduct}=="60c4", SYMLINK="canable%n"
+
+
+root@OpenPlotter:~#  lsusb -v -d 1546:01a8 
+
+Bus 001 Device 003: ID 1546:01a8 U-Blox AG [u-blox 8]
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               1.10
+  bDeviceClass            2 Communications
+  bDeviceSubClass         0 
+  bDeviceProtocol         0 
+  bMaxPacketSize0        64
+  idVendor           0x1546 U-Blox AG
+  idProduct          0x01a8 [u-blox 8]
+  bcdDevice            3.01
+  iManufacturer           1 u-blox AG - www.u-blox.com
+  iProduct                2 u-blox GNSS receiver
+  iSerial                 0 
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength       0x003e
+    bNumInterfaces          2
+    bConfigurationValue     1
+    iConfiguration          0 
+    bmAttributes         0xc0
+      Self Powered
+    MaxPower              100mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           1
+      bInterfaceClass         2 Communications
+      bInterfaceSubClass      2 Abstract (modem)
+      bInterfaceProtocol      1 AT-commands (v.25ter)
+      iInterface              0 
+      CDC Header:
+        bcdCDC               1.10
+      CDC ACM:
+        bmCapabilities       0x02
+          line coding and serial state
+      CDC Call Management:
+        bmCapabilities       0x03
+          call management
+          use DataInterface
+        bDataInterface          1
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x83  EP 3 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval             255
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       0
+      bNumEndpoints           2
+      bInterfaceClass        10 CDC Data
+      bInterfaceSubClass      0 
+      bInterfaceProtocol    255 Vendor specific
+      iInterface              0 
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x01  EP 1 OUT
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               0
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x82  EP 2 IN
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               0
+can't get debug descriptor: Resource temporarily unavailable
+Device Status:     0x0001
+  Self Powered
+
+
+
+pi@OpenPlotter:/lib/udev/rules.d $ grep -i cana *
+10-local-rpi.rules:ATTRS{idVendor}=="ad50", ATTRS{idProduct}=="60c4", SYMLINK="canable%n"
+
+
+
+pi@OpenPlotter:/lib/udev/rules.d $ lsusb -v  -d ad50:60c4
+
+Bus 001 Device 004: ID ad50:60c4  
+Couldn't open device, some information will be missing
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.00
+  bDeviceClass            2 Communications
+  bDeviceSubClass         2 Abstract (modem)
+  bDeviceProtocol         0 
+  bMaxPacketSize0        64
+  idVendor           0xad50 
+  idProduct          0x60c4 
+  bcdDevice            2.00
+  iManufacturer           1 
+  iProduct                2 
+  iSerial                 3 
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength       0x0043
+    bNumInterfaces          2
+    bConfigurationValue     1
+    iConfiguration          0 
+    bmAttributes         0xc0
+      Self Powered
+    MaxPower              100mA
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        0
+      bAlternateSetting       0
+      bNumEndpoints           1
+      bInterfaceClass         2 Communications
+      bInterfaceSubClass      2 Abstract (modem)
+      bInterfaceProtocol      1 AT-commands (v.25ter)
+      iInterface              0 
+      CDC Header:
+        bcdCDC               1.10
+      CDC Call Management:
+        bmCapabilities       0x00
+        bDataInterface          1
+      CDC ACM:
+        bmCapabilities       0x02
+          line coding and serial state
+      CDC Union:
+        bMasterInterface        0
+        bSlaveInterface         1 
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x82  EP 2 IN
+        bmAttributes            3
+          Transfer Type            Interrupt
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0008  1x 8 bytes
+        bInterval              16
+    Interface Descriptor:
+      bLength                 9
+      bDescriptorType         4
+      bInterfaceNumber        1
+      bAlternateSetting       0
+      bNumEndpoints           2
+      bInterfaceClass        10 CDC Data
+      bInterfaceSubClass      0 
+      bInterfaceProtocol      0 
+      iInterface              0 
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x01  EP 1 OUT
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               0
+      Endpoint Descriptor:
+        bLength                 7
+        bDescriptorType         5
+        bEndpointAddress     0x81  EP 1 IN
+        bmAttributes            2
+          Transfer Type            Bulk
+          Synch Type               None
+          Usage Type               Data
+        wMaxPacketSize     0x0040  1x 64 bytes
+        bInterval               0
