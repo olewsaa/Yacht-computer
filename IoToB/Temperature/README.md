@@ -40,9 +40,14 @@ While not a power cycle restart it's a full reboot of the ESP32. Currently
 there is no restart implemented. 
 
 ### Prototype 
-The picture below show the prototype with 1W power converter installed. 
-This turned out to be too little power for the wifi initialisation, 200 mA is not enough. 
-After replacing it with a 3W unit it works fine. 
+The picture below show the prototype with 1W power converter
+installed.  This turned out to be too little power for the wifi
+initialisation, 200 mA is not enough.  After replacing it with a 3W
+unit it works fine. However, after a couple of years usage it turns
+out that the peak spike power required by the wifi transmitter is more
+than the 3W unit can live with. A 470 µF capacitor is installed to
+help out with spike surge, the 1205 converter can tackle up to 2200 µF
+so even two 470 capcitors can be installed.
 
 ![prototype](https://github.com/olewsaa/Yacht-computer/blob/master/img/Temperature-NTC.png 
 "prototype to be installed")
